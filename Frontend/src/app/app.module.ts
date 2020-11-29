@@ -8,6 +8,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {appRoutingModule} from './app.routing';
 import { UnterbarComponent } from './unterbar/unterbar.component';
 import { LandingComponent } from './landing/landing.component';
+import { ImageComponentComponent } from './image-component/image-component.component';
+import { TemplateComponentComponent } from './template-component/template-component.component';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { LandingComponent } from './landing/landing.component';
     HomepageComponent,
     NavbarComponent,
     UnterbarComponent,
-    LandingComponent
+    LandingComponent,
+    ImageComponentComponent,
+    TemplateComponentComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule,
-    appRoutingModule
+    appRoutingModule //fuer routing
   ],
   providers: [],
   bootstrap: [AppComponent]

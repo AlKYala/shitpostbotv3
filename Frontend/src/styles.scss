@@ -3,3 +3,7 @@
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins/_breakpoints";
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+html, body {
+  min-height: 100%;
+}
