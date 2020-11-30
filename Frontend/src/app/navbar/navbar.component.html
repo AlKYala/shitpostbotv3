@@ -7,12 +7,26 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <div class="col-md-9">
       <ul class="navbar-nav">
-          <li class="nav-item">
-            <a routerLink="/addTemplate"  class="nav-link" href="#">Add Template</a>
-          </li>
-          <li class="nav-item">
-            <a routerLink="/addImage" class="nav-link" href="#">Upload image</a>
-          </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Templates
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a routerLink="/addTemplate" class="dropdown-item ">Add Template</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item disabled" href="#">Gallery</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Images
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a routerLink="/addImage" class="dropdown-item">Upload image</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item disabled" href="#">Gallery</a>
+          </div>
+        </li>
       </ul>
     </div>
     <div class="col-md-3">
@@ -21,10 +35,10 @@
           <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account
           </a>
-          <!-- falls eingeloggt - aber das einloggen kommt erst spaeter!-->
-          <div class="dropdown-menu mr-auto float-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">My Account</a>
-            <a class="dropdown-item" href="#">Log out</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item " href="#">My account</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item disabled" href="#">Log out</a>
           </div>
         </li>
       </ul>
