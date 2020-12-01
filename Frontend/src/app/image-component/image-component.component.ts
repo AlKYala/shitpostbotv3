@@ -13,10 +13,11 @@ export class ImageComponentComponent implements OnInit {
   private FormControlSettings: any;
 
   constructor(
-    private formBuilder: FormBuilder
+    // private formBuilder: FormBuilder
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    console.log("loading");
     this.initImageForm();
     this.isLoaded = false;
   }
@@ -24,11 +25,15 @@ export class ImageComponentComponent implements OnInit {
   public initImageForm(): void {
     this.imageForm = new FormGroup(
       {
-        url: this.FormControlSettings.urlFormControl(),
+        url: FormControlsSettings.urlFormControl(),
         name: FormControlsSettings.nameFormControl()
       }
     );
     // this.setPreview();
+  }
+
+  public get formControls(): any {
+    return this.imageForm.controls;
   }
 
 }
