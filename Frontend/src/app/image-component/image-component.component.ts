@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
 
 @Component({
   selector: 'app-image-component',
@@ -6,10 +8,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./image-component.component.css']
 })
 export class ImageComponentComponent implements OnInit {
+  public imageForm: FormGroup;
+  public isLoaded;
+  private FormControlSettings: any;
 
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.initImageForm();
+    this.isLoaded = false;
+  }
+
+  public initImageForm(): void {
+    this.imageForm = new FormGroup(
+      {
+        url: this.FormControlSettings.urlFormControl(),
+        name: FormControlsSettings.nameFormControl()
+      }
+    );
+    // this.setPreview();
   }
 
 }
+
+/*
+Ideen:
+  -> Wenn keine URL eingefügt sollen auch keine Warnmeldungen kommen
+  -> Sonst: Sowas wie "Bitte gib eine gueltige URL ein!
+  -> Man kann dem hinzugefügtem Bild einen Titel geben (zur Suche spaeter!)
+    -> sonst: Unnamed
+ */
