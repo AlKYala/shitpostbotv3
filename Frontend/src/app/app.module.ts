@@ -9,6 +9,7 @@ import { UnterbarComponent } from './unterbar/unterbar.component';
 import { LandingComponent } from './landing/landing.component';
 import { ImageComponentComponent } from './image-component/image-component.component';
 import { TemplateComponentComponent } from './template-component/template-component.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { TemplateComponentComponent } from './template-component/template-compon
   imports: [
     BrowserModule,
     RouterModule,
-    appRoutingModule, //fuer routing
+    appRoutingModule,
+    ReactiveFormsModule,
+    //fuer routing
   ],
   providers: [
   ],
