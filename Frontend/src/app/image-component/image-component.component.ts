@@ -9,7 +9,7 @@ import {FormControlsSettings} from '../FormControlSettings/form.controls.setting
 })
 export class ImageComponentComponent implements OnInit {
   public imageForm: FormGroup;
-  public isLoaded;
+  public isLoaded: boolean;
   private FormControlSettings: any;
 
   constructor(
@@ -34,6 +34,10 @@ export class ImageComponentComponent implements OnInit {
 
   public get formControls(): any {
     return this.imageForm.controls;
+  }
+
+  public fetchPreview(): void {
+    this.isLoaded = true;
   }
 
 }
