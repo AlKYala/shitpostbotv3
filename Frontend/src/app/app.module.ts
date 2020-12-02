@@ -10,6 +10,7 @@ import { LandingComponent } from './landing/landing.component';
 import { ImageComponentComponent } from './image-component/image-component.component';
 import { TemplateComponentComponent } from './template-component/template-component.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ImageCropperModule} from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     RouterModule,
     appRoutingModule,
     ReactiveFormsModule,
+    ImageCropperModule
     //fuer routing
   ],
   providers: [

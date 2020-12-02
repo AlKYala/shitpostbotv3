@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-template-component',
@@ -10,10 +11,17 @@ import {FormControlsSettings} from '../FormControlSettings/form.controls.setting
 export class TemplateComponentComponent implements OnInit {
   public templateForm: FormGroup;
   public FormControlSettings: any;
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  private croppedAreas: number[][];
+  private imageLink: string;
+
   constructor() { }
 
   ngOnInit(): void {
     this.initImageForm();
+    this.croppedAreas = [];
+    this.imageLink = "";
   }
 
   public initImageForm(): void {
@@ -29,7 +37,24 @@ export class TemplateComponentComponent implements OnInit {
 
   // loads image into cropper
   public loadImage(): void {
+    this.imageLink = this.formControls.url.value;
 
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+  imageLoaded(image: HTMLImageElement) {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
   }
 
 }
