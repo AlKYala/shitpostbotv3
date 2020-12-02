@@ -1,1 +1,48 @@
-<p>template-component works!</p>
+<app-navbar></app-navbar>
+<div class="row">
+  <div class="col-md-3 col-1">
+    <!--indent-->
+  </div>
+  <div class="col-md-6 col-10">
+    <div class="form-group pt-2" id="enterURL">
+      <label class="text-white">Image URL</label>
+      <input class="form-control"
+             [formControl]="formControls.url"
+             [ngClass]="{'is-invalid':formControls.url.invalid}"
+             type="url"
+             placeholder="Enter Image URL">
+      <ng-container *ngIf="
+          formControls.url.invalid")>
+        <div class="urlInvalid">
+          <small class="form-text text-danger">
+            Please enter a valid URL
+          </small>
+        </div>
+      </ng-container>
+      <small class="form-text text-white">Copy-Paste url of images to include in shitposts.</small>
+      <small class="form-text text-white">No, this page does not host any images.</small>
+      <small class="form-text text-white">Don't link any porn else I'm telling the feds.</small>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- indent -->
+        </div>
+        <div class="col-md-6">
+          <button (click)="loadImage()"
+                  type="button"
+                  [disabled]="formControls.url.invalid || !formControls.url.touched"
+                  class="btn btn-outline-primary float-right">
+            Fetch Image
+          </button>
+        </div>
+      </div>
+      <div class ="row">
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-1">
+    <!--indent-->
+  </div>
+</div>
+
+<app-unterbar></app-unterbar>
