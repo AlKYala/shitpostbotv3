@@ -1,9 +1,9 @@
 <app-navbar></app-navbar>
 <div class="row">
-  <div class="col-md-3 col-1">
+  <div class="col-md-1 col-1">
     <!--indent-->
   </div>
-  <div class="col-md-6 col-10">
+  <div class="col-md-7 col-10">
     <div class="form-group pt-2" id="enterURL">
       <label class="text-white">Image URL</label>
       <input class="form-control"
@@ -35,28 +35,49 @@
           </button>
         </div>
       </div>
-      <div class ="row">
-
-      </div>
     </div>
+    <image-cropper
+    [imageURL]="this.imageUrl"
+    [imageChangedEvent]="imageChangedEvent"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
   </div>
-  <div class="col-md-3 col-1">
+  <div class="col-md-3 col-1 pl-1 pt-5">
+    <ng-container *ngIf="isActive">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="card">
+            <img class="card-img-top crop-preview" [src]="croppedImage" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Coordinates:</h5>
+              <p class="card-text">X1: {{tempCoordinates[0]}} X2: {{tempCoordinates[1]}}</p>
+              <p class="card-text">Y1: {{tempCoordinates[2]}} X2: {{tempCoordinates[3]}}</p>
+              <a (click)="saveCoordinates()" class="btn btn-primary">Save coordinates</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+    <!--
+    <ng-container *ngIf="croppedAreas.length > 0">
+      <ng-template *ngFor="let coordinate in croppedAreas; index as i">
+        <h5 class="card-title">Coordinates:</h5>
+        <p class="card-text">X1: {{croppedAreas[i][0]}} X2: {{croppedAreas[i][1]}}</p>
+        <p class="card-text">Y1: {{croppedAreas[i][2]}} X2: {{croppedAreas[i][3]}}</p>
+        <a (click)="saveCoordinates()" class="btn btn-primary">Save coordinates</a>
+      </ng-template>
+    </ng-container>
+    -->
+  </div>
+  <div class="col-md-1 col-1">
     <!--indent-->
   </div>
 </div>
 
-<input type="file" (change)="fileChangeEvent($event)" />
 
-<image-cropper
-  [imageURL]="this.imageUrl"
-  [imageChangedEvent]="imageChangedEvent"
-  [maintainAspectRatio]="true"
-  format="png"
-  (imageCropped)="imageCropped($event)"
-  (cropperReady)="cropperReady()"
-  (loadImageFailed)="loadImageFailed()"
-></image-cropper>
-
-<img [src]="croppedImage" />
 
 <app-unterbar></app-unterbar>
