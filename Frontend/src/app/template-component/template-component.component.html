@@ -27,7 +27,7 @@
           <!-- indent -->
         </div>
         <div class="col-md-6">
-          <button (click)="loadImage()"
+          <button (click)="this.fetchImage()"
                   type="button"
                   [disabled]="formControls.url.invalid || !formControls.url.touched"
                   class="btn btn-outline-primary float-right">
@@ -48,12 +48,11 @@
 <input type="file" (change)="fileChangeEvent($event)" />
 
 <image-cropper
+  [imageURL]="this.imageUrl"
   [imageChangedEvent]="imageChangedEvent"
   [maintainAspectRatio]="true"
-  [aspectRatio]="4 / 3"
   format="png"
   (imageCropped)="imageCropped($event)"
-  (imageLoaded)="imageLoaded()"
   (cropperReady)="cropperReady()"
   (loadImageFailed)="loadImageFailed()"
 ></image-cropper>

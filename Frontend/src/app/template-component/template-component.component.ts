@@ -14,14 +14,14 @@ export class TemplateComponentComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   private croppedAreas: number[][];
-  private imageLink: string;
+  private imageUrl: string;
 
   constructor() { }
 
   ngOnInit(): void {
     this.initImageForm();
     this.croppedAreas = [];
-    this.imageLink = "";
+    this.imageUrl = "";
   }
 
   public initImageForm(): void {
@@ -35,10 +35,8 @@ export class TemplateComponentComponent implements OnInit {
     return this.templateForm.controls;
   }
 
-  // loads image into cropper
-  public loadImage(): void {
-    this.imageLink = this.formControls.url.value;
-
+  public fetchImage() {
+    this.imageUrl = this.formControls.url.value;
   }
 
   fileChangeEvent(event: any): void {
@@ -56,5 +54,4 @@ export class TemplateComponentComponent implements OnInit {
   loadImageFailed() {
     // show message
   }
-
 }
