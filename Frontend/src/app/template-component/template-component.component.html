@@ -39,11 +39,16 @@
     <image-cropper
     [imageURL]="this.imageUrl"
     [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="false"
     format="png"
     (imageCropped)="imageCropped($event)"
     (cropperReady)="cropperReady()"
     (loadImageFailed)="loadImageFailed()"
-    ></image-cropper>
+    >
+      <canvas id="drawBorders">
+
+      </canvas>
+    </image-cropper>
   </div>
   <div class="col-md-3 col-1 pl-1 pt-5">
     <div class="row">
@@ -64,24 +69,22 @@
             </div>
           </div>
         </ng-container>
-        <ng-container *ngIf="croppedAreas.length > 0">
-        <ng-template *ngFor="let coordinate of croppedAreas; index as i">
-          <div class="card mb-3">
-            <div class="row no-gutters">
-              <div class="col-md-6">
-                <img class="card-img-top crop-preview" [src]="croppedImage" alt="Card image cap">
-              </div>
-              <div class="col-md-6">
-                <div class="card-body">
-                  <h5 class="card-title">Coordinates:</h5>
-                  <p class="card-text">X1: {{tempCoordinates[0]}} Y2: {{tempCoordinates[3]}}</p>
-                  <a (click)="saveCoordinates()" class="btn btn-primary">Save</a>
+          <ng-container *ngFor="let coordinate of croppedAreas; let i = index; trackBy coordinateTracker">
+              <div class="card mb-3">
+                <div class="row no-gutters">
+                  <div class="col-md-6">
+
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card-body">
+                      <h5 class="card-title">Coordinates:</h5>
+                      <p class="card-text">X1: {{coordinate[0]}} Y2: {{coordinate[3]}}</p>
+                      <button (click)="deleteCoordinate(i)" class="btn btn-danger">Delete</button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </ng-template>
-      </ng-container>
+          </ng-container>
       </div>
     </div>
     <!--
@@ -92,7 +95,4 @@
     <!--indent-->
   </div>
 </div>
-
-
-
 <app-unterbar></app-unterbar>

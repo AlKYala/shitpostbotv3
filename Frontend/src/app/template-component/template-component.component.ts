@@ -79,4 +79,20 @@ export class TemplateComponentComponent implements OnInit {
   public saveCoordinates(): void {
     this.croppedAreas.push(this.cloneCoordinates(this.tempCoordinates));
   }
+
+  coordinateTracker(index, coordinate) {
+    console.log(coordinate);
+    return coordinate ? coordinate.id : undefined;
+  }
+  deleteCoordinate(index: number): void {
+    const cropped: number[][] = [];
+    for(let i = 0; i < this.croppedAreas.length; i++) {
+      if (i === index) {
+        continue;
+      }
+      // copy by reference enough
+      cropped[i] = this.croppedAreas[i];
+    }
+    this.croppedAreas = cropped;
+  }
 }
