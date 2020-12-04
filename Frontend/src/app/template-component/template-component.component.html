@@ -46,31 +46,46 @@
     ></image-cropper>
   </div>
   <div class="col-md-3 col-1 pl-1 pt-5">
-    <ng-container *ngIf="isActive">
-      <div class="row">
-        <div class="col-md-10">
-          <div class="card">
-            <img class="card-img-top crop-preview" [src]="croppedImage" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Coordinates:</h5>
-              <p class="card-text">X1: {{tempCoordinates[0]}} X2: {{tempCoordinates[1]}}</p>
-              <p class="card-text">Y1: {{tempCoordinates[2]}} X2: {{tempCoordinates[3]}}</p>
-              <a (click)="saveCoordinates()" class="btn btn-primary">Save coordinates</a>
+    <div class="row">
+      <div class="col-md-10">
+        <ng-container *ngIf="isActive">
+          <div class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-6">
+                <img class="card-img-top crop-preview" [src]="croppedImage" alt="Card image cap">
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">Coordinates:</h5>
+                  <p class="card-text">X1: {{tempCoordinates[0]}} Y2: {{tempCoordinates[3]}}</p>
+                  <a (click)="saveCoordinates()" class="btn btn-primary">Save</a>
+                </div>
+              </div>
             </div>
           </div>
-
-        </div>
+        </ng-container>
+        <ng-container *ngIf="croppedAreas.length > 0">
+        <ng-template *ngFor="let coordinate of croppedAreas; index as i">
+          <div class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-6">
+                <img class="card-img-top crop-preview" [src]="croppedImage" alt="Card image cap">
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">Coordinates:</h5>
+                  <p class="card-text">X1: {{tempCoordinates[0]}} Y2: {{tempCoordinates[3]}}</p>
+                  <a (click)="saveCoordinates()" class="btn btn-primary">Save</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
       </div>
-    </ng-container>
+    </div>
     <!--
-    <ng-container *ngIf="croppedAreas.length > 0">
-      <ng-template *ngFor="let coordinate in croppedAreas; index as i">
-        <h5 class="card-title">Coordinates:</h5>
-        <p class="card-text">X1: {{croppedAreas[i][0]}} X2: {{croppedAreas[i][1]}}</p>
-        <p class="card-text">Y1: {{croppedAreas[i][2]}} X2: {{croppedAreas[i][3]}}</p>
-        <a (click)="saveCoordinates()" class="btn btn-primary">Save coordinates</a>
-      </ng-template>
-    </ng-container>
+
     -->
   </div>
   <div class="col-md-1 col-1">
