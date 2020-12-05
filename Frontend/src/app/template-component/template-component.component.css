@@ -2,8 +2,3 @@
   max-height: 160px;
   height: 100%
 }
-
-#drawBorders {
-  size: inherit;
-  z-index: 9;
-}

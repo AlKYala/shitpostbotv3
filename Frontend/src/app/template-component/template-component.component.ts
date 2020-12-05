@@ -45,7 +45,7 @@ export class TemplateComponentComponent implements OnInit {
   public get formControls(): any {
     return this.templateForm.controls;
   }
-  public fetchImage() {
+  public fetchImage(): void {
     if (this.imageUrl !== this.formControls.url.value) {
       this.disableAll();
       this.isActive = true;
