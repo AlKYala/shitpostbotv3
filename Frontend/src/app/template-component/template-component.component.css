@@ -5,4 +5,5 @@
 
 #drawBorders {
   size: inherit;
+  z-index: 9;
 }

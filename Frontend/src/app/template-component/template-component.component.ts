@@ -15,7 +15,10 @@ export class TemplateComponentComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   public tempCoordinates: number[];
+  public base64Preview: string;
   public croppedAreas: number[][];
+  //saves the cropped images as base64
+  public croppedAreasPreview: string[];
   public imageUrl: string;
   public isActive: boolean;
 
@@ -24,6 +27,7 @@ export class TemplateComponentComponent implements OnInit {
   ngOnInit(): void {
     this.initImageForm();
     this.croppedAreas = [];
+    this.croppedAreasPreview = [];
     this.imageUrl = "";
     this.isActive = false;
     this.tempCoordinates = [0, 0, 0, 0];
@@ -56,6 +60,7 @@ export class TemplateComponentComponent implements OnInit {
    */
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
+    this.base64Preview = event.base64;
     console.log(event.imagePosition.x1, event.imagePosition.x2);
     console.log(event.imagePosition.y1, event.imagePosition.y2);
     this.tempCoordinates = [event.imagePosition.x1, event.imagePosition.x2, event.imagePosition.y1, event.imagePosition.y2];
@@ -78,6 +83,7 @@ export class TemplateComponentComponent implements OnInit {
   }
   public saveCoordinates(): void {
     this.croppedAreas.push(this.cloneCoordinates(this.tempCoordinates));
+    this.croppedAreasPreview.push(this.base64Preview.valueOf());
   }
 
   coordinateTracker(index, coordinate) {
@@ -86,13 +92,16 @@ export class TemplateComponentComponent implements OnInit {
   }
   deleteCoordinate(index: number): void {
     const cropped: number[][] = [];
-    for(let i = 0; i < this.croppedAreas.length; i++) {
+    const cropPreview: string[] = [];
+    for (let i = 0; i < this.croppedAreas.length; i++) {
       if (i === index) {
         continue;
       }
       // copy by reference enough
       cropped[i] = this.croppedAreas[i];
+      cropPreview[i] = this.croppedAreasPreview[i];
     }
     this.croppedAreas = cropped;
+    this.croppedAreasPreview = cropPreview;
   }
 }
