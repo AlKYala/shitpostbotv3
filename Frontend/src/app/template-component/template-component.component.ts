@@ -17,6 +17,7 @@ export class TemplateComponentComponent implements OnInit {
   public tempCoordinates: number[];
   public base64Preview: string;
   public croppedAreas: number[][];
+  public displayedPreviews: boolean[];
   //saves the cropped images as base64
   public croppedAreasPreview: string[];
   public imageUrl: string;
@@ -28,6 +29,7 @@ export class TemplateComponentComponent implements OnInit {
     this.initImageForm();
     this.croppedAreas = [];
     this.croppedAreasPreview = [];
+    this.displayedPreviews = [];
     this.imageUrl = "";
     this.isActive = false;
     this.tempCoordinates = [0, 0, 0, 0];
@@ -74,16 +76,43 @@ export class TemplateComponentComponent implements OnInit {
   loadImageFailed() {
     // show message
   }
-  private cloneCoordinates(arr: number[]): number[] {
+  private cloneLocation(arr: number[]): number[] {
     const clone: number[] = [];
     for (let i = 0; i <  arr.length; i++) {
-      clone[i] = arr[i];
+      clone.push(arr[i]);
     }
     return arr;
   }
+  /**
+   * Used in api-Calls to backend later
+   * Only passes the undeleted (=remain true) previews
+   */
+  private clonePreviews(): string[] {
+    const previewImages: string[] = [];
+    for (let i = 0; i < this.croppedAreasPreview.length; i++) {
+      if (this.displayedPreviews[i]) {
+        previewImages.push(this.croppedAreasPreview[i]);
+      }
+    }
+    return previewImages;
+  }
+  /**
+   * Used in api-Calls to backend later
+   * Only passes the undeleted (=remain true) coordinates
+   */
+  private cloneCoordinates(): number[][] {
+    const coordinates: number[][] = [];
+    for (let i = 0; i < this.croppedAreas.length; i++) {
+      if (this.displayedPreviews[i]) {
+        coordinates.push(this.croppedAreas[i]);
+      }
+    }
+    return coordinates;
+  }
   public saveCoordinates(): void {
-    this.croppedAreas.push(this.cloneCoordinates(this.tempCoordinates));
+    this.croppedAreas.push(this.cloneLocation(this.tempCoordinates));
     this.croppedAreasPreview.push(this.base64Preview.valueOf());
+    this.displayedPreviews.push(true);
   }
 
   coordinateTracker(index, coordinate) {
@@ -91,6 +120,15 @@ export class TemplateComponentComponent implements OnInit {
     return coordinate ? coordinate.id : undefined;
   }
   deleteCoordinate(index: number): void {
+    /*
+    old idea: Remove elements at index index and clone arrays without element at index then reassign
+      problems:
+        -> inefficient complexity wise
+        -> cards remain
+    new idea: keep a seperate array for booleans
+      -> when element is added value TRUE is added to vector
+      -> when it is to be deleted, set the index to delete in the boolean vector to false
+      -> set the base64 value for images to "" to save space
     const cropped: number[][] = [];
     const cropPreview: string[] = [];
     for (let i = 0; i < this.croppedAreas.length; i++) {
@@ -102,6 +140,8 @@ export class TemplateComponentComponent implements OnInit {
       cropPreview[i] = this.croppedAreasPreview[i];
     }
     this.croppedAreas = cropped;
-    this.croppedAreasPreview = cropPreview;
+    this.croppedAreasPreview = cropPreview;*/
+    this.displayedPreviews[index] = false;
+    this.croppedAreasPreview[index] = "";
   }
 }
