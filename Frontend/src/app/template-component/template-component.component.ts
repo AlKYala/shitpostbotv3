@@ -45,10 +45,12 @@ export class TemplateComponentComponent implements OnInit {
   public get formControls(): any {
     return this.templateForm.controls;
   }
-
   public fetchImage() {
-    this.isActive = true;
-    this.imageUrl = this.formControls.url.value;
+    if (this.imageUrl !== this.formControls.url.value) {
+      this.disableAll();
+      this.isActive = true;
+      this.imageUrl = this.formControls.url.value;
+    }
   }
 
   fileChangeEvent(event: any): void {
@@ -114,10 +116,14 @@ export class TemplateComponentComponent implements OnInit {
     this.croppedAreasPreview.push(this.base64Preview.valueOf());
     this.displayedPreviews.push(true);
   }
-
   coordinateTracker(index, coordinate) {
     console.log(coordinate);
     return coordinate ? coordinate.id : undefined;
+  }
+  private disableAll() {
+    for(let i = 0; i < this.displayedPreviews.length; i++) {
+      this.deleteCoordinate(i);
+    }
   }
   deleteCoordinate(index: number): void {
     /*
