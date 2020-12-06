@@ -20,7 +20,6 @@ public class ImageServiceImpl implements ImageService {
         this.imageRepository = imageRepository;
         this.validator =
                 new Validator<Image, ImageRepository>("Image", this.imageRepository);
-
     }
 
     @Override
@@ -37,6 +36,23 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Long deleteById(Long id) {
         validator.checkIDNotNull(id);
+        imageRepository.deleteById(id);
+        validator.checkEntityNotExits(id);
+        return id;
+    }
 
+    @Override
+    public Image create(Image image) {
+        this.validator.checkIDNotNull(image.getId());
+        log.info("Image with ID {} created successfully", image.getId());
+        return imageRepository.save(image);
+    }
+
+    @Override
+    public Image update(Long id, Image image) {
+        this.validator.checkEntityExitsts(id);
+        this.validator.checkIDsAreIdentical(id, image.getId());
+        log.info("Image with ID {} created successfully", image.getId());
+        return imageRepository.save(image);
     }
 }
