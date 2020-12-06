@@ -30,7 +30,7 @@ public class Validator<E extends BaseEntity, T extends JpaRepository> {
     public void checkIDNotNull(Long id) {
         if(id == null) {
             log.info("IDs cannot be null!");
-            throw new IdInvalidException("IDs cannot be null!")
+            throw new IdInvalidException("IDs cannot be null!");
         }
     }
 
@@ -43,7 +43,7 @@ public class Validator<E extends BaseEntity, T extends JpaRepository> {
             log.info("Entity of class {} and id {} still exists in Database. " +
                     "Please Contact Support.", this.entityName, id);
             throw new NotDeletedException(String.format("Entity of class %s and id %d still exists in Database. " +
-                    "Please Contact Support.", this.entityName, id);
+                    "Please Contact Support.", this.entityName, id));
         }
         log.info("{} with id {} deleted successfully", this.entityName, id);
     }
@@ -60,7 +60,7 @@ public class Validator<E extends BaseEntity, T extends JpaRepository> {
         }
     }
 
-    public void checkIDs are Identical(Long id, Long id2) {
+    public void checkIDsAreIdentical(Long id, Long id2) {
         if(id.longValue() == id2.longValue()) {
             log.info("IDs {} and {} do not match", id, id2);
             throw new IdInvalidException(String.format("IDs %d and %d do not match", id, id2));
