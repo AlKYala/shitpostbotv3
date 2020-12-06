@@ -36,5 +36,4 @@ public class Template extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy="reference", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Coordinate> coordinates;
-
 }
