@@ -7,6 +7,8 @@ import de.ali.shitpostbot.shared.exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class CoordinateServiceImpl implements CoordinateService {
@@ -26,4 +28,11 @@ public class CoordinateServiceImpl implements CoordinateService {
                 .orElseThrow(() ->
                         new NotFoundException(String.format("No Coordinate by ID %d found", id)));
     }
+
+    @Override
+    public List<Coordinate> findAll() {
+        return this.coordinateRepository.findAll();
+    }
+
+
 }
