@@ -2,6 +2,7 @@ package de.ali.shitpostbot.Coordinate.service;
 
 import de.ali.shitpostbot.Coordinate.model.Coordinate;
 import de.ali.shitpostbot.Coordinate.repository.CoordinateRepository;
+import de.ali.shitpostbot.Template.model.Template;
 import de.ali.shitpostbot.Template.repositories.TemplateRepository;
 import de.ali.shitpostbot.shared.exceptions.NotFoundException;
 import de.ali.shitpostbot.shared.service.Validator;
@@ -40,6 +41,9 @@ public class CoordinateServiceImpl implements CoordinateService {
     @Override
     public Long deleteById(Long id) {
         this.validator.checkIDNotNull(id);
+        Coordinate currentCoordinate = this.coordinateRepository.findById(id).get();
+        Template referenceTemplate = currentCoordinate.getReference();
+        referenceTemplate.getCoordinates().remove(currentCoordinate);
         this.coordinateRepository.deleteById(id);
         this.validator.checkEntityExitsts(id);
         return id;
