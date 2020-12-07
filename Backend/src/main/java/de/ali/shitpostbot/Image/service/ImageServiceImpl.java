@@ -25,7 +25,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image findById(Long id) {
         return this.imageRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(String.format("Image with ID %d cannot be found")));
+                new NotFoundException(String.format("Image with ID %d cannot be found", id)));
     }
 
     @Override

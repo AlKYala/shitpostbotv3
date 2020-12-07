@@ -55,7 +55,7 @@ public class TemplateServiceImpl implements TemplateService {
     public Template create(Template template) {
         this.validator.checkIDNotNull(template.getId());
         this.checkFieldsValid(template);
-        log.info("{Template with ID %d saved successfully}", template.getId());
+        log.info("{Template with ID {} saved successfully}", template.getId());
         return this.templateRepository.save(template);
     }
 
@@ -65,7 +65,7 @@ public class TemplateServiceImpl implements TemplateService {
         this.checkFieldsValid(template);
         Template oldTemplate = this.templateRepository.findById(id).get();
         template.setCoordinates(oldTemplate.getCoordinates());
-        log.info("Template with ID %d updated successfully", id);
+        log.info("Template with ID {} updated successfully", id);
         return this.templateRepository.save(template);
     }
 
