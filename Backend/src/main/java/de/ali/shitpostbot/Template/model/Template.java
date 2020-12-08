@@ -9,15 +9,15 @@ Draufzeichnen erfolgt via Java.
 package de.ali.shitpostbot.Template.model;
 
 import de.ali.shitpostbot.Coordinate.model.Coordinate;
+import de.ali.shitpostbot.User.model.User;
 import de.ali.shitpostbot.shared.model.BaseEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.minidev.json.annotate.JsonIgnore;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -36,4 +36,9 @@ public class Template extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy="reference", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Coordinate> coordinates;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    @EqualsAndHashCode.Exclude
+    private User poster;
 }
