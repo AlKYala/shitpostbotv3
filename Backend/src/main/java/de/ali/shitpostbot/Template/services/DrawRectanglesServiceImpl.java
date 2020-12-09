@@ -37,8 +37,9 @@ public class DrawRectanglesServiceImpl implements DrawRectanglesService {
             g2d.drawLine(lineCoordinates[1], lineCoordinates[2], lineCoordinates[1], lineCoordinates[3]);
             //horizontal lines
             g2d.drawLine(lineCoordinates[0], lineCoordinates[2], lineCoordinates[1], lineCoordinates[2]);
-            g2d.drawLine(lineCoordinates[0], lineCoordinates[3], lineCoordinates[0], lineCoordinates[3]);
+            g2d.drawLine(lineCoordinates[0], lineCoordinates[3], lineCoordinates[1], lineCoordinates[3]);
         }
+
         return image;
     }
 
