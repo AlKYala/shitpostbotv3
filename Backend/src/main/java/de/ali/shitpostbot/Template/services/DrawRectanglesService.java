@@ -1,9 +1,14 @@
 package de.ali.shitpostbot.Template.services;
 
+import de.ali.shitpostbot.Coordinate.model.Coordinate;
 import de.ali.shitpostbot.Template.model.Template;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Set;
 
 /**
  * The idea behind this service is:
@@ -27,8 +32,8 @@ public interface DrawRectanglesService {
      * @param template The template to use
      * @return The image of the base url with rectanlges around it
      */
-    public Image drawRectanglesAroundCoordinates(Template template);
+    public Image drawRectanglesAroundCoordinates(Template template) throws MalformedURLException, IOException;
 
-    public Image retrieveImage(URL url);
-    public Image enterRectangles(Image image);
+    public BufferedImage retrieveImage(URL url) throws IOException;
+    public BufferedImage enterRectangles(BufferedImage image, Set<Coordinate> coordinates);
 }
