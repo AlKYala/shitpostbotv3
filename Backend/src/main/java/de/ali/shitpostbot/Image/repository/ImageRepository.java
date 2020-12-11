@@ -6,6 +6,4 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ImageRepository extends JpaRepository<Image, Long> {
-    long count();
-}
+public interface ImageRepository extends JpaRepository<Image, Long> {}
