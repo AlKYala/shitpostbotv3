@@ -1,8 +1,13 @@
 package de.ali.shitpostbot.Template.services;
 
+import de.ali.shitpostbot.Coordinate.model.Coordinate;
 import de.ali.shitpostbot.Template.model.Template;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.Map;
 import java.util.Set;
 
 public interface ShitpostService {
@@ -31,4 +36,19 @@ public interface ShitpostService {
      * @return a java.awt.Image object with the complete shitpost
      */
     public Image createShitpost(Template t);
+
+    /**
+     * Retrieves Image from URL
+     * @param url the url as String
+     * @return the java.awt.Image instance
+     */
+    public BufferedImage getImageFromURL(String url) throws IOException;
+
+    /**
+     * Maps java.awt.Image to Coordinate Instances
+     * @param images Images to map to a coordinate each
+     * @param coordinates coordinate to map to an image
+     * @return a Map where images are mapped to coordinates
+     */
+    public Map<Image, Coordinate> mergeImageCoordinates(Set<Image> images, Set<Coordinate> coordinates);
 }
