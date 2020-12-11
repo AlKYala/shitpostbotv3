@@ -49,10 +49,11 @@ public class ShitpostServiceImpl implements ShitpostService {
     }
 
     @Override
-    public Image createShitpost(Template t) {
+    public Image createShitpost(Template t) throws IOException {
         Set<Long> ids = this.findImageIDs(t.getCoordinates().size());
-        Set<de.ali.shitpostbot.Image.model.Image> images = this.findImages(ids);
-
+        Set<de.ali.shitpostbot.Image.model.Image> imageInstances = this.findImages(ids);
+        Set<Image> images = this.getImages(imageInstances);
+        Map<Image, Coordinate> imageCoordinateMap = this.mergeImageCoordinates(images , t.getCoordinates());
     }
 
     @Override
@@ -75,5 +76,14 @@ public class ShitpostServiceImpl implements ShitpostService {
         }
 
         return imageMap;
+    }
+
+    @Override
+    public Set<Image> getImages(Set<de.ali.shitpostbot.Image.model.Image> imageSet) throws IOException {
+        Set<Image> images = new HashSet<Image>();
+        for(de.ali.shitpostbot.Image.model.Image im: imageSet) {
+            images.add(this.getImageFromURL(im.getUrl()));
+        }
+        return images;
     }
 }

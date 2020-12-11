@@ -35,7 +35,7 @@ public interface ShitpostService {
      * @param t The template
      * @return a java.awt.Image object with the complete shitpost
      */
-    public Image createShitpost(Template t);
+    public Image createShitpost(Template t) throws IOException;
 
     /**
      * Retrieves Image from URL
@@ -51,4 +51,12 @@ public interface ShitpostService {
      * @return a Map where images are mapped to coordinates
      */
     public Map<Image, Coordinate> mergeImageCoordinates(Set<Image> images, Set<Coordinate> coordinates);
+
+    /**
+     * Takes a set imageSet of de.ali.shitpostbot.Image.model.Image Objects and returns
+     * a set of java.awt.Image instances according to the link of the images in imageSet
+     * @param imageSet Set imageSet of de.ali.shitpostbot.Image.model.Image Objects
+     * @return a set of java.awt.Image instances
+     */
+    public Set<Image> getImages(Set<de.ali.shitpostbot.Image.model.Image> imageSet) throws IOException;
 }
