@@ -50,10 +50,21 @@ public class ShitpostServiceImpl implements ShitpostService {
 
     @Override
     public Image createShitpost(Template t) throws IOException {
+        BufferedImage templateBackground = ImageIO.read(new URL(t.getBaseUrl()));
+        BufferedImage cleanTemplate = ImageIO.read(new URL(t.getBaseUrl()));
         Set<Long> ids = this.findImageIDs(t.getCoordinates().size());
         Set<de.ali.shitpostbot.Image.model.Image> imageInstances = this.findImages(ids);
         Set<Image> images = this.getImages(imageInstances);
         Map<Image, Coordinate> imageCoordinateMap = this.mergeImageCoordinates(images , t.getCoordinates());
+
+        for(Image i : imageCoordinateMap.keySet()) {
+            this.writeOnImage(templateBackground, i, imageCoordinateMap.get(i));
+        }
+
+        //put on top
+        Graphics2D templateGraphics = templateBackground.createGraphics();
+        templateGraphics.drawImage(templateBackground, null, 0, 0);
+        return templateBackground;
     }
 
     @Override
@@ -85,5 +96,19 @@ public class ShitpostServiceImpl implements ShitpostService {
             images.add(this.getImageFromURL(im.getUrl()));
         }
         return images;
+    }
+
+    @Override
+    public void writeOnImage(BufferedImage background, Image image, Coordinate coordinate) {
+        BufferedImage toPaste = (BufferedImage) this.resizeImage(image,
+                coordinate.getX2() - coordinate.getX1(),
+                coordinate.getY2() - coordinate.getY1());
+        Graphics2D backgroundGraphics = background.createGraphics();
+        backgroundGraphics.drawImage(toPaste, null, coordinate.getX1(), coordinate.getY1());
+    }
+
+    @Override
+    public Image resizeImage(Image image, int width, int height) {
+        return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
 }

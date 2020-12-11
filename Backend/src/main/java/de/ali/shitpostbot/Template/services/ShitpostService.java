@@ -59,4 +59,23 @@ public interface ShitpostService {
      * @return a set of java.awt.Image instances
      */
     public Set<Image> getImages(Set<de.ali.shitpostbot.Image.model.Image> imageSet) throws IOException;
+
+    /**
+     * Takes an image, resizes it according to the coordinate given and places it on the background according
+     * to coordinate
+     * Uses side effect
+     * @param background The background to paste the image on
+     * @param image The image to paste on the background
+     * @param coordinate The coordinate to place the image on
+     */
+    public void writeOnImage(BufferedImage background, Image image, Coordinate coordinate);
+
+    /**
+     * Creates resized images of images
+     * @param image The image to copy
+     * @param height The new height
+     * @param width The new width
+     * @return A cloned instance of the passed image but resized
+     */
+    public Image resizeImage(Image image, int height, int width);
 }
