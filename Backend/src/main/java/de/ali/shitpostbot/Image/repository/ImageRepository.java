@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ImageRepository extends JpaRepository<Image, Long> {
-    @Query("select count(i.id) from shitpostdatabase.image i")
-    long getNumberOfImages();
+    long count();
 }
