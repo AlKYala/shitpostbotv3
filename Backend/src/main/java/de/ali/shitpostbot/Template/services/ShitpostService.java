@@ -10,10 +10,17 @@ public interface ShitpostService {
      * n:= the number of Images a template holds. Determined by
      * the number of coordinate Objects of the template object
      * @param n The number of IDs to find
-     * @return A set of distinct IDs for images to post in array
-     * acts like a tuple of form (int id, int coordinateIndex)
+     * @return A set of distinct IDs for images
      */
-    public Set<int[]> findImageIDs(int n);
+    public Set<Long> findImageIDs(long n);
+
+    /**
+     * Returns a Set of Image objects based on the Integers in the passed
+     * parameter that has all the ids
+     * @param ids The Set of IDs
+     * @return A Set of Image objects
+     */
+    public Set<de.ali.shitpostbot.Image.model.Image> findImages(Set<Long> ids);
 
     /**
      * Creates a shitpost. Idea:

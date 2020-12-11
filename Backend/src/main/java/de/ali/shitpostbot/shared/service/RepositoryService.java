@@ -12,10 +12,6 @@ public class RepositoryService {
 
     private ImageRepository imageRepository;
 
-    public RepositoryService(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
-    }
-
     public Long getNumberOfImages() {
         return this.imageRepository.count();
     }
