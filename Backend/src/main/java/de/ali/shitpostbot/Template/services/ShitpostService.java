@@ -78,4 +78,11 @@ public interface ShitpostService {
      * @return A cloned instance of the passed image but resized
      */
     public Image resizeImage(Image image, int height, int width);
+
+    /**
+     * Returns a BufferedImage from a java.awt.Image instance
+     * @param img the java.awt.Image instance
+     * @return a BufferedImage instance
+     */
+    public BufferedImage imageFromBufferedImage(Image img);
 }

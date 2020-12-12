@@ -111,4 +111,12 @@ public class ShitpostServiceImpl implements ShitpostService {
     public Image resizeImage(Image image, int width, int height) {
         return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
+
+    @Override
+    public BufferedImage imageFromBufferedImage(Image img) {
+        BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D biGraphics = bi.createGraphics();
+        biGraphics.drawImage(img, 0, 0, null);
+        return bi;
+    }
 }
