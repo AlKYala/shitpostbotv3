@@ -98,6 +98,7 @@ public interface ShitpostService {
 
     /**
      * Clones a bufferedImage
+     * needed to paste the old background on the edited background
      * @param toClone The bufferedImage to clone
      * @return A bufferedInstance identical in properties to the passed BufferedImage parameter
      */

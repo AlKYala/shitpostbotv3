@@ -127,6 +127,9 @@ public class ShitpostServiceImpl implements ShitpostService {
 
     @Override
     public BufferedImage cloneBufferedImage(BufferedImage toClone) {
-        return toClone.getSubimage(0, 0, toClone.getWidth(), toClone.getHeight());
+        BufferedImage b = new BufferedImage(toClone.getWidth(), toClone.getHeight(), toClone.getType());
+        Graphics2D gb = b.createGraphics();
+        gb.drawImage(toClone, null, 0, 0);
+        return b;
     }
 }
