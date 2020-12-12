@@ -119,4 +119,9 @@ public class ShitpostServiceImpl implements ShitpostService {
         biGraphics.drawImage(img, 0, 0, null);
         return bi;
     }
+
+    @Override
+    public BufferedImage resizeBufferedImage(BufferedImage image, int width, int height) {
+        this.bufferedImageFromImage(this.resizeImage(image, width, height));
+    }
 }

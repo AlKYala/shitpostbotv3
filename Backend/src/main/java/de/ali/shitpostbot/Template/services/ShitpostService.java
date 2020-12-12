@@ -85,4 +85,14 @@ public interface ShitpostService {
      * @return a BufferedImage instance
      */
     public BufferedImage bufferedImageFromImage(Image img);
+
+    /**
+     * Returns a resized BufferedImage of the image
+     * Runs a function composition of resizeImage(...) and bufferedImageFromImage(...)
+     * @param image The image to resize
+     * @param width The width
+     * @param height The height
+     * @return The image resized with the dimensions
+     */
+    public BufferedImage resizeBufferedImage(BufferedImage image, int width, int height);
 }
