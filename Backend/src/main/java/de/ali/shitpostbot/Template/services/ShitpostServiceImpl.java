@@ -124,4 +124,9 @@ public class ShitpostServiceImpl implements ShitpostService {
     public BufferedImage resizeBufferedImage(BufferedImage image, int width, int height) {
         return this.bufferedImageFromImage(this.resizeImage(image, width, height));
     }
+
+    @Override
+    public BufferedImage cloneBufferedImage(BufferedImage toClone) {
+        return toClone.getSubimage(0, 0, toClone.getWidth(), toClone.getHeight());
+    }
 }

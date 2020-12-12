@@ -95,4 +95,11 @@ public interface ShitpostService {
      * @return The image resized with the dimensions
      */
     public BufferedImage resizeBufferedImage(BufferedImage image, int width, int height);
+
+    /**
+     * Clones a bufferedImage
+     * @param toClone The bufferedImage to clone
+     * @return A bufferedInstance identical in properties to the passed BufferedImage parameter
+     */
+    public BufferedImage cloneBufferedImage(BufferedImage toClone);
 }
