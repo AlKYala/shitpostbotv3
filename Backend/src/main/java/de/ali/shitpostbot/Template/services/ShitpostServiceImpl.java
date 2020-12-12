@@ -122,6 +122,6 @@ public class ShitpostServiceImpl implements ShitpostService {
 
     @Override
     public BufferedImage resizeBufferedImage(BufferedImage image, int width, int height) {
-        this.bufferedImageFromImage(this.resizeImage(image, width, height));
+        return this.bufferedImageFromImage(this.resizeImage(image, width, height));
     }
 }
