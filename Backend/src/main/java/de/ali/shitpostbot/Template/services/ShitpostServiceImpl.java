@@ -100,9 +100,9 @@ public class ShitpostServiceImpl implements ShitpostService {
 
     @Override
     public void writeOnImage(BufferedImage background, Image image, Coordinate coordinate) {
-        BufferedImage toPaste = (BufferedImage) this.resizeImage(image,
+        BufferedImage toPaste = this.bufferedImageFromImage(resizeImage(image,
                 coordinate.getX2() - coordinate.getX1(),
-                coordinate.getY2() - coordinate.getY1());
+                coordinate.getY2() - coordinate.getY1()));
         Graphics2D backgroundGraphics = background.createGraphics();
         backgroundGraphics.drawImage(toPaste, null, coordinate.getX1(), coordinate.getY1());
     }
@@ -113,7 +113,7 @@ public class ShitpostServiceImpl implements ShitpostService {
     }
 
     @Override
-    public BufferedImage imageFromBufferedImage(Image img) {
+    public BufferedImage bufferedImageFromImage(Image img) {
         BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
         Graphics2D biGraphics = bi.createGraphics();
         biGraphics.drawImage(img, 0, 0, null);

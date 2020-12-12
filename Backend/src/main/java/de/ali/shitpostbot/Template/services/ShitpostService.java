@@ -84,5 +84,5 @@ public interface ShitpostService {
      * @param img the java.awt.Image instance
      * @return a BufferedImage instance
      */
-    public BufferedImage imageFromBufferedImage(Image img);
+    public BufferedImage bufferedImageFromImage(Image img);
 }
