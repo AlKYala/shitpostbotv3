@@ -63,7 +63,7 @@ public class ShitpostServiceImpl implements ShitpostService {
 
         //put on top
         Graphics2D templateGraphics = templateBackground.createGraphics();
-        templateGraphics.drawImage(templateBackground, null, 0, 0);
+        templateGraphics.drawImage(cleanTemplate, null, 0, 0);
         return templateBackground;
     }
 
