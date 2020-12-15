@@ -1,4 +1,4 @@
-import {FormControl, ValidatorFn, Validator, Validators} from '@angular/forms';
+import {FormControl, ValidatorFn, Validator, Validators, Form} from '@angular/forms';
 
 export class FormControlsSettings {
   public static urlFormControl(): FormControl {
@@ -8,5 +8,13 @@ export class FormControlsSettings {
 
   public static nameFormControl(): FormControl {
     return new FormControl('', []);
+  }
+
+  public static userNameFormControl(): FormControl {
+    return new FormControl('', Validators.required);
+  }
+
+  public static passwordFormControl(): FormControl {
+    return new FormControl('', [Validators.minLength(8), Validators.maxLength(40)]);
   }
 }
