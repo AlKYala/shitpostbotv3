@@ -11,6 +11,7 @@ import { ImageComponentComponent } from './image-component/image-component.compo
 import { TemplateComponentComponent } from './template-component/template-component.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ImageCropperModule} from 'ngx-image-cropper';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {ImageCropperModule} from 'ngx-image-cropper';
     LandingComponent,
     ImageComponentComponent,
     TemplateComponentComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

@@ -32,14 +32,23 @@
     <div class="col-md-3">
       <ul class="navbar-nav float-right">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account
           </a>
+
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <!--Ergaenze: Falls eingeloggt -->
             <a class="dropdown-item " href="#">My account</a>
+            <!--Ergaenze: sonst -->
+            <a routerLink="/signup" class="dropdown-item">Register</a>
+            <!-- -->
             <div class="dropdown-divider"></div>
             <a class="dropdown-item disabled" href="#">Log out</a>
+
           </div>
+
+
+
         </li>
       </ul>
     </div>
