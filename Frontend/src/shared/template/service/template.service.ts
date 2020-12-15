@@ -3,7 +3,11 @@ import {BaseService} from '../../services/base.service';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class TemplateService implements BaseService<Template> {
 
   private templateUrl = `${environment.api}/templates`;
