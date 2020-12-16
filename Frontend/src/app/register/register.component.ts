@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import {User} from '../../shared/user/model/User';
+import {UserService} from '../../shared/user/service/user.service';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +13,8 @@ import {FormControlsSettings} from '../FormControlSettings/form.controls.setting
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
-  constructor() { }
+  constructor(private router: Router,
+              private userService: UserService) {}
 
   ngOnInit(): void {
     this.initRegisterForm();
@@ -25,7 +29,18 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  public submitRegistration(): void {
+    const user: User = new User();
+    user.isAdmin = false;
+    user.username = this.formControls.username;
+    user.password = this.formControls.password;
+  }
+
   public get formControls(): any {
     return this.registerForm.controls;
+  }
+
+  private navigateToHomepage(): void {
+    this.router.navigate(['/']);
   }
 }

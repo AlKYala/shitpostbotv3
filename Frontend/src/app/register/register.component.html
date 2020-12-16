@@ -25,7 +25,8 @@
           </div>
         </ng-container>
       </div>
-      <button type="button" class="btn btn-primary"
+      <button (click)="submitRegistration()"
+                type="submit" class="btn btn-primary"
               [disabled]="
                           formControls.username.value == '' ||
                           formControls.password.invalid ||
