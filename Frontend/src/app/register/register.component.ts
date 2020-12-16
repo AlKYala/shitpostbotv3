@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
-import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import {User} from '../../shared/user/model/User';
 import {UserService} from '../../shared/user/service/user.service';
 
@@ -13,8 +13,11 @@ import {UserService} from '../../shared/user/service/user.service';
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
-  constructor(private router: Router,
-              private userService: UserService) {}
+  constructor(
+    private router: Router,
+    //problem: die services lassen sich nicht injecten bzw seite laedt dann nicht
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.initRegisterForm();

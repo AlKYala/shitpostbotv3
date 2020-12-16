@@ -3,7 +3,11 @@ import {User} from '../model/User';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService implements BaseService<User> {
   private userUrl = `${environment.api}/users`;
 
