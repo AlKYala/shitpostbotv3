@@ -11,7 +11,8 @@ export class FormControlsSettings {
   }
 
   public static userNameFormControl(): FormControl {
-    return new FormControl('', Validators.required);
+    const pattern = '.*"';
+    return new FormControl('', [Validators.pattern(pattern), Validators.minLength(1)]);
   }
 
   public static passwordFormControl(): FormControl {

@@ -9,18 +9,18 @@ import {FormControlsSettings} from '../FormControlSettings/form.controls.setting
 })
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
-  private FormControlSettings: any;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.initRegisterForm();
   }
 
   public initRegisterForm(): void {
     this.registerForm = new FormGroup(
       {
-        username: this.FormControlSettings.userNameFormControl(),
-        password: this.FormControlSettings.passwordFormControl()
+        username: FormControlsSettings.userNameFormControl(),
+        password: FormControlsSettings.passwordFormControl()
       }
     );
   }
@@ -28,5 +28,4 @@ export class RegisterComponent implements OnInit {
   public get formControls(): any {
     return this.registerForm.controls;
   }
-
 }
