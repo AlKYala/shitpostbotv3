@@ -16,6 +16,7 @@ export class FormControlsSettings {
   }
 
   public static passwordFormControl(): FormControl {
-    return new FormControl('', [Validators.minLength(8), Validators.maxLength(40)]);
+    const pattern = '.*"';
+    return new FormControl('', [Validators.pattern(pattern), Validators.minLength(8), Validators.maxLength(40)]);
   }
 }
