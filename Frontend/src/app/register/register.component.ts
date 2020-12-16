@@ -34,6 +34,15 @@ export class RegisterComponent implements OnInit {
     user.isAdmin = false;
     user.username = this.formControls.username;
     user.password = this.formControls.password;
+    //vorerst noch create nutzen
+    this.userService.create(user)
+      .pipe()
+      .subscribe(data => {
+        this.handleSuccessRegistration();
+      },
+        error => {
+        this.handleUnsuccessfulRegistration();
+      });
   }
 
   public get formControls(): any {
@@ -43,4 +52,8 @@ export class RegisterComponent implements OnInit {
   private navigateToHomepage(): void {
     this.router.navigate(['/']);
   }
+
+  private handleSuccessRegistration(): void {}
+
+  private handleUnsuccessfulRegistration(): void {}
 }
