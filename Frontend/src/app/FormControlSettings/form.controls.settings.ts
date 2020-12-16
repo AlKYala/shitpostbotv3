@@ -11,12 +11,10 @@ export class FormControlsSettings {
   }
 
   public static userNameFormControl(): FormControl {
-    const pattern = '.*"';
-    return new FormControl('', [Validators.pattern(pattern), Validators.minLength(1)]);
+    return new FormControl('', [Validators.required, Validators.minLength(1)]);
   }
 
   public static passwordFormControl(): FormControl {
-    const pattern = '.*"';
-    return new FormControl('', [Validators.pattern(pattern), Validators.minLength(8), Validators.maxLength(40)]);
+    return new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(40)]);
   }
 }

@@ -8,16 +8,7 @@
       <div class="form-group">
         <label for="usernameInput">Username</label>
         <input [formControl]="formControls.username"
-               [ngClass]="{'is-invalid': formControls.username.invalid && formControls.username.touched}"
           type="email" class="form-control" id="usernameInput"  placeholder="Enter Username">
-        <ng-container *ngIf="
-          formControls.username.invalid">
-          <div class="usernameInvalid">
-            <small class="form-text text-danger">
-              Please enter a username
-            </small>
-          </div>
-        </ng-container>
         <small id="usernameHelp" class="form-text text-muted">No email needed</small>
       </div>
       <div class="form-group">
@@ -34,8 +25,12 @@
           </div>
         </ng-container>
       </div>
-      <button [disabled]="formControls.url.invalid || formControls.password.invalid"
-        type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn btn-primary"
+              [disabled]="
+                          formControls.username.value == '' ||
+                          formControls.password.invalid ||
+                          formControls.password.value == ''">
+        Submit</button>
     </div>
   </div>
   <div class="col-md-3">
