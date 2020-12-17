@@ -3,11 +3,15 @@ package de.ali.shitpostbot.User.controller;
 import de.ali.shitpostbot.User.model.User;
 import de.ali.shitpostbot.User.service.UserService;
 import de.ali.shitpostbot.shared.controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController implements BaseController<User, Long> {
 
     @Autowired

@@ -3,11 +3,15 @@ package de.ali.shitpostbot.Image.controller;
 import de.ali.shitpostbot.Image.model.Image;
 import de.ali.shitpostbot.Image.service.ImageService;
 import de.ali.shitpostbot.shared.controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/images")
+@RequiredArgsConstructor
 public class ImageController implements BaseController<Image, Long> {
     @Autowired
     private ImageService imageService;

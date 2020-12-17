@@ -3,11 +3,15 @@ package de.ali.shitpostbot.Template.controller;
 import de.ali.shitpostbot.Template.model.Template;
 import de.ali.shitpostbot.Template.services.TemplateService;
 import de.ali.shitpostbot.shared.controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/templates")
+@RequiredArgsConstructor
 public class TemplateController implements BaseController<Template, Long> {
     @Autowired
     private TemplateService templateService;
