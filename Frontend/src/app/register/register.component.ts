@@ -32,20 +32,24 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  public submitRegistration(): void {
+  public onSubmit(): void {
     const user: User = new User();
     user.isAdmin = false;
-    user.username = this.formControls.username;
-    user.password = this.formControls.password;
+    user.username = this.formControls.username.value;
+    user.password = this.formControls.password.value;
     //vorerst noch create nutzen
     this.userService.create(user)
       .pipe()
       .subscribe(data => {
         this.handleSuccessRegistration();
+        this.navigateToHomepage();
+        console.log('erfolg');
       },
         error => {
         this.handleUnsuccessfulRegistration();
+          console.log(error);
       });
+
   }
 
   public get formControls(): any {
@@ -56,7 +60,11 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  private handleSuccessRegistration(): void {}
+  private handleSuccessRegistration(): void {
 
-  private handleUnsuccessfulRegistration(): void {}
+  }
+
+  private handleUnsuccessfulRegistration(): void {
+
+  }
 }
