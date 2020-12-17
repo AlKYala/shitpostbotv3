@@ -26,6 +26,10 @@ export class UserService implements BaseService<User> {
     return this.httpClient.post(this.userUrl, user) as Observable<User>;
   }
 
+  public register(user: User): Observable<User> {
+    return this.httpClient.post(`${this.userUrl}/register`, user) as Observable<User>;
+  }
+
   public delete(id: number): Observable<number> {
     return this.httpClient.delete(`${this.userUrl}/${id}`) as Observable<number>;
   }
