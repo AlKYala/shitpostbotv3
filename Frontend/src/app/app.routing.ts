@@ -4,6 +4,7 @@ import {ImageComponentComponent} from './image-component/image-component.compone
 import {TemplateComponentComponent} from './template-component/template-component.component';
 import {NgModule} from '@angular/core';
 import {RegisterComponent} from './register/register.component';
+import {LoginMaskComponent} from './login-mask/login-mask.component';
 const routes: Routes = [
   {
     path: '',
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: RegisterComponent
+  },
+  {
+    path: 'login',
+    component: LoginMaskComponent
   }
 ];
 

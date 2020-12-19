@@ -35,6 +35,6 @@ export class UserService implements BaseService<User> {
   }
 
   public update(user: User): Observable<User> {
-    return this.httpClient.put(`${this.userUrl}/${user.id}`, user) as Observable<User>;
+    return this.httpClient.put(``, user) as Observable<User>;
   }
 }
