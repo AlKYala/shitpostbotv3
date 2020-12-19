@@ -18,30 +18,35 @@ public class UserController implements BaseController<User, Long> {
     private UserService userService;
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public List<User> findAll() {
         return this.userService.findAll();
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public User findById(@PathVariable Long id) {
         return this.userService.findById(id);
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
     public User create(@RequestBody User user) {
         return this.userService.create(user);
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id) {
         return this.userService.deleteById(id);
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/{id}")
     public User update(@RequestBody User user, @PathVariable Long id) {
         return this.userService.update(id, user);

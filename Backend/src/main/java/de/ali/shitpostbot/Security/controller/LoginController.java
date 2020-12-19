@@ -4,6 +4,7 @@ import de.ali.shitpostbot.Security.model.AuthenticationRequest;
 import de.ali.shitpostbot.Security.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class LoginController {
      * @throws Exception Thrown when user credentials are incorrect
      */
     @PostMapping(SIGN_UP_ENDPOINT)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         return this.loginService.createAuthenticationToken(authenticationRequest);
     }

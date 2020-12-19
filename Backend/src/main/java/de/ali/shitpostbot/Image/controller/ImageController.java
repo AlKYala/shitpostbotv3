@@ -17,30 +17,35 @@ public class ImageController implements BaseController<Image, Long> {
     private ImageService imageService;
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public List<Image> findAll() {
         return this.imageService.findAll();
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public Image findById(@PathVariable Long id) {
         return this.imageService.findById(id);
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Image create(@RequestBody Image image) {
         return this.imageService.create(image);
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id) {
         return this.imageService.deleteById(id);
     }
 
     @Override
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/{id}")
     public Image update(@RequestBody Image image, @PathVariable Long id) {
         return this.imageService.update(id, image);

@@ -34,6 +34,8 @@ export class RegisterComponent implements OnInit {
 
   public onSubmit(): void {
     const user: User = new User();
+    //die id wird dann im backend neu zugewiesen
+    user.id = 0;
     user.isAdmin = false;
     user.username = this.formControls.username.value;
     user.password = this.formControls.password.value;
