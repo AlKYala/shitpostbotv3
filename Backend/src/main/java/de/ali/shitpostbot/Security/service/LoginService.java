@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class LoginService {
 
     private final AuthenticationManager authenticationManager;
@@ -20,14 +19,22 @@ public class LoginService {
 
     private final JwtUtil jwtTokenUtil;
 
+    public LoginService(AuthenticationManager authenticationManager,
+                        UserDetailsServiceImpl userDetailsService,
+                        JwtUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.jwtTokenUtil = jwtUtil;
+    }
+
     public ResponseEntity<?> createAuthenticationToken(AuthenticationRequest authenticationRequest) throws Exception {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            authenticationRequest.getUsername(),
-                            authenticationRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+                            authenticationRequest.getPassword())
+            );
         } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password");
+            throw new Exception("Incorrect username or password", e);
         }
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);

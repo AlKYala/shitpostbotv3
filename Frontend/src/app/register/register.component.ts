@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
     user.password = this.formControls.password.value;
     console.log(user);
     //vorerst noch create nutzen
-    this.userService.create(user)
+    this.userService.register(user)
       .pipe()
       .subscribe(data => {
         this.handleSuccessRegistration();

@@ -16,9 +16,18 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    /**
+     * checks if email and password match by first authenticating token
+     * then looking up email in database and see if the given password is correct
+     * sends an ok if data is verified
+     *
+     * @param authenticationRequest The user credentials posted in the login request
+     * @return A ResponseEntity instance for T: ok if data is verified
+     * @throws Exception Thrown when user credentials are incorrect
+     */
     @PostMapping(SIGN_UP_ENDPOINT)
-    public ResponseEntity<?> createAuthentactionToken
-            (@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         return this.loginService.createAuthenticationToken(authenticationRequest);
     }
+
 }
