@@ -3,7 +3,11 @@ import {User} from '../model/User';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService implements BaseService<User> {
   private userUrl = `${environment.api}/users`;
 
@@ -20,6 +24,10 @@ export class UserService implements BaseService<User> {
 
   public create(user: User): Observable<User> {
     return this.httpClient.post(this.userUrl, user) as Observable<User>;
+  }
+
+  public register(user: User): Observable<User> {
+    return this.httpClient.post(`${this.userUrl}/register`, user) as Observable<User>;
   }
 
   public delete(id: number): Observable<number> {

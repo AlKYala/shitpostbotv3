@@ -10,7 +10,6 @@ import {FormControlsSettings} from '../FormControlSettings/form.controls.setting
 export class ImageComponentComponent implements OnInit {
   public imageForm: FormGroup;
   public isLoaded: boolean;
-  private FormControlSettings: any;
 
   constructor(
     // private formBuilder: FormBuilder
