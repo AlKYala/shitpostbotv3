@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
+import {LocalStorageService} from './localstorage.service';
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
@@ -19,8 +20,10 @@ export class AuthenticationService {
   };
 
   public constructor(private readonly httpClient: HttpClient,
-                     private readonly router: Router) {
-    //wipthis.currentUserSubject = new BehaviorSubject<User>()
+                     private readonly router: Router,
+                     private readonly localStorageService: LocalStorageService) {
+    this.currentUserSubject =
+      new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -32,13 +35,25 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  public login(email: string, password: string): Observable<any> {
+  public login(username: string, password: string): Observable<any> {
     return this.httpClient.post<any>(`${environment.api}/authenticate`, {username, password})
       .pipe(map(user => {
+        this.localStorageService.setCurrentUser(user);
+        this.localStorageService.setCurrentUserUsername();
+        this.localStorageService.setAdminState();
         this.currentUserSubject.next(user);
         this.isUserLoggedIn = true;
         return user;
       }));
   }
 
+  public logout(): void {
+    this.localStorageService.removeAllLogoutKeys();
+    this.currentUserSubject.next(null);
+    this.isUserLoggedIn = false;
+    this.router.navigate(['/']);
+  }
+  public isLoggedIn(): boolean {
+    return this.isUserLoggedIn;
+  }
 }
