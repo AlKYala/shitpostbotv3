@@ -38,7 +38,7 @@ export class AuthenticationService {
         this.currentUserSubject.next(user);
         this.isUserLoggedIn = true;
         return user;
-      }))
+      }));
   }
 
 }
