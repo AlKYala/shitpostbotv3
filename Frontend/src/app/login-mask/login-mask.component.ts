@@ -28,7 +28,7 @@ export class LoginMaskComponent implements OnInit {
     this.usernameControl = FormControlsSettings.userNameFormControl();
     this.passwordControl = FormControlsSettings.passwordFormControl();
     this.loginForm = new FormGroup({
-      username: this.usernameControl,
+      name: this.usernameControl,
       password: this.passwordControl
     });
   }
@@ -46,8 +46,8 @@ export class LoginMaskComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    const uName: string = this.formControls.username;
-    const pw: string = this.formControls.password;
+    const uName: string = this.formControls.name.value;
+    const pw: string = this.formControls.password.value;
     this.authenticationService.login(uName, pw).pipe(first())
       .subscribe((data: any) => {
         this.goToHomepage();

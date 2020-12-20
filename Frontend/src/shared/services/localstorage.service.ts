@@ -26,7 +26,7 @@ export class LocalStorageService {
     if (this.getCurrentUser() == null) {
       throw new Error('No user saved, cannot retrieve Username');
     }
-    localStorage.setItem('currentUserUsername', jwtDecode(this.getCurrentUser()).sub);
+    //localStorage.setItem('currentUserUsername', jwtDecode(this.getCurrentUser()).sub);
     this.localStorageKeys.push('currentUserUsername');
     this.logoutStorageKeys.push('currentUserUsername');
   }
@@ -34,7 +34,7 @@ export class LocalStorageService {
     return localStorage.getItem('currentUserUsername');
   }
   public setAdminState(): void {
-    localStorage.setItem('isAdmin', jwtDecode(this.getCurrentUser()).isAdmin);
+    //localStorage.setItem('isAdmin', jwtDecode(this.getCurrentUser()).isAdmin);
     this.localStorageKeys.push('isAdmin');
     this.logoutStorageKeys.push('isAdmin');
   }

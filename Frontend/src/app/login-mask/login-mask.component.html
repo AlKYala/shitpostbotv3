@@ -4,12 +4,16 @@
 
   </div>
   <div class="col-md-6">
+    <h1 class="text-dark">Log In</h1>
     <div id="form">
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="usernameInput">Username</label>
-          <input [formControl]="formControls.username"
+          <input [formControl]="formControls.name"
                  type="email" class="form-control" id="usernameInput"  placeholder="Enter Username">
+          <a (click)="goToRegister()" href="/signup" class="form-text">
+            Not signed up? Create an account here
+          </a>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -17,17 +21,9 @@
                  [ngClass]="{'is-invalid': formControls.password.invalid
                  && formControls.password.touched}"
                  type="password" class="form-control" id="password" placeholder="Password">
-          <ng-container *ngIf="
-            formControls.password.invalid">
-            <div class="passwordInvalid">
-              <small class="form-text text-danger">
-                Please enter a password (8-40 characters)
-              </small>
-            </div>
-          </ng-container>
         </div>
         <button type="submit" class="btn btn-primary"
-                [disabled]="formControls.username.value == '' ||
+                [disabled]="formControls.name.value == '' ||
                             formControls.password.invalid ||
                             formControls.password.value == ''">
           Submit</button>
