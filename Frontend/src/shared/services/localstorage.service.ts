@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {User} from '../user/model/User';
-import jwtDecode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -17,24 +17,26 @@ export class LocalStorageService {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.localStorageKeys.push('currentUser');
     this.logoutStorageKeys.push('currentUser');
+    this.setCurrentUserUsername(user);
+    this.setAdminState(user);
   }
   public getCurrentUser(): string {
     return localStorage.getItem('currentUser');
   }
-  public setCurrentUserUsername(): void {
+  public setCurrentUserUsername(user: User): void {
     // niemand ist eingeloggt...
-    if (this.getCurrentUser() == null) {
+    if (user == null) {
       throw new Error('No user saved, cannot retrieve Username');
     }
-    //localStorage.setItem('currentUserUsername', jwtDecode(this.getCurrentUser()).sub);
+    localStorage.setItem('currentUserUsername', user.username);
     this.localStorageKeys.push('currentUserUsername');
     this.logoutStorageKeys.push('currentUserUsername');
   }
   public getCurrentUserUsername(): string {
     return localStorage.getItem('currentUserUsername');
   }
-  public setAdminState(): void {
-    //localStorage.setItem('isAdmin', jwtDecode(this.getCurrentUser()).isAdmin);
+  public setAdminState(user: User): void {
+    localStorage.setItem('isAdmin', String(user.isAdmin));
     this.localStorageKeys.push('isAdmin');
     this.logoutStorageKeys.push('isAdmin');
   }

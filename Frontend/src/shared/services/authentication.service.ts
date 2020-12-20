@@ -39,8 +39,8 @@ export class AuthenticationService {
     return this.httpClient.post<any>(`${environment.api}/authenticate`, {username, password})
       .pipe(map(user => {
         this.localStorageService.setCurrentUser(user);
-        this.localStorageService.setCurrentUserUsername();
-        this.localStorageService.setAdminState();
+        this.localStorageService.setCurrentUserUsername(user);
+        this.localStorageService.setAdminState(user);
         this.currentUserSubject.next(user);
         this.isUserLoggedIn = true;
         return user;
