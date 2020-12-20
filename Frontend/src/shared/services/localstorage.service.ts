@@ -45,7 +45,7 @@ export class LocalStorageService {
     return (localStorage.getItem('isAdmin') === 'true');
   }
   public removeAllLogoutKeys(): void {
-    //mass logout
+    // mass logout
     for (const key of this.logoutStorageKeys) {
       localStorage.removeItem(key);
     }

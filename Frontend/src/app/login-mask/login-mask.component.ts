@@ -1,72 +1,59 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AuthenticationService} from '../../shared/services/authentication.service';
+import {Router} from '@angular/router';
 import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
-import {Router, RouterModule} from '@angular/router';
-import {User} from '../../shared/user/model/User';
-import {UserService} from '../../shared/user/service/user.service';
+import {first} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-login-mask',
+  templateUrl: './login-mask.component.html',
+  styleUrls: ['./login-mask.component.scss']
 })
-export class RegisterComponent implements OnInit {
-  public registerForm: FormGroup;
+export class LoginMaskComponent implements OnInit {
+  public loginForm: FormGroup;
+  public passwordControl: FormControl;
+  public usernameControl: FormControl;
 
-  constructor(
-    private router: Router,
-    //problem: die services lassen sich nicht injecten bzw seite laedt dann nicht
-    private authenticationService: AuthenticationService
-  ) {}
-
-  ngOnInit(): void {
-    this.initRegisterForm();
+  constructor(private readonly formBuilder: FormBuilder,
+              private readonly authenticationService: AuthenticationService,
+              private readonly router: Router) {
   }
 
-  public initRegisterForm(): void {
-    this.registerForm = new FormGroup(
-      {
-        username: FormControlsSettings.userNameFormControl(),
-        password: FormControlsSettings.passwordFormControl()
-      }
-    );
+  public ngOnInit() {
+    this.initForm();
   }
 
-  public onSubmit(): void {
-    const user: User = new User();
-    //die id wird dann im backend neu zugewiesen
-    user.id = 0;
-    user.isAdmin = false;
-    user.username = this.formControls.username.value;
-    user.password = this.formControls.password.value;
-    console.log(user);
-    //vorerst noch create nutzen
-    this.authenticationService.login(this.formControls.email.value, this.formControls.password.value)
-      .pipe(first()).subscribe((data: any) => {
-        this.router.navigate([this.returnUrl]);
-        this.toastService.success('Sie sind angemeldet');
-      },
-      error => {
-        this.error = 'Email oder Passwort falsch. Bitte versuchen Sie es erneut.';
-        this.loading = false;
-      }
-    );
-
+  public initForm(): void {
+    this.usernameControl = FormControlsSettings.userNameFormControl();
+    this.passwordControl = FormControlsSettings.passwordFormControl();
+    this.loginForm = new FormGroup({
+      username: this.usernameControl,
+      password: this.passwordControl
+    });
   }
 
-  public get formControls(): any {
-    return this.registerForm.controls;
+  public goToRegister(): void {
+    this.router.navigate(['/signup']);
   }
 
-  private navigateToHomepage(): void {
+  public goToHomepage(): void {
     this.router.navigate(['/']);
   }
 
-  private handleSuccessRegistration(): void {
-
+  public get formControls(): any {
+    return this.loginForm.controls;
   }
 
-  private handleUnsuccessfulRegistration(): void {
-
+  public onSubmit(): void {
+    const uName: string = this.formControls.username;
+    const pw: string = this.formControls.password;
+    this.authenticationService.login(uName, pw).pipe(first())
+      .subscribe((data: any) => {
+        this.goToHomepage();
+      },
+        error => {
+          console.log(error);
+        });
   }
 }
