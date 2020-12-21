@@ -5,6 +5,8 @@ import {UserToken} from '../../shared/interfaces/UserToken';
 import {LocalStorageService} from '../../shared/services/localstorage.service';
 import {Local} from 'protractor/built/driverProviders';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../shared/services/authentication.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +20,8 @@ export class NavbarComponent implements OnInit {
   public user: string;
 
   constructor(private readonly localStorageService: LocalStorageService,
+              private readonly authenticationService: AuthenticationService,
+              private readonly toastrService: ToastrService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -33,8 +37,9 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn = this.checkIsLoggedIn();
   }
   public logout(): void {
-    this.localStorageService.logout();
+    this.authenticationService.logout();
     this.initUser();
     this.router.navigate(['/']);
+    this.toastrService.success('Logout successful');
   }
 }

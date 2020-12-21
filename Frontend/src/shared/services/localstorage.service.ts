@@ -12,7 +12,7 @@ export class LocalStorageService {
   private localStorageKeys: string[];
   private logoutStorageKeys: string[];
 
-  constructor(private readonly authenticationService: AuthenticationService) {
+  constructor() {
     this.localStorageKeys = [];
     this.logoutStorageKeys = [];
   }
@@ -57,12 +57,5 @@ export class LocalStorageService {
       localStorage.removeItem(key);
     }
     this.logoutStorageKeys = [];
-  }
-
-  public logout(): void {
-    this.authenticationService.logout();
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('currentUsername');
-    localStorage.removeItem('isAdmin');
   }
 }
