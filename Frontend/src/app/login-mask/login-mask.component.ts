@@ -20,7 +20,7 @@ export class LoginMaskComponent implements OnInit {
               private readonly router: Router) {
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.initForm();
   }
 

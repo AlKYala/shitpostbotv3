@@ -14,6 +14,8 @@ import {ImageCropperModule} from 'ngx-image-cropper';
 import { RegisterComponent } from './register/register.component';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginMaskComponent} from './login-mask/login-mask.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -33,8 +35,9 @@ import {LoginMaskComponent} from './login-mask/login-mask.component';
     appRoutingModule,
     ReactiveFormsModule,
     ImageCropperModule,
-    HttpClientModule
-    //fuer routing
+    HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
   ],
