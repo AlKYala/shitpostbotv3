@@ -23,7 +23,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.initUser();
   }
-
   private checkIsLoggedIn(): boolean {
     return (this.username != null);
   }
