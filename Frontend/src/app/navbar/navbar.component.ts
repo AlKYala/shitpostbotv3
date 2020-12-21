@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from '../../shared/user/model/User';
+import jwtDecode from 'jwt-decode';
+import {UserToken} from '../../shared/interfaces/UserToken';
 
 @Component({
   selector: 'app-navbar',
@@ -7,12 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  public isLoggedIn: boolean;
+  public username: string;
+  public user: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.initUser();
   }
-  public isLoggedIn(): boolean {
-    const user = localStorage.getItem('currentUser');
-    return (user == null) ? false : true;
+
+  private checkIsLoggedIn(): boolean {
+    return (this.username == null) ? false : true;
+  }
+
+  /**
+   * violates SOLID principle
+   */
+  public initUser(): void {
+    this.user = localStorage.getItem('currentUser');
+    this.username = localStorage.getItem('currentUserName');
+    this.isLoggedIn = this.checkIsLoggedIn();
   }
 }

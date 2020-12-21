@@ -37,16 +37,15 @@
           </a>
 
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <ng-container *ngIf="isLoggedIn()"; else #notloggedin>
+            <div *ngIf="this.isLoggedIn; else notloggedin">
               <a class="dropdown-item " href="#">My account</a>
-            <!--Ergaenze: sonst -->
-            </ng-container>
-            <ng-template notloggedin>
+              <!-- -->
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item disabled" href="#">Log out</a>
+            </div>
+            <ng-template #notloggedin>
               <a routerLink="/signup" class="dropdown-item">Register</a>
             </ng-template>
-            <!-- -->
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item disabled" href="#">Log out</a>
           </div>
         </li>
       </ul>
