@@ -22,13 +22,13 @@ export class LocalStorageService {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.localStorageKeys.push('currentUser');
     this.logoutStorageKeys.push('currentUser');
-    this.setCurrentUserUsername();
+    this.setCurrentUsername();
     this.setAdminState();
   }
   public getCurrentUser(): string {
     return localStorage.getItem('currentUser');
   }
-  public setCurrentUserUsername(): void {
+  public setCurrentUsername(): void {
     // niemand ist eingeloggt...
     if (this.getCurrentUser() == null) {
       throw new Error('No user saved, cannot retrieve Username');
@@ -37,7 +37,7 @@ export class LocalStorageService {
     this.localStorageKeys.push('currentUsername');
     this.logoutStorageKeys.push('currentUsername');
   }
-  public getCurrentUserUsername(): string {
+  public getCurrentUsername(): string {
     return localStorage.getItem('currentUsername');
   }
   public setAdminState(): void {
@@ -51,11 +51,9 @@ export class LocalStorageService {
     }
     return (localStorage.getItem('isAdmin') === 'true');
   }
-  public removeAllLogoutKeys(): void {
-    // mass logout
-    for (const key of this.logoutStorageKeys) {
-      localStorage.removeItem(key);
-    }
-    this.logoutStorageKeys = [];
+  public logout(): void {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUsername');
+    localStorage.removeItem('isAdmin');
   }
 }
