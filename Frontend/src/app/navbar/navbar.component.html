@@ -35,15 +35,17 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account
           </a>
-
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <!--Ergaenze: Falls eingeloggt -->
-            <a class="dropdown-item " href="#">My account</a>
-            <!--Ergaenze: sonst -->
-            <a routerLink="/signup" class="dropdown-item">Register</a>
-            <!-- -->
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item disabled" href="#">Log out</a>
+            <div *ngIf="this.isLoggedIn; else notloggedin">
+              <a class="dropdown-item" href="#">My account</a>
+              <!-- -->
+              <div class="dropdown-divider"></div>
+              <a href="/" (click)="this.logout()" class="dropdown-item">Log out</a>
+            </div>
+            <ng-template #notloggedin>
+              <a routerLink="/signup" class="dropdown-item">Register</a>
+              <a routerLink="/login" class="dropdown-item">Login</a>
+            </ng-template>
           </div>
         </li>
       </ul>

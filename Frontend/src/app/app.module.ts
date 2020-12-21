@@ -13,6 +13,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import { RegisterComponent } from './register/register.component';
 import {HttpClientModule} from '@angular/common/http';
+import {LoginMaskComponent} from './login-mask/login-mask.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {HttpClientModule} from '@angular/common/http';
     ImageComponentComponent,
     TemplateComponentComponent,
     RegisterComponent,
+    LoginMaskComponent,
   ],
   imports: [
     BrowserModule,

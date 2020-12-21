@@ -63,6 +63,10 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  public goToLoginMask(): void {
+    this.router.navigate(['/login']);
+  }
+
   private handleSuccessRegistration(): void {
 
   }
