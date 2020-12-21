@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
    */
   public initUser(): void {
     this.user = localStorage.getItem('currentUser');
-    this.username = localStorage.getItem('currentUserName');
+    this.username = localStorage.getItem('currentUsername');
     this.isLoggedIn = this.checkIsLoggedIn();
   }
 }
