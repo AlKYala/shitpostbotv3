@@ -16,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {LoginMaskComponent} from './login-mask/login-mask.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ImageGalleryComponent } from './image-gallery/image-gallery.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ToastrModule } from 'ngx-toastr';
     TemplateComponentComponent,
     RegisterComponent,
     LoginMaskComponent,
+    ImageGalleryComponent,
   ],
   imports: [
     BrowserModule,
