@@ -51,6 +51,9 @@ export class AuthenticationService {
     this.localStorageService.removeAllLogoutKeys();
     this.currentUserSubject.next(null);
     this.isUserLoggedIn = false;
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUsername');
+    localStorage.removeItem('isAdmin');
     this.router.navigate(['/']);
   }
   public isLoggedIn(): boolean {

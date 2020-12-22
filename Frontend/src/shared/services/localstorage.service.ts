@@ -3,6 +3,7 @@ import {User} from '../user/model/User';
 import jwt_decode from 'jwt-decode';
 import {UserToken} from '../interfaces/UserToken';
 import jwtDecode from 'jwt-decode';
+import {AuthenticationService} from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -51,9 +52,10 @@ export class LocalStorageService {
     }
     return (localStorage.getItem('isAdmin') === 'true');
   }
-  public logout(): void {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('currentUsername');
-    localStorage.removeItem('isAdmin');
+  public removeAllLogoutKeys(): void {
+    for (const key in this.logoutStorageKeys) {
+      localStorage.removeItem(key);
+    }
+    this.logoutStorageKeys = [];
   }
 }

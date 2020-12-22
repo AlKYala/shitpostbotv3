@@ -4,6 +4,7 @@ import {AuthenticationService} from '../../shared/services/authentication.servic
 import {Router} from '@angular/router';
 import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
 import {first} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-mask',
@@ -17,10 +18,11 @@ export class LoginMaskComponent implements OnInit {
 
   constructor(private readonly formBuilder: FormBuilder,
               private readonly authenticationService: AuthenticationService,
+              private readonly toastrService: ToastrService,
               private readonly router: Router) {
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.initForm();
   }
 
@@ -51,6 +53,7 @@ export class LoginMaskComponent implements OnInit {
     this.authenticationService.login(uName, pw).pipe(first())
       .subscribe((data: any) => {
         this.goToHomepage();
+        this.toastrService.success('Login successful');
       },
         error => {
           console.log(error);
