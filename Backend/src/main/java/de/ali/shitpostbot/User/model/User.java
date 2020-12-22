@@ -7,7 +7,7 @@ import de.ali.shitpostbot.shared.model.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.CascadeType;
@@ -34,11 +34,13 @@ public class User extends BaseEntity {
 
     private boolean isAdmin;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "poster", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Image> postedImages;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "poster")
+    @JsonIgnore
     private Set<Template> postedTemplates;
 }

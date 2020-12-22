@@ -21,6 +21,7 @@ export class ImageGalleryComponent implements OnInit {
     this.imageService.findAll()
       .pipe(first())
       .subscribe((images: Image[]) => {
+        console.log(this.images.length);
         this.images = images;
       });
   }
