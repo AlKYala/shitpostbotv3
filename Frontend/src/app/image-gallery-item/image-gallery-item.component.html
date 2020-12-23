@@ -1,1 +1,6 @@
-<p>image-gallery-item works!</p>
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" [src]="image.url" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Posted by: {{image.poster.username}}</h5>
+  </div>
+</div>
