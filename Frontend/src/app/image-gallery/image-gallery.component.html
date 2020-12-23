@@ -4,12 +4,13 @@
 
   </div>
   <div class="col-md-8">
-
-    <ng-container *ngFor="let image of images">
-      <div class="col-md-6">
-        <app-image-gallery-item [image]="image"></app-image-gallery-item>
-      </div>
-    </ng-container>
+    <div class="row">
+      <ng-container *ngFor="let image of images">
+          <div class="col-md-6">
+            <app-image-gallery-item [image]="image"></app-image-gallery-item>
+          </div>
+      </ng-container>
+    </div>
   </div>
   <div class="col-md-2">
 
