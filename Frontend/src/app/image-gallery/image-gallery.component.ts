@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ImageService} from '../../shared/image/service/image.service';
 import {Image} from '../../shared/image/model/Image';
 import {first} from 'rxjs/operators';
@@ -9,7 +9,7 @@ import {first} from 'rxjs/operators';
   styleUrls: ['./image-gallery.component.css']
 })
 export class ImageGalleryComponent implements OnInit {
-
+  @Input() public image: Image;
   public images: Image[];
 
   constructor(private readonly imageService: ImageService) { }
@@ -21,7 +21,6 @@ export class ImageGalleryComponent implements OnInit {
     this.imageService.findAll()
       .pipe(first())
       .subscribe((images: Image[]) => {
-        console.log(this.images.length);
         this.images = images;
       });
   }

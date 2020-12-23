@@ -14,11 +14,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err =>{
-      if (err.status == 401) {
+      if (err.status === 401) {
         this.authenticationService.logout();
         location.reload(true);
       }
-      else if (err.status == 403 && this.authenticationService.isLoggedIn()) {
+      else if (err.status === 403 && this.authenticationService.isLoggedIn()) {
         location.reload(true);
         this.toastrService.error('Fehler aufgetreten');
       }

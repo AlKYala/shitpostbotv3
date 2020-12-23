@@ -12,11 +12,14 @@ import { TemplateComponentComponent } from './template-component/template-compon
 import {ReactiveFormsModule} from '@angular/forms';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import { RegisterComponent } from './register/register.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LoginMaskComponent} from './login-mask/login-mask.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ImageGalleryComponent } from './image-gallery/image-gallery.component';
+import {JwtInterceptor} from '../shared/security/jwt.interceptor';
+import {ErrorInterceptor} from '../shared/security/error.interceptor';
+import { ImageGalleryItemComponent } from './image-gallery-item/image-gallery-item.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { ImageGalleryComponent } from './image-gallery/image-gallery.component';
     RegisterComponent,
     LoginMaskComponent,
     ImageGalleryComponent,
+    ImageGalleryItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,8 @@ import { ImageGalleryComponent } from './image-gallery/image-gallery.component';
     ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
