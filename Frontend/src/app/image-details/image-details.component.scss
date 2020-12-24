@@ -1,0 +1,10 @@
+@import "../../styles.scss";
+
+#galleryPicture {
+  max-width: $image-gallery-picutre-width;
+  max-height: $image-gallery-picutre-height;
+}
+
+a {
+  overflow: hidden;
+}

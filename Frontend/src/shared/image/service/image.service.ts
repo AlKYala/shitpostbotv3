@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class ImageService implements BaseService<Image> {
-  private imageUrl = `${environment.api}/books`;
+  private imageUrl = `${environment.api}/images`;
 
   constructor(private httpClient: HttpClient) {
   }

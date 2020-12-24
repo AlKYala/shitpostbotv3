@@ -5,6 +5,8 @@ import {TemplateComponentComponent} from './template-component/template-componen
 import {NgModule} from '@angular/core';
 import {RegisterComponent} from './register/register.component';
 import {LoginMaskComponent} from './login-mask/login-mask.component';
+import {ImageGalleryComponent} from './image-gallery/image-gallery.component';
+import {ImageDetailsComponent} from './image-details/image-details.component';
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +27,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginMaskComponent
+  },
+  {
+    path: 'images',
+    component: ImageGalleryComponent
+  },
+  {
+    path: 'image/:id',
+    component: ImageDetailsComponent
   }
 ];
 

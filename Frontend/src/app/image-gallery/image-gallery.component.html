@@ -1,0 +1,19 @@
+<app-navbar></app-navbar>
+<div class="row pt-2">
+  <div class="col-md-2">
+
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+      <ng-container *ngFor="let image of images">
+          <div class="col-md-6">
+            <app-image-gallery-item [image]="image"></app-image-gallery-item>
+          </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div>
+<app-unterbar></app-unterbar>
