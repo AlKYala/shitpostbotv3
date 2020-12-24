@@ -7,7 +7,7 @@ import {first} from 'rxjs/operators';
 @Component({
   selector: 'app-image-details',
   templateUrl: './image-details.component.html',
-  styleUrls: ['./image-details.component.css']
+  styleUrls: ['./image-details.component.scss']
 })
 export class ImageDetailsComponent implements OnInit {
   public image: Image;
