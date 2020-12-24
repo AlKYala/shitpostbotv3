@@ -15,12 +15,14 @@ export class ImageGalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAllImages();
+
   }
   private loadAllImages(): void {
     this.imageService.findAll()
       .pipe(first())
       .subscribe((images: Image[]) => {
         this.images = images;
+        console.log(this.images.length);
       });
   }
 }

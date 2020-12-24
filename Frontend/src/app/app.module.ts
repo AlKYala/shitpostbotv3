@@ -20,6 +20,7 @@ import { ImageGalleryComponent } from './image-gallery/image-gallery.component';
 import {JwtInterceptor} from '../shared/security/jwt.interceptor';
 import {ErrorInterceptor} from '../shared/security/error.interceptor';
 import { ImageDetailsComponent } from './image-details/image-details.component';
+import { ImageGalleryItemComponent } from './image-gallery-item/image-gallery-item.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ImageDetailsComponent } from './image-details/image-details.component';
     RegisterComponent,
     LoginMaskComponent,
     ImageGalleryComponent,
-    ImageDetailsComponent
+    ImageDetailsComponent,
+    ImageGalleryItemComponent
   ],
   imports: [
     BrowserModule,
