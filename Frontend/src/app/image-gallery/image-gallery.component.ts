@@ -25,4 +25,7 @@ export class ImageGalleryComponent implements OnInit {
         console.log(this.images.length);
       });
   }
+  public formatRouting(id: number): string {
+    return `image/${id}`;
+  }
 }
