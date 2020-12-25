@@ -4,6 +4,7 @@ import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,12 @@ export class UserService implements BaseService<User> {
 
   public findById(id: number): Observable<User> {
     return this.httpClient.get(`${this.userUrl}/${id}`) as Observable<User>;
+  }
+
+  public findByUsername(username: string): Observable<User> {
+    return this.findAll().pipe(map((users: User[]) => {
+      return users.filter((user: User) => user.username === username)[0];
+    }));
   }
 
   public findAll(): Observable<User[]> {
