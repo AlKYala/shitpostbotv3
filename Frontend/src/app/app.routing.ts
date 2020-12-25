@@ -33,7 +33,7 @@ const routes: Routes = [
     component: ImageGalleryComponent
   },
   {
-    path: 'image/:id',
+    path: 'images/image/:id',
     component: ImageDetailsComponent
   }
 ];

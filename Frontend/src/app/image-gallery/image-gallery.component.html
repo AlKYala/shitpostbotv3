@@ -7,7 +7,9 @@
     <div class="row">
       <ng-container *ngFor="let image of images">
           <div class="col-md-6">
+            <a [routerLink]="this.formatRouting(image.id)">
             <app-image-gallery-item [image]="image"></app-image-gallery-item>
+            </a>
           </div>
       </ng-container>
     </div>
@@ -16,4 +18,3 @@
 
   </div>
 </div>
-<app-unterbar></app-unterbar>
