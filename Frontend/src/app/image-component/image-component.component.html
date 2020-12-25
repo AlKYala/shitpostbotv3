@@ -29,7 +29,7 @@
             <!-- indent -->
           </div>
           <div class="col-md-6">
-            <button type="button"
+            <button (click)="uploadImage()" type="button"
                     [disabled]="formControls.url.invalid || !formControls.url.touched"
                     class="ml-1 btn btn-outline-success float-right">
             Submit
