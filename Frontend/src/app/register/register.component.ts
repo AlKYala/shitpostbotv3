@@ -38,9 +38,9 @@ export class RegisterComponent implements OnInit {
     const user: User = new User();
     //die id wird dann im backend neu zugewiesen
     user.id = 0;
-    user.isAdmin = false;
-    user.username = this.formControls.username.value;
-    user.password = this.formControls.password.value;
+    user.setAdmin(false);
+    user.setUsername(this.formControls.username.value);
+    user.setPassword(this.formControls.password.value);
     console.log(user);
     //vorerst noch create nutzen
     this.userService.register(user)

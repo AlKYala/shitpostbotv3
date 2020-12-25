@@ -1,6 +1,6 @@
 <div class="card">
-  <img class="card-img-top" [src]="image.url" alt="Card image cap">
+  <img class="card-img-top" [src]="image.getUrl()" alt="Card image cap">
   <div class="card-body">
-    <h5 class="card-title">Posted by: {{image.poster.username}}</h5>
+    <h5 class="card-title">Posted by: {{image.getPoster().getUsername()}}</h5>
   </div>
 </div>
