@@ -1,0 +1,20 @@
+<app-navbar></app-navbar>
+<div class="row pt-2">
+  <div class="col-md-2">
+
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+      <ng-container *ngFor="let template of templates">
+        <div class="col-md-6">
+          <!--<a [routerLink]="this.formatRouting(image.id)">
+            <app-image-gallery-item [image]="image"></app-image-gallery-item>
+          </a>-->
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div>

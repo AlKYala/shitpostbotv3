@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {User} from '../../shared/user/model/User';
+import {TemplateService} from '../../shared/template/service/template.service';
+import {UserService} from '../../shared/user/service/user.service';
+import {LocalStorageService} from '../../shared/services/localstorage.service';
 
 @Component({
   selector: 'app-template-component',
@@ -18,12 +22,15 @@ export class TemplateComponentComponent implements OnInit {
   public base64Preview: string;
   public croppedAreas: number[][];
   public displayedPreviews: boolean[];
-  //saves the cropped images as base64
+  // saves the cropped images as base64
   public croppedAreasPreview: string[];
   public imageUrl: string;
   public isActive: boolean;
+  private currentUser: User;
 
-  constructor() { }
+  constructor(private readonly templateService: TemplateService,
+              private readonly userService: UserService,
+              private readonly localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.initImageForm();
@@ -62,21 +69,28 @@ export class TemplateComponentComponent implements OnInit {
   y1 = hoehe links
   2-er: analog rechts
    */
-  imageCropped(event: ImageCroppedEvent) {
+  imageCropped(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;
     this.base64Preview = event.base64;
     console.log(event.imagePosition.x1, event.imagePosition.x2);
     console.log(event.imagePosition.y1, event.imagePosition.y2);
     this.tempCoordinates = [event.imagePosition.x1, event.imagePosition.x2, event.imagePosition.y1, event.imagePosition.y2];
   }
-  imageLoaded(image: HTMLImageElement) {
+  imageLoaded(image: HTMLImageElement): void {
     // show cropper
   }
-  cropperReady() {
+  cropperReady(): void {
     // cropper ready
   }
-  loadImageFailed() {
+  loadImageFailed(): void {
     // show message
+  }
+  private initCurrentUser(): void {
+    const posterUsername: string = this.localStorageService.getCurrentUsername();
+    console.log(posterUsername);
+    this.userService.findByUsername(posterUsername).subscribe((user: User) => {
+      this.currentUser = user;
+    });
   }
   private cloneLocation(arr: number[]): number[] {
     const clone: number[] = [];
@@ -116,12 +130,12 @@ export class TemplateComponentComponent implements OnInit {
     this.croppedAreasPreview.push(this.base64Preview.valueOf());
     this.displayedPreviews.push(true);
   }
-  coordinateTracker(index, coordinate) {
+  coordinateTracker(index, coordinate): any {
     console.log(coordinate);
     return coordinate ? coordinate.id : undefined;
   }
-  private disableAll() {
-    for(let i = 0; i < this.displayedPreviews.length; i++) {
+  private disableAll(): void {
+    for (let i = 0; i < this.displayedPreviews.length; i++) {
       this.deleteCoordinate(i);
     }
   }

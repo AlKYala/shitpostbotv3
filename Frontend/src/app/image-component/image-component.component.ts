@@ -66,8 +66,8 @@ export class ImageComponentComponent implements OnInit {
 
   public uploadImage(): void {
     const image: Image = new Image();
-    image.poster = this.currentUser;
-    image.url = this.formControls.url.value;
+    image.setPoster(this.currentUser);
+    image.setUrl(this.formControls.url.value);
     image.id = 0;
     this.imageService.create(image).subscribe(data => {
       this.toastrService.success("Image uploaded");
