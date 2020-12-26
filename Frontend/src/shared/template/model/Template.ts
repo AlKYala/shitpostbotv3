@@ -3,18 +3,19 @@ import {Coordinate} from '../../coordinate/model/Coordinate';
 import {User} from '../../user/model/User';
 
 export class Template extends BaseEntity {
-  private poster: User;
-  private baseUrl: string;
-  public setUrl(baseUrl: string): void {
-    this.baseUrl = baseUrl;
+  private _poster: User;
+  private _baseUrl: string;
+
+  public set baseUrl(baseUrl: string) {
+    this._baseUrl = baseUrl;
   }
-  public setPoster(poster: User): void {
-    this.poster = poster;
+  public get baseUrl(): string {
+    return this._baseUrl;
   }
-  public getPoster(): User {
-    return this.poster;
+  public set poster(poster: User){
+    this._poster = poster;
   }
-  public getUrl(): string {
-    return this.baseUrl;
+  public get poster(): User {
+    return this._poster;
   }
 }

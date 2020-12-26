@@ -2,18 +2,18 @@ import {BaseEntity} from '../../models/BaseEntity';
 import {User} from '../../user/model/User';
 
 export class Image extends BaseEntity {
-  private url: string;
-  private poster: User;
-  public setUrl(url: string): void {
-    this.url = url;
+  private _url: string;
+  private _poster: User;
+  public set url(url: string) {
+    this._url = url;
   }
-  public setPoster(poster: User): void {
-    this.poster = poster;
+  public get url(): string {
+    return this._url;
   }
-  public getPoster(): User {
-    return this.poster;
+  public set poster(poster: User) {
+    this._poster = poster;
   }
-  public getUrl(): string {
-    return this.url;
+  public get poster(): User {
+    return this._poster;
   }
 }

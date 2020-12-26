@@ -1,26 +1,26 @@
 import {BaseEntity} from '../../models/BaseEntity';
 
 export class User extends BaseEntity {
-  private username: string;
-  private password: string;
-  private isAdmin: boolean;
+  private _username: string;
+  private _password: string;
+  private _isAdmin: boolean;
 
-  public setUsername(username: string): void {
-    this.username = username;
+  public set username(username: string) {
+    this._username = username;
   }
-  public setPassword(password: string): void {
-    this.password = password;
+  public get username(): string {
+    return this._username;
   }
-  public setAdmin(value: boolean): void {
-    this.isAdmin = value;
+  public set password(password: string) {
+    this._password = password;
   }
-  public checkIsAdmin(): boolean {
-    return this.isAdmin;
+  public get password(): string {
+    return this._password;
   }
-  public getUsername(): string {
-    return this.username;
+  public set isAdmin(value: boolean) {
+    this._isAdmin = value;
   }
-  public getPassword(): string {
-    return this.password;
+  public get isAdmin(): boolean {
+    return this._isAdmin;
   }
 }
