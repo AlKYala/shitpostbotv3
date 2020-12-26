@@ -7,9 +7,9 @@
     <div class="row">
       <ng-container *ngFor="let template of templates">
         <div class="col-md-6">
-          <!--<a [routerLink]="this.formatRouting(image.id)">
-            <app-image-gallery-item [image]="image"></app-image-gallery-item>
-          </a>-->
+          <a [routerLink]="this.formatRouting(template.id)">
+            <app-template-item [template]="template"></app-template-item>
+          </a>
         </div>
       </ng-container>
     </div>

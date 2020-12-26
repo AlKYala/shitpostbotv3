@@ -28,4 +28,7 @@ export class TemplateGalleryComponent implements OnInit {
         console.log(this.templates.length);
       });
   }
+  public formatRouting(id: number): string {
+    return `./${id}`;
+  }
 }

@@ -23,6 +23,7 @@ import { ImageDetailsComponent } from './image-details/image-details.component';
 import { ImageGalleryItemComponent } from './image-gallery-item/image-gallery-item.component';
 import { TemplateGalleryComponent } from './template-gallery/template-gallery.component';
 import { TemplateItemComponent } from './template-item/template-item.component';
+import { TemplateDetailComponent } from './template-detail/template-detail.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { TemplateItemComponent } from './template-item/template-item.component';
     ImageDetailsComponent,
     ImageGalleryItemComponent,
     TemplateGalleryComponent,
-    TemplateItemComponent
+    TemplateItemComponent,
+    TemplateDetailComponent
   ],
   imports: [
     BrowserModule,

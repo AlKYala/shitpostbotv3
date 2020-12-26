@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+<div class="row pt-4">
+  <div class="col-md-2">
+    <div class="row">
+      <div class="col-md-1">
+
+      </div>
+      <div class="col-md-10">
+        <button routerLink="/images" type="button" class="btn btn-outline-primary">
+          <i class="las la-arrow-left"></i>Back to gallery
+        </button>
+      </div>
+      <div class="col-md-1">
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-8">
+        <img id="galleryPicture" [src]="template.baseUrl"/>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-3">
+            <h5>Url:</h5>
+          </div>
+          <div class="col-md-6">
+            <a [href]="template.baseUrl">{{template.baseUrl}}</a>
+          </div>
+          <div class="col-md-3">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <h5>Posted by:</h5>
+          </div>
+          <div class="col-md-6">
+            <!-- hier könnte man Profile anfügen -->
+            <h5>{{template.poster.username}}</h5>
+          </div>
+          <div class="col-md-3">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div>

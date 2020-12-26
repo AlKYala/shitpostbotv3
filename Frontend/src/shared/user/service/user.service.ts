@@ -21,7 +21,7 @@ export class UserService implements BaseService<User> {
 
   public findByUsername(username: string): Observable<User> {
     return this.findAll().pipe(map((users: User[]) => {
-      return users.filter((user: User) => user.getUsername() === username)[0];
+      return users.filter((user: User) => user.username === username)[0];
     }));
   }
 
