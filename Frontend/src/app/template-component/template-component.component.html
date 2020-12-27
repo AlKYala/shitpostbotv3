@@ -1,9 +1,9 @@
 <app-navbar></app-navbar>
 <div class="row">
-  <div class="col-md-1 col-1">
+  <div class="col-sm-1 col-1">
     <!--indent-->
   </div>
-  <div class="col-md-7 col-10">
+  <div class="col-sm-7 col-10">
     <div class="form-group pt-2" id="enterURL">
       <label class="text-white">Image URL</label>
       <input class="form-control"
@@ -23,10 +23,10 @@
       <small class="form-text text-white">No, this page does not host any images.</small>
       <small class="form-text text-white">Don't link any porn else I'm telling the feds.</small>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <!-- indent -->
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <button (click)="this.fetchImage()"
                   type="button"
                   [disabled]="formControls.url.invalid || !formControls.url.touched"
@@ -47,16 +47,16 @@
     >
     </image-cropper>
   </div>
-  <div class="col-md-3 col-1 pl-1 pt-5">
+  <div class="col-sm-3 col-1 pl-1 pt-5">
     <div class="row">
-      <div class="col-md-10">
+      <div class="col-sm-10">
         <ng-container *ngIf="isActive">
-          <div class="card mb-3">
+          <div class="card sm-3">
             <div class="row no-gutters">
-              <div class="col-md-6">
+              <div class="col-sm-6">
                 <img class="card-img-top crop-preview" [src]="croppedImage" alt="Card image cap">
               </div>
-              <div class="col-md-6">
+              <div class="col-sm-6">
                 <div class="card-body">
                   <h5 class="card-title">Coordinates:</h5>
                   <p class="card-text">X1: {{tempCoordinates[0]}} Y2: {{tempCoordinates[3]}}</p>
@@ -70,10 +70,10 @@
             <ng-container *ngIf="displayedPreviews[i]">
               <div class="card mb-3">
                 <div class="row no-gutters">
-                  <div class="col-md-6">
+                  <div class="col-sm-6">
                     <img class="card-img-top crop-preview" [src]="croppedAreasPreview[i]" alt="Card image cap">
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-sm-6">
                     <div class="card-body">
                       <h5 class="card-title">Coordinates:</h5>
                       <p class="card-text">X1: {{coordinate[0]}} Y2: {{coordinate[3]}}</p>
@@ -89,7 +89,7 @@
     <!--
     -->
   </div>
-  <div class="col-md-1 col-1">
+  <div class="col-sm-1 col-1">
     <!--indent-->
   </div>
 </div>

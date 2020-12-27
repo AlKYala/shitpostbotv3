@@ -21,6 +21,9 @@ import {JwtInterceptor} from '../shared/security/jwt.interceptor';
 import {ErrorInterceptor} from '../shared/security/error.interceptor';
 import { ImageDetailsComponent } from './image-details/image-details.component';
 import { ImageGalleryItemComponent } from './image-gallery-item/image-gallery-item.component';
+import { TemplateGalleryComponent } from './template-gallery/template-gallery.component';
+import { TemplateItemComponent } from './template-item/template-item.component';
+import { TemplateDetailComponent } from './template-detail/template-detail.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { ImageGalleryItemComponent } from './image-gallery-item/image-gallery-it
     LoginMaskComponent,
     ImageGalleryComponent,
     ImageDetailsComponent,
-    ImageGalleryItemComponent
+    ImageGalleryItemComponent,
+    TemplateGalleryComponent,
+    TemplateItemComponent,
+    TemplateDetailComponent
   ],
   imports: [
     BrowserModule,

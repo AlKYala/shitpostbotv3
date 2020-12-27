@@ -7,6 +7,8 @@ import {RegisterComponent} from './register/register.component';
 import {LoginMaskComponent} from './login-mask/login-mask.component';
 import {ImageGalleryComponent} from './image-gallery/image-gallery.component';
 import {ImageDetailsComponent} from './image-details/image-details.component';
+import {TemplateGalleryComponent} from './template-gallery/template-gallery.component';
+import {TemplateDetailComponent} from './template-detail/template-detail.component';
 const routes: Routes = [
   {
     path: '',
@@ -33,8 +35,16 @@ const routes: Routes = [
     component: ImageGalleryComponent
   },
   {
-    path: 'images/image/:id',
+    path: 'images/:id',
     component: ImageDetailsComponent
+  },
+  {
+    path: 'templates',
+    component: TemplateGalleryComponent
+  },
+  {
+    path: 'templates/:id',
+    component: TemplateDetailComponent
   }
 ];
 

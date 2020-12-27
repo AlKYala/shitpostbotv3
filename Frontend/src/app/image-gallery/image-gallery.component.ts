@@ -26,6 +26,6 @@ export class ImageGalleryComponent implements OnInit {
       });
   }
   public formatRouting(id: number): string {
-    return `image/${id}`;
+    return `./${id}`;
   }
 }
