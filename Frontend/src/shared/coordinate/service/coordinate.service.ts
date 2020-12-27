@@ -4,6 +4,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {map} from 'rxjs/operators';
+import {User} from '../../user/model/User';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,12 @@ export class CoordinateService implements BaseService<Coordinate> {
 
   public findAll(): Observable<Coordinate[]> {
     return this.httpClient.get(this.coordinateUrl) as Observable<Coordinate[]>;
+  }
+
+  public findByTemplate(templateId: number): Observable<Coordinate[]> {
+    return this.findAll().pipe(map((coordinates: Coordinate[]) => {
+      return coordinates.filter((coordinate: Coordinate) => coordinate.reference.id === templateId);
+    }));
   }
 
   public create(coordinate: Coordinate): Observable<Coordinate> {

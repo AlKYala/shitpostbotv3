@@ -42,6 +42,14 @@
           <div class="col-md-3">
           </div>
         </div>
+        <h5>Coordinates: </h5>
+        <ng-component *ngFor="let coordinate of coordinates">
+          <div class="card">
+            <div class="card-body">
+              X1: {{coordinate.x1}} X2: {{coordinate.x2}} Y1: {{coordinate.y1}} Y2: {{coordinate.y2}}
+            </div>
+          </div>
+        </ng-component>
       </div>
     </div>
   </div>

@@ -1,11 +1,10 @@
 import {BaseEntity} from '../../models/BaseEntity';
 
 export class User extends BaseEntity {
-  private _username: string;
-  private _password: string;
-  private _isAdmin: boolean;
-
-  public set username(username: string) {
+  public username: string;
+  public password: string;
+  public isAdmin: boolean;
+  /*public set username(username: string) {
     this._username = username;
   }
   public get username(): string {
@@ -22,5 +21,5 @@ export class User extends BaseEntity {
   }
   public get isAdmin(): boolean {
     return this._isAdmin;
-  }
+  }*/
 }

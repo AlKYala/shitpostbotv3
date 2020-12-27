@@ -15,10 +15,10 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
   constructor(
-    private router: Router,
+    private readonly router: Router,
     //problem: die services lassen sich nicht injecten bzw seite laedt dann nicht
-    private userService: UserService,
-    private toastrService: ToastrService
+    private readonly userService: UserService,
+    private readonly toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {

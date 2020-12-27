@@ -2,13 +2,13 @@ import {BaseEntity} from '../../models/BaseEntity';
 import {Template} from '../../template/model/Template';
 
 export class Coordinate extends BaseEntity {
-  private _reference: Template;
-  private _x1: number;
-  private _x2: number;
-  private _y1: number;
-  private _y2: number;
+  public reference: Template;
+  public x1: number;
+  public x2: number;
+  public y1: number;
+  public y2: number;
 
-  public get reference(): Template {
+  /*public get reference(): Template {
     return this._reference;
   }
   public set reference(reference: Template) {
@@ -37,5 +37,5 @@ export class Coordinate extends BaseEntity {
   }
   public set y2(y2: number) {
     this._y2 = y2;
-  }
+  }*/
 }
