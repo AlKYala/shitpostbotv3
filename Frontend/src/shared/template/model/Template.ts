@@ -2,7 +2,12 @@ import {BaseEntity} from '../../models/BaseEntity';
 import {Coordinate} from '../../coordinate/model/Coordinate';
 import {User} from '../../user/model/User';
 
-export class Template extends BaseEntity {
+export interface Template extends BaseEntity {
+  poster: User;
+  baseUrl: string;
+}
+
+/*export class Template extends BaseEntity {
   public poster: User;
   public baseUrl: string;
 
@@ -17,5 +22,5 @@ export class Template extends BaseEntity {
   }
   public get poster(): User {
     return this._poster;
-  }*/
-}
+  }
+}*/

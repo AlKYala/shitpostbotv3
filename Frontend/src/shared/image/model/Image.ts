@@ -1,7 +1,12 @@
 import {BaseEntity} from '../../models/BaseEntity';
 import {User} from '../../user/model/User';
 
-export class Image extends BaseEntity {
+export interface Image extends BaseEntity {
+  url: string;
+  poster: User;
+}
+
+/*export class Image extends BaseEntity {
   public url: string;
   public poster: User;
   /*public set url(url: string) {
@@ -15,5 +20,5 @@ export class Image extends BaseEntity {
   }
   public get poster(): User {
     return this._poster;
-  }*/
-}
+  }
+}*/
