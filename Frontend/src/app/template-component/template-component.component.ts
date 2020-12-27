@@ -6,6 +6,8 @@ import {User} from '../../shared/user/model/User';
 import {TemplateService} from '../../shared/template/service/template.service';
 import {UserService} from '../../shared/user/service/user.service';
 import {LocalStorageService} from '../../shared/services/localstorage.service';
+import {Coordinate} from '../../shared/coordinate/model/Coordinate';
+import {Template} from '../../shared/template/model/Template';
 
 @Component({
   selector: 'app-template-component',
@@ -163,5 +165,13 @@ export class TemplateComponentComponent implements OnInit {
     this.croppedAreasPreview = cropPreview;*/
     this.displayedPreviews[index] = false;
     this.croppedAreasPreview[index] = "";
+  }
+  private initCoordinateInstances(template: Template): Coordinate[] {
+    const coordinates: Coordinate[] = [];
+    for (const area of this.croppedAreas) {
+      const coordinate: Coordinate = {id: 0, x1: area[0], x2: area[1], y1: area[2], y2: area[3], reference: template};
+      coordinates.push(coordinate);
+    }
+    return coordinates;
   }
 }
