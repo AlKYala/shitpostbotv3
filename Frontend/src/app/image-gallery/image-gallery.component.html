@@ -3,10 +3,10 @@
   <div class="col-md-2">
 
   </div>
-  <div class="col-md-8">
+  <div class="col-sm-8">
     <div class="row">
       <ng-container *ngFor="let image of images">
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <a [routerLink]="this.formatRouting(image.id)">
             <app-image-gallery-item [image]="image"></app-image-gallery-item>
             </a>
