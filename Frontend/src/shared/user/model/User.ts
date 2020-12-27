@@ -1,6 +1,14 @@
 import {BaseEntity} from '../../models/BaseEntity';
 
-export class User extends BaseEntity {
+/*
+use of interfaces because the data models in FE dont have behavior
+ */
+export interface User extends BaseEntity {
+  username: string;
+  password: string;
+  isAdmin: boolean;
+}
+/*export class User extends BaseEntity {
   public username: string;
   public password: string;
   public isAdmin: boolean;
@@ -21,5 +29,5 @@ export class User extends BaseEntity {
   }
   public get isAdmin(): boolean {
     return this._isAdmin;
-  }*/
-}
+  }
+}*/

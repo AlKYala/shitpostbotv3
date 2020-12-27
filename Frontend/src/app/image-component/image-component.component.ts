@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
 import {ImageService} from '../../shared/image/service/image.service';
 import {Image} from '../../shared/image/model/Image';
@@ -65,12 +65,10 @@ export class ImageComponentComponent implements OnInit {
   }
 
   public uploadImage(): void {
-    const image: Image = new Image();
-    image.poster = this.currentUser;
-    image.url = this.formControls.url.value;
-
-    image.id = 0;
-    this.imageService.create(image).subscribe(data => {
+    const $poster = this.currentUser;
+    const $url = this.formControls.url.value;
+    const image: Image = {id: 0, poster: $poster, url: $url};
+    this.imageService.create(image).subscribe(() => {
       this.toastrService.success("Image uploaded");
       this.router.navigate(['/']);
     }/*, error => {

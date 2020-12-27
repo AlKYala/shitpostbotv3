@@ -1,7 +1,15 @@
 import {BaseEntity} from '../../models/BaseEntity';
 import {Template} from '../../template/model/Template';
 
-export class Coordinate extends BaseEntity {
+export interface Coordinate extends BaseEntity {
+  reference: Template;
+  x1: number;
+  x2: number;
+  y1: number;
+  y2: number;
+}
+
+/*export class Coordinate extends BaseEntity {
   public reference: Template;
   public x1: number;
   public x2: number;
@@ -37,5 +45,5 @@ export class Coordinate extends BaseEntity {
   }
   public set y2(y2: number) {
     this._y2 = y2;
-  }*/
-}
+  }
+}*/
