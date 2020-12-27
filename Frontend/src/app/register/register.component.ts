@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
-import {Router, RouterModule} from '@angular/router';
+import {Router} from '@angular/router';
 import {User} from '../../shared/user/model/User';
 import {UserService} from '../../shared/user/service/user.service';
 import {ToastrService} from 'ngx-toastr';
@@ -35,17 +35,14 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    const user: User = new User();
-    //die id wird dann im backend neu zugewiesen
-    user.id = 0;
-    user.isAdmin = false;
-    user.username = this.formControls.username.value;
-    user.password = this.formControls.password.value;
+    const $username = this.formControls.username.value;
+    const $password = this.formControls.password.value;
+    const user: User = {id : 0, username: $username, password: $password, isAdmin: false};
     console.log(user);
     //vorerst noch create nutzen
     this.userService.register(user)
       .pipe()
-      .subscribe(data => {
+      .subscribe(() => {
         this.handleSuccessRegistration();
         this.navigateToHomepage();
       },
