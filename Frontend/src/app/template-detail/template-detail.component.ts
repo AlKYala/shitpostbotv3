@@ -10,7 +10,7 @@ import {Coordinate} from '../../shared/coordinate/model/Coordinate';
 @Component({
   selector: 'app-template-detail',
   templateUrl: './template-detail.component.html',
-  styleUrls: ['./template-detail.component.css']
+  styleUrls: ['./template-detail.component.scss']
 })
 export class TemplateDetailComponent implements OnInit {
   public template: Template;

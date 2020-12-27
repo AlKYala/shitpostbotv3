@@ -1,51 +1,53 @@
 <app-navbar></app-navbar>
 <div class="row pt-4">
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <div class="row">
-      <div class="col-md-1">
+      <div class="col-sm-1">
 
       </div>
-      <div class="col-md-10">
+      <div class="col-sm-10">
         <button routerLink="/images" type="button" class="btn btn-outline-primary">
           <i class="las la-arrow-left"></i>Back to gallery
         </button>
       </div>
-      <div class="col-md-1">
+      <div class="col-sm-1">
 
       </div>
     </div>
   </div>
-  <div class="col-md-8">
+  <div class="col-sm-8">
     <div class="row">
-      <div class="col-md-8">
-        <img id="galleryPicture" [src]="image.url"/>
+      <div class="col-sm-8">
+        <div class="card">
+          <img id="galleryPicture" [src]="image.url"/>
+        </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-sm-3">
             <h5>Url:</h5>
           </div>
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <a [href]="image.url">{{image.url}}</a>
           </div>
-          <div class="col-md-3">
+          <div class="col-sm-3">
           </div>
         </div>
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-sm-3">
             <h5>Posted by:</h5>
           </div>
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <!-- hier könnte man Profile anfügen -->
             <h5>{{image.poster.username}}</h5>
           </div>
-          <div class="col-md-3">
+          <div class="col-sm-3">
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-2">
+  <div class="col-sm-2">
 
   </div>
 </div>
