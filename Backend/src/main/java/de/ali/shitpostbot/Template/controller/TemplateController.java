@@ -23,6 +23,17 @@ public class TemplateController implements BaseController<Template, Long> {
         return this.templateService.findAll();
     }
 
+    /**
+     * Needed in front end to find correct ID of template to submit
+     * and link coordinates
+     * Called when template instance has to be persisted
+     */
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/highestTemplateId")
+    public Integer getHighestID() {
+        return this.templateService.findAll().size();
+    }
+
     @Override
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
