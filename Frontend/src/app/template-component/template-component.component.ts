@@ -8,6 +8,9 @@ import {UserService} from '../../shared/user/service/user.service';
 import {LocalStorageService} from '../../shared/services/localstorage.service';
 import {Coordinate} from '../../shared/coordinate/model/Coordinate';
 import {Template} from '../../shared/template/model/Template';
+import {first} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
+import {CoordinateService} from '../../shared/coordinate/service/coordinate.service';
 
 @Component({
   selector: 'app-template-component',
@@ -32,7 +35,9 @@ export class TemplateComponentComponent implements OnInit {
 
   constructor(private readonly templateService: TemplateService,
               private readonly userService: UserService,
-              private readonly localStorageService: LocalStorageService) { }
+              private readonly localStorageService: LocalStorageService,
+              private readonly toastrService: ToastrService,
+              private readonly coordinateService: CoordinateService) { }
 
   ngOnInit(): void {
     this.initImageForm();
@@ -169,13 +174,24 @@ export class TemplateComponentComponent implements OnInit {
   private initCoordinateInstances(template: Template): Coordinate[] {
     const coordinates: Coordinate[] = [];
     for (const area of this.croppedAreas) {
-      const coordinate: Coordinate = {id: 0, x1: area[0], x2: area[1], y1: area[2], y2: area[3], reference: template};
+      const coordinate: Coordinate = {id: template.id, x1: area[0], x2: area[1], y1: area[2], y2: area[3], reference: template};
       coordinates.push(coordinate);
     }
     return coordinates;
   }
 
   public sumbit(): void {
-    //const template: Template = {id : 0, baseUrl : this.formControls.url.value, poster: this.currentUser};
+    let idToSave: number;
+    this.templateService.getHighestId().pipe(first()).subscribe((highestId) => {
+      idToSave = (highestId + 1);
+    });
+    const template: Template = {id : idToSave, baseUrl : this.formControls.url.value, poster: this.currentUser};
+    this.templateService.create(template).subscribe( () => {
+      const coordinates: Coordinate[] = this.initCoordinateInstances(template);
+      for (const coordinate of coordinates) {
+        this.coordinateService.create(coordinate).subscribe(() => {});
+      }
+      this.toastrService.success("Template uploaded");
+    });
   }
 }
