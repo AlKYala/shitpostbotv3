@@ -11,6 +11,7 @@ import {Template} from '../../shared/template/model/Template';
 import {first} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
 import {CoordinateService} from '../../shared/coordinate/service/coordinate.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-template-component',
@@ -37,7 +38,8 @@ export class TemplateComponentComponent implements OnInit {
               private readonly userService: UserService,
               private readonly localStorageService: LocalStorageService,
               private readonly toastrService: ToastrService,
-              private readonly coordinateService: CoordinateService) { }
+              private readonly coordinateService: CoordinateService,
+              private readonly router: Router) { }
 
   ngOnInit(): void {
     this.initImageForm();
@@ -47,6 +49,7 @@ export class TemplateComponentComponent implements OnInit {
     this.imageUrl = "";
     this.isActive = false;
     this.tempCoordinates = [0, 0, 0, 0];
+    this.initCurrentUser();
   }
 
   public initImageForm(): void {
@@ -79,8 +82,8 @@ export class TemplateComponentComponent implements OnInit {
   imageCropped(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;
     this.base64Preview = event.base64;
-    console.log(event.imagePosition.x1, event.imagePosition.x2);
-    console.log(event.imagePosition.y1, event.imagePosition.y2);
+    //console.log(event.imagePosition.x1, event.imagePosition.x2);
+    //console.log(event.imagePosition.y1, event.imagePosition.y2);
     this.tempCoordinates = [event.imagePosition.x1, event.imagePosition.x2, event.imagePosition.y1, event.imagePosition.y2];
   }
   imageLoaded(image: HTMLImageElement): void {
@@ -94,7 +97,7 @@ export class TemplateComponentComponent implements OnInit {
   }
   private initCurrentUser(): void {
     const posterUsername: string = this.localStorageService.getCurrentUsername();
-    console.log(posterUsername);
+    //console.log(posterUsername);
     this.userService.findByUsername(posterUsername).subscribe((user: User) => {
       this.currentUser = user;
     });
@@ -138,7 +141,7 @@ export class TemplateComponentComponent implements OnInit {
     this.displayedPreviews.push(true);
   }
   coordinateTracker(index, coordinate): any {
-    console.log(coordinate);
+    //console.log(coordinate);
     return coordinate ? coordinate.id : undefined;
   }
   private disableAll(): void {
@@ -179,19 +182,19 @@ export class TemplateComponentComponent implements OnInit {
     }
     return coordinates;
   }
-
-  public sumbit(): void {
-    let idToSave: number;
-    this.templateService.getHighestId().pipe(first()).subscribe((highestId) => {
-      idToSave = (highestId + 1);
-    });
-    const template: Template = {id : idToSave, baseUrl : this.formControls.url.value, poster: this.currentUser};
-    this.templateService.create(template).subscribe( () => {
+  public submit(): void {
+    const template: Template = {id : 0,
+      baseUrl : this.formControls.url.value,
+      poster: this.currentUser};
+    this.templateService.create(template).subscribe( (data) => {
+      console.log(data);
       const coordinates: Coordinate[] = this.initCoordinateInstances(template);
+      template.id = data.id;
       for (const coordinate of coordinates) {
         this.coordinateService.create(coordinate).subscribe(() => {});
       }
       this.toastrService.success("Template uploaded");
+      //this.router.navigate(['/']);
     });
   }
 }

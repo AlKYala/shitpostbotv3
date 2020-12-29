@@ -76,9 +76,11 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public void checkFieldsValid(Template template) {
+        /* hochgeladene templates haben keine koordinaten -
+        die werden erst danach hochgeladen!
         if(!hasCoordinate(template)) {
             throw new NotSavedException("The passed Template needs a coordinate");
-        }
+        }*/
         if(template.getBaseUrl() == null || template.getBaseUrl().isBlank()) {
             throw new NotSavedException("The passed Template needs a base URL");
         }
