@@ -11,7 +11,7 @@ import {User} from '../../user/model/User';
   providedIn: 'root'
 })
 export class CoordinateService implements BaseService<Coordinate> {
-  private coordinateUrl = `${environment.api}/copies`;
+  private coordinateUrl = `${environment.api}/coordinates`;
 
   constructor(private httpClient: HttpClient) {}
 

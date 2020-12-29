@@ -194,7 +194,7 @@ export class TemplateComponentComponent implements OnInit {
         this.coordinateService.create(coordinate).subscribe(() => {});
       }
       this.toastrService.success("Template uploaded");
-      //this.router.navigate(['/']);
+      this.router.navigate(['/']);
     });
   }
 }

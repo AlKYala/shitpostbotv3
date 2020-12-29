@@ -33,8 +33,4 @@ export class TemplateService implements BaseService<Template> {
   public update(template: Template): Observable<Template> {
     return this.httpClient.put(`${this.templateUrl}/${template.id}`, template) as Observable<Template>;
   }
-
-  public getHighestId(): Observable<number> {
-    return this.httpClient.get(`${this.templateUrl}/highestTemplateId`) as Observable<number>;
-  }
 }
