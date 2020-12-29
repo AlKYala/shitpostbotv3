@@ -174,4 +174,8 @@ export class TemplateComponentComponent implements OnInit {
     }
     return coordinates;
   }
+
+  public sumbit(): void {
+    //const template: Template = {id : 0, baseUrl : this.formControls.url.value, poster: this.currentUser};
+  }
 }
