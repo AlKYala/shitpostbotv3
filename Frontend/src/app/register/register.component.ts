@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {User} from '../../shared/user/model/User';
 import {UserService} from '../../shared/user/service/user.service';
 import {ToastrService} from 'ngx-toastr';
+import {AuthenticationService} from '../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
     private readonly router: Router,
     //problem: die services lassen sich nicht injecten bzw seite laedt dann nicht
     private readonly userService: UserService,
-    private readonly toastrService: ToastrService
+    private readonly toastrService: ToastrService,
+    public readonly authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
@@ -44,11 +46,15 @@ export class RegisterComponent implements OnInit {
       .pipe()
       .subscribe(() => {
         this.handleSuccessRegistration();
-        this.navigateToHomepage();
+        this.authenticationService.login($username, $password).subscribe( () => {
+          this.toastrService.success("You are logged in");
+          this.router.navigate(['/']);
+        });
       },
         error => {
         this.handleUnsuccessfulRegistration(String(error));
       });
+
   }
 
   public get formControls(): any {
@@ -64,7 +70,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private handleSuccessRegistration(): void {
-    this.toastrService.success('Registration successful - You can login now.');
+    this.toastrService.success('Registration successful');
   }
   private handleUnsuccessfulRegistration(error: string): void {
     this.toastrService.warning(error);
