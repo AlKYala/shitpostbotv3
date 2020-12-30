@@ -5,7 +5,6 @@ import de.ali.shitpostbot.shared.service.BaseService;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public interface TemplateService extends BaseService<Template> {
