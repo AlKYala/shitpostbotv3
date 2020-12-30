@@ -1,5 +1,6 @@
 package de.ali.shitpostbot.Template.services;
 
+import com.nimbusds.jose.util.Base64;
 import de.ali.shitpostbot.Coordinate.model.Coordinate;
 import de.ali.shitpostbot.Coordinate.repository.CoordinateRepository;
 import de.ali.shitpostbot.Template.model.Template;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -96,7 +98,7 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public void drawCoordinates(Template template) throws IOException {
+    public String drawCoordinates(Template template) throws IOException {
         Set<Coordinate> coordinates = template.getCoordinates();
         URL templateURL = new URL(template.getBaseUrl());
         BufferedImage image = this.retrieveImage(templateURL);
@@ -104,7 +106,7 @@ public class TemplateServiceImpl implements TemplateService {
             int[] areas = new int[] {c.getX1(), c.getX2(), c.getY1(), c.getY2()};
             this.drawRectangle(image, areas, 2);
         }
-
+        return this.bufferedImageToBase64(image);
     }
 
     @Override
@@ -128,5 +130,14 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public BufferedImage retrieveImage(URL url) throws IOException {
         return ImageIO.read(url);
+    }
+
+    @Override
+    //https://stackoverflow.com/questions/6377608/in-java-is-it-possible-to-convert-a-bufferedimage-to-an-img-data-uri
+    public String bufferedImageToBase64(BufferedImage image) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ImageIO.write(image, "PNG", out);
+        byte[] bytes = out.toByteArray();
+        return String.format("data:image/png;base64,%s", Base64.encode(bytes).toString());
     }
 }
