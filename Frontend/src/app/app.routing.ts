@@ -45,7 +45,5 @@ const routes: Routes = [
   {
     path: 'templates/:id',
     component: TemplateDetailComponent
-  }
-];
-
+  }];
 export const appRoutingModule = RouterModule.forRoot(routes);
