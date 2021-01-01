@@ -20,11 +20,12 @@ public interface TemplateService extends BaseService<Template> {
     /**
      * A method to draw the lines of coordinate on an image object
      * @param template
+     * @return A base64 representation of the template image with rectangles around the coordinates
      */
     public String drawCoordinates(Template template) throws IOException;
 
     /**
-     * Draws lines on an image Object along the specified areas - uses side effects
+     * Draws lines on an image Object along the specified areas
      * @param template a BufferedImage instance of the image from the templates URL
      * @param area the coordinates to draw the rectangle with - the coordinates are:
      *              area[0] : x1 left

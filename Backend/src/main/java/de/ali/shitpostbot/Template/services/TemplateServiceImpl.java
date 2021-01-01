@@ -119,7 +119,7 @@ public class TemplateServiceImpl implements TemplateService {
         //left
         imageGraphics.drawLine(coordinates[0], coordinates[2], coordinates[0], coordinates[3]);
         //right
-        imageGraphics.drawLine(coordinates[1], coordinates[2], coordinates[0], coordinates[3]);
+        imageGraphics.drawLine(coordinates[1], coordinates[2], coordinates[1], coordinates[3]);
         //horizontal lines
         //upper
         imageGraphics.drawLine(coordinates[0], coordinates[2], coordinates[1], coordinates[2]);
