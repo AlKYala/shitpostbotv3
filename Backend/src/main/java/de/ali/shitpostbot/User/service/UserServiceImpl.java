@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
     public Set<Template> getTemplatesByUserId(Long id) {
         return this.templateService.findAll()
                 .stream()
-                .filter(template -> template.getId() == id)
+                .filter(template -> template.getPoster().getId() == id)
                 .collect(Collectors.toSet());
     }
 }
