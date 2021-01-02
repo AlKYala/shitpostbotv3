@@ -12,10 +12,15 @@ export class TemplateService implements BaseService<Template> {
 
   private templateUrl = `${environment.api}/templates`;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+  }
 
   public findById(id: number): Observable<Template> {
     return this.httpClient.get(`${this.templateUrl}/${id}`) as Observable<Template>;
+  }
+
+  public findTemplateSquareImageById(id: number): Observable<any> {
+    return this.httpClient.get(`${this.templateUrl}/draw/${id}`) as Observable<string>;
   }
 
   public findAll(): Observable<Template[]> {

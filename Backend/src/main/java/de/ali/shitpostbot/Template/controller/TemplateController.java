@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -49,5 +50,12 @@ public class TemplateController implements BaseController<Template, Long> {
     @PutMapping("/{id}")
     public Template update(@RequestBody Template template, @PathVariable Long id) {
         return this.templateService.update(id, template);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/draw/{id}")
+    public String getBase64Representation(@PathVariable Long id) throws IOException {
+        Template template = this.findById(id);
+        return this.templateService.drawCoordinates(template);
     }
 }
