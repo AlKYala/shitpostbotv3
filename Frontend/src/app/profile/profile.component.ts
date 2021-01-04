@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public templates: Template[];
   private posterId: number;
   public poster: User;
+  public currentUser: UserToken;
 
   constructor(private readonly localStorageService: LocalStorageService,
               private readonly imageService: ImageService,
@@ -32,6 +33,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.initTemplates();
     this.initImages();
     this.initUser();
+    this.initCurrentUser();
   }
 
   ngOnDestroy(): void {
@@ -57,6 +59,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.poster = user;
     });
   }
+
+  private initCurrentUser(): void {
+    this.currentUser = this.localStorageService.getUserToken();
+  }
+
   private linkToImage(image: Image): string {
     return `/images/${image.id}`;
   }
