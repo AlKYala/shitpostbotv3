@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LocalStorageService} from '../../shared/services/localstorage.service';
 import {ImageService} from '../../shared/image/service/image.service';
 import {TemplateService} from '../../shared/template/service/template.service';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Image} from '../../shared/image/model/Image';
 import {Template} from '../../shared/template/model/Template';
 import {UserService} from '../../shared/user/service/user.service';
@@ -24,7 +24,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private readonly imageService: ImageService,
               private readonly templateService: TemplateService,
               private readonly userService: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.resolveRouterParam();
@@ -55,5 +56,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.userService.findById(this.posterId).pipe().subscribe((user: User) => {
       this.poster = user;
     });
+  }
+  private routeToImage(image: Image): Promise<boolean> {
+    return this.router.navigateByUrl(`/images/${image.id}`);
+  }
+  private routeToTemplate(template: Template): Promise<boolean> {
+    return this.router.navigateByUrl(`/templates/${template.id}`);
   }
 }

@@ -1,1 +1,38 @@
 <app-navbar></app-navbar>
+<div class="row pt-2">
+  <div class="col-md-2">
+
+  </div>
+  <div class="col-sm-8">
+    <div>
+      <h4>{{this.poster.username}}'s posts</h4>
+    </div>
+    <div class="row">
+      <h5>Images:</h5>
+    </div>
+    <div class="row">
+      <ng-container *ngFor="let image of images">
+        <div class="col-sm-3">
+          <a (click)="this.routeToImage(image)">
+            <app-image-gallery-item [image]="image"></app-image-gallery-item>
+          </a>
+        </div>
+      </ng-container>
+    </div>
+    <div class="row">
+      <h5>Templates:</h5>
+    </div>
+    <div class="row">
+      <ng-container *ngFor="let template of templates">
+        <div class="col-md-3">
+          <a (click)="this.routeToTemplate(template)">
+            <app-template-item [template]="template"></app-template-item>
+          </a>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div>
