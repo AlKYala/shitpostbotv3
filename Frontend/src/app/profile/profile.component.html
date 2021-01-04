@@ -7,25 +7,25 @@
     <div>
       <h4>{{this.poster.username}}'s posts</h4>
     </div>
-    <div class="row">
+    <div>
       <h5>Images:</h5>
     </div>
     <div class="row">
       <ng-container *ngFor="let image of images">
         <div class="col-sm-3">
-          <a (click)="this.routeToImage(image)">
+          <a [routerLink]="this.linkToImage(image)">
             <app-image-gallery-item [image]="image"></app-image-gallery-item>
           </a>
         </div>
       </ng-container>
     </div>
-    <div class="row">
+    <div class="pt-2">
       <h5>Templates:</h5>
     </div>
     <div class="row">
       <ng-container *ngFor="let template of templates">
         <div class="col-md-3">
-          <a (click)="this.routeToTemplate(template)">
+          <a [routerLink]="this.linkToTemplate(template)">
             <app-template-item [template]="template"></app-template-item>
           </a>
         </div>

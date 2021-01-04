@@ -12,13 +12,13 @@ import {UserToken} from '../../shared/interfaces/UserToken';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  private images: Image[];
-  private templates: Template[];
+  public images: Image[];
+  public templates: Template[];
   private posterId: number;
-  private poster: User;
+  public poster: User;
 
   constructor(private readonly localStorageService: LocalStorageService,
               private readonly imageService: ImageService,
@@ -57,10 +57,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.poster = user;
     });
   }
-  private routeToImage(image: Image): Promise<boolean> {
-    return this.router.navigateByUrl(`/images/${image.id}`);
+  private linkToImage(image: Image): string {
+    return `/images/${image.id}`;
   }
-  private routeToTemplate(template: Template): Promise<boolean> {
-    return this.router.navigateByUrl(`/templates/${template.id}`);
+  private linkToTemplate(template: Template): string {
+    return `/templates/${template.id}`;
   }
 }
