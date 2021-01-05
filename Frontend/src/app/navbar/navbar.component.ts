@@ -37,9 +37,9 @@ export class NavbarComponent implements OnInit {
     this.userService.findByUsername(this.username).pipe().subscribe((user: User) => {
       this.user = user;
     });
-    //console.log(this.username);
     this.isLoggedIn = this.checkIsLoggedIn();
   }
+
   public logout(): void {
     this.authenticationService.logout();
     this.initUser();

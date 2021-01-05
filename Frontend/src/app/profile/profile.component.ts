@@ -8,6 +8,7 @@ import {Template} from '../../shared/template/model/Template';
 import {UserService} from '../../shared/user/service/user.service';
 import {User} from '../../shared/user/model/User';
 import {UserToken} from '../../shared/interfaces/UserToken';
+import {delay, first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -19,14 +20,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public templates: Template[];
   private posterId: number;
   public poster: User;
-  public currentUser: UserToken;
+  public currentUserUsername: string;
+  public isPosterUser: boolean;
 
   constructor(private readonly localStorageService: LocalStorageService,
               private readonly imageService: ImageService,
               private readonly templateService: TemplateService,
               private readonly userService: UserService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.resolveRouterParam();
@@ -34,9 +35,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.initImages();
     this.initUser();
     this.initCurrentUser();
-  }
-
-  ngOnDestroy(): void {
   }
 
   private resolveRouterParam(): void {
@@ -57,11 +55,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private initUser(): void {
     this.userService.findById(this.posterId).pipe().subscribe((user: User) => {
       this.poster = user;
+      this.isPosterUser = (this.currentUserUsername === this.poster.username);
     });
   }
 
   private initCurrentUser(): void {
-    this.currentUser = this.localStorageService.getUserToken();
+    this.currentUserUsername = this.localStorageService.getUserToken().sub;
   }
 
   private linkToImage(image: Image): string {
