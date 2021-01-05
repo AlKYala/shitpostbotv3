@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormControlsSettings} from '../FormControlSettings/form.controls.settings';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
@@ -12,13 +12,16 @@ import {first} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
 import {CoordinateService} from '../../shared/coordinate/service/coordinate.service';
 import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {AuthenticationService} from '../../shared/services/authentication.service';
+import {SubscriptionService} from '../../shared/services/subscription.service';
 
 @Component({
   selector: 'app-template-component',
   templateUrl: './template-component.component.html',
   styleUrls: ['./template-component.component.scss']
 })
-export class TemplateComponentComponent implements OnInit {
+export class TemplateComponentComponent implements OnInit, OnDestroy {
   // html can still access private members but compiler gives error message?
   public templateForm: FormGroup;
   public FormControlSettings: any;
@@ -33,13 +36,15 @@ export class TemplateComponentComponent implements OnInit {
   public imageUrl: string;
   public isActive: boolean;
   private currentUser: User;
+  public subscriptions: Subscription[];
 
   constructor(private readonly templateService: TemplateService,
               private readonly userService: UserService,
               private readonly localStorageService: LocalStorageService,
               private readonly toastrService: ToastrService,
               private readonly coordinateService: CoordinateService,
-              private readonly router: Router) { }
+              private readonly router: Router,
+              private readonly subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
     this.initImageForm();
@@ -51,7 +56,9 @@ export class TemplateComponentComponent implements OnInit {
     this.tempCoordinates = [0, 0, 0, 0];
     this.initCurrentUser();
   }
-
+  ngOnDestroy(): void {
+    this.subscriptionService.unsubscribeAll(this.subscriptions);
+  }
   public initImageForm(): void {
     this.templateForm = new FormGroup( {
       url: FormControlsSettings.urlFormControl(),
@@ -82,8 +89,8 @@ export class TemplateComponentComponent implements OnInit {
   imageCropped(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;
     this.base64Preview = event.base64;
-    //console.log(event.imagePosition.x1, event.imagePosition.x2);
-    //console.log(event.imagePosition.y1, event.imagePosition.y2);
+    // console.log(event.imagePosition.x1, event.imagePosition.x2);
+    // console.log(event.imagePosition.y1, event.imagePosition.y2);
     this.tempCoordinates = [event.imagePosition.x1, event.imagePosition.x2, event.imagePosition.y1, event.imagePosition.y2];
   }
   imageLoaded(image: HTMLImageElement): void {
@@ -97,10 +104,11 @@ export class TemplateComponentComponent implements OnInit {
   }
   private initCurrentUser(): void {
     const posterUsername: string = this.localStorageService.getCurrentUsername();
-    //console.log(posterUsername);
-    this.userService.findByUsername(posterUsername).subscribe((user: User) => {
+    // console.log(posterUsername);
+    const subscription = this.userService.findByUsername(posterUsername).subscribe((user: User) => {
       this.currentUser = user;
     });
+    this.subscriptions.push(subscription);
   }
   private cloneLocation(arr: number[]): number[] {
     const clone: number[] = [];
@@ -141,7 +149,7 @@ export class TemplateComponentComponent implements OnInit {
     this.displayedPreviews.push(true);
   }
   coordinateTracker(index, coordinate): any {
-    //console.log(coordinate);
+    // console.log(coordinate);
     return coordinate ? coordinate.id : undefined;
   }
   private disableAll(): void {
@@ -186,15 +194,17 @@ export class TemplateComponentComponent implements OnInit {
     const template: Template = {id : 0,
       baseUrl : this.formControls.url.value,
       poster: this.currentUser};
-    this.templateService.create(template).subscribe( (data) => {
+    const subscription = this.templateService.create(template).subscribe( (data) => {
       console.log(data);
       const coordinates: Coordinate[] = this.initCoordinateInstances(template);
       template.id = data.id;
       for (const coordinate of coordinates) {
-        this.coordinateService.create(coordinate).subscribe(() => {});
+        const subscriptionC = this.coordinateService.create(coordinate).subscribe(() => {});
+        this.subscriptions.push(subscriptionC);
       }
       this.toastrService.success("Template uploaded");
       this.router.navigate(['/']);
     });
+    this.subscriptions.push(subscription);
   }
 }
