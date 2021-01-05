@@ -9,6 +9,8 @@ import {UserService} from '../../shared/user/service/user.service';
 import {User} from '../../shared/user/model/User';
 import {UserToken} from '../../shared/interfaces/UserToken';
 import {delay, first} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import {SubscriptionService} from '../../shared/services/subscription.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,12 +24,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public poster: User;
   public currentUserUsername: string;
   public isPosterUser: boolean;
+  public subscriptions: Subscription[];
 
   constructor(private readonly localStorageService: LocalStorageService,
               private readonly imageService: ImageService,
               private readonly templateService: TemplateService,
               private readonly userService: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private readonly subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
     this.resolveRouterParam();
@@ -36,33 +40,37 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.initUser();
     this.initCurrentUser();
   }
-
+  ngOnDestroy(): void {
+    this.subscriptionService.unsubscribeAll(this.subscriptions);
+  }
   private resolveRouterParam(): void {
-    this.route.paramMap.pipe().subscribe((params: ParamMap) => {
+    const subscription = this.route.paramMap.pipe().subscribe((params: ParamMap) => {
       this.posterId = (parseInt(params.get('id'), 10));
     });
+    this.subscriptions.push(subscription);
   }
   private initTemplates(): void {
-    this.templateService.findAll().pipe().subscribe((templates: Template[]) => {
+    const subscription = this.templateService.findAll().pipe().subscribe((templates: Template[]) => {
       this.templates = templates.filter((template: Template) => template.poster.id === this.posterId);
     });
+    this.subscriptions.push(subscription);
   }
   private initImages(): void {
-    this.imageService.findAll().pipe().subscribe((images: Image[]) => {
+    const subscription = this.imageService.findAll().pipe().subscribe((images: Image[]) => {
       this.images = images.filter((image: Image) => image.poster.id === this.posterId);
     });
+    this.subscriptions.push(subscription);
   }
   private initUser(): void {
-    this.userService.findById(this.posterId).pipe().subscribe((user: User) => {
+    const subscription = this.userService.findById(this.posterId).pipe().subscribe((user: User) => {
       this.poster = user;
       this.isPosterUser = (this.currentUserUsername === this.poster.username);
     });
+    this.subscriptions.push(subscription);
   }
-
   private initCurrentUser(): void {
     this.currentUserUsername = this.localStorageService.getUserToken().sub;
   }
-
   private linkToImage(image: Image): string {
     return `/images/${image.id}`;
   }
