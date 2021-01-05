@@ -5,6 +5,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
+import {Image} from '../../image/model/Image';
+import {Template} from '../../template/model/Template';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +44,14 @@ export class UserService implements BaseService<User> {
   }
 
   public update(user: User): Observable<User> {
-    return this.httpClient.put(``, user) as Observable<User>;
+    return this.httpClient.put(`${this.userUrl}/${user.id}`, user) as Observable<User>;
+  }
+
+  public findImagesById(id: number): Observable<Image[]> {
+    return this.httpClient.get(`${this.userUrl}/${id}/images`) as Observable<Image[]>;
+  }
+
+  public findTemplatesById(id: number): Observable<Template[]> {
+    return this.httpClient.get(`${this.userUrl}/${id}/templates`) as Observable<Template[]>;
   }
 }

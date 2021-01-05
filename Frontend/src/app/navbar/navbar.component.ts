@@ -7,6 +7,7 @@ import {Local} from 'protractor/built/driverProviders';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../shared/services/authentication.service';
 import {ToastrService} from 'ngx-toastr';
+import {UserService} from '../../shared/user/service/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,9 +18,10 @@ export class NavbarComponent implements OnInit {
 
   public isLoggedIn: boolean;
   public username: string;
-  public user: string;
+  public user: User;
 
   constructor(private readonly localStorageService: LocalStorageService,
+              private readonly userService: UserService,
               private readonly authenticationService: AuthenticationService,
               private readonly toastrService: ToastrService,
               private router: Router) { }
@@ -31,11 +33,13 @@ export class NavbarComponent implements OnInit {
     return (this.username != null);
   }
   public initUser(): void {
-    this.user = this.localStorageService.getCurrentUser();
     this.username = this.localStorageService.getCurrentUsername();
-    console.log(this.username);
+    this.userService.findByUsername(this.username).pipe().subscribe((user: User) => {
+      this.user = user;
+    });
     this.isLoggedIn = this.checkIsLoggedIn();
   }
+
   public logout(): void {
     this.authenticationService.logout();
     this.initUser();

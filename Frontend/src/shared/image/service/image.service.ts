@@ -4,6 +4,8 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Template} from '../../template/model/Template';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

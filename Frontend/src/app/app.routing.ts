@@ -9,6 +9,7 @@ import {ImageGalleryComponent} from './image-gallery/image-gallery.component';
 import {ImageDetailsComponent} from './image-details/image-details.component';
 import {TemplateGalleryComponent} from './template-gallery/template-gallery.component';
 import {TemplateDetailComponent} from './template-detail/template-detail.component';
+import {ProfileComponent} from './profile/profile.component';
 const routes: Routes = [
   {
     path: '',
@@ -45,5 +46,9 @@ const routes: Routes = [
   {
     path: 'templates/:id',
     component: TemplateDetailComponent
+  },
+  {
+    path: 'users/:id',
+    component: ProfileComponent
   }];
 export const appRoutingModule = RouterModule.forRoot(routes);

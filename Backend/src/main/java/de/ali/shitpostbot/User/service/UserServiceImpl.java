@@ -1,6 +1,8 @@
 package de.ali.shitpostbot.User.service;
 
+import de.ali.shitpostbot.Image.model.Image;
 import de.ali.shitpostbot.Image.service.ImageService;
+import de.ali.shitpostbot.Template.model.Template;
 import de.ali.shitpostbot.Template.services.TemplateService;
 import de.ali.shitpostbot.User.model.User;
 import de.ali.shitpostbot.User.repository.UserRepository;
@@ -13,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -114,5 +119,21 @@ public class UserServiceImpl implements UserService {
         user.setPostedTemplates(user.getPostedTemplates());
         log.info("User {} with ID {} updated", user.getUsername(), user.getId());
         return userRepository.save(user);
+    }
+
+    @Override
+    public Set<Image> getImagesByUserId(Long id) {
+        return this.imageService.findAll()
+                .stream()
+                .filter(image -> image.getPoster().getId() == id)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Template> getTemplatesByUserId(Long id) {
+        return this.templateService.findAll()
+                .stream()
+                .filter(template -> template.getPoster().getId() == id)
+                .collect(Collectors.toSet());
     }
 }

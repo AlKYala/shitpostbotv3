@@ -37,7 +37,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <div *ngIf="this.isLoggedIn; else notloggedin">
-              <a class="dropdown-item" href="#">My account</a>
+              <a class="dropdown-item" routerLink="/users/{{this.user.id}}">My account</a>
               <!-- -->
               <div class="dropdown-divider"></div>
               <a href="#" (click)="this.logout();$event.preventDefault()" class="dropdown-item">Log out</a>

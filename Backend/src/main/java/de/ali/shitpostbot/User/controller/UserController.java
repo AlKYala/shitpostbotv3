@@ -1,5 +1,7 @@
 package de.ali.shitpostbot.User.controller;
 
+import de.ali.shitpostbot.Image.model.Image;
+import de.ali.shitpostbot.Template.model.Template;
 import de.ali.shitpostbot.User.model.User;
 import de.ali.shitpostbot.User.service.UserService;
 import de.ali.shitpostbot.shared.controller.BaseController;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/users")
@@ -50,5 +53,27 @@ public class UserController implements BaseController<User, Long> {
     @PutMapping("/{id}")
     public User update(@RequestBody User user, @PathVariable Long id) {
         return this.userService.update(id, user);
+    }
+
+    /**
+     * Returns all Images posted by a user with passed id
+     * @param id The id of the user
+     * @return All images found with the users id as posters member
+     */
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/images")
+    public Set<Image> getImages(@PathVariable Long id) {
+        return this.userService.getImagesByUserId(id);
+    }
+
+    /**
+     * Returns all Templates posted by a user with passed id
+     * @param id The id of the user
+     * @return All images found with the users id as posters member
+     */
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/templates")
+    public Set<Template> getTemplates(@PathVariable Long id) {
+        return this.userService.getTemplatesByUserId(id);
     }
 }
