@@ -21,6 +21,7 @@ export class TemplateGalleryComponent implements OnInit, OnDestroy {
               private readonly templateService: TemplateService,
               private readonly subscriptionService: SubscriptionService) { }
   ngOnInit(): void {
+    this.subscriptions = [];
     this.loadAllTemplates();
   }
   ngOnDestroy(): void {

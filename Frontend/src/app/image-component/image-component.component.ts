@@ -33,6 +33,7 @@ export class ImageComponentComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
+    this.subscriptions = [];
     this.initCurrentUser();
     this.initImageForm();
     this.isLoaded = false;

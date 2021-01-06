@@ -47,6 +47,7 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
               private readonly subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
+    this.subscriptions = [];
     this.initImageForm();
     this.croppedAreas = [];
     this.croppedAreasPreview = [];

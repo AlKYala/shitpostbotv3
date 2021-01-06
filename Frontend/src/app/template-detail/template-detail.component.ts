@@ -29,6 +29,7 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
               private readonly subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
+    this.subscriptions = [];
     this.loadDrawnImage();
     this.resolveRouterParam();
   }

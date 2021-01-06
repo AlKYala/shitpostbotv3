@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public isLoggedIn: boolean;
   public username: string;
   public user: User;
-  public subscritpions: Subscription[];
+  public subscriptions: Subscription[];
 
   constructor(private readonly localStorageService: LocalStorageService,
               private readonly userService: UserService,
@@ -30,10 +30,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
               private readonly subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
+    this.subscriptions = [];
     this.initUser();
   }
   ngOnDestroy(): void {
-    this.subscriptionService.unsubscribeAll(this.subscritpions);
+    this.subscriptionService.unsubscribeAll(this.subscriptions);
   }
   private checkIsLoggedIn(): boolean {
     return (this.username != null);
@@ -43,7 +44,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const subscription = this.userService.findByUsername(this.username).pipe().subscribe((user: User) => {
       this.user = user;
     });
-    this.subscritpions.push(subscription);
+    this.subscriptions.push(subscription);
     this.isLoggedIn = this.checkIsLoggedIn();
   }
 

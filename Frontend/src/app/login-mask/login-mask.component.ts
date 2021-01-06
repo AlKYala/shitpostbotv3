@@ -27,6 +27,7 @@ export class LoginMaskComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    this.subscriptions = [];
     this.initForm();
   }
 
