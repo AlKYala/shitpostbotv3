@@ -3,6 +3,7 @@ package de.ali.shitpostbot.Template.controller;
 import de.ali.shitpostbot.Template.model.Template;
 import de.ali.shitpostbot.Template.services.TemplateService;
 import de.ali.shitpostbot.shared.controller.BaseController;
+import de.ali.shitpostbot.shared.model.DrawnTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,8 +55,10 @@ public class TemplateController implements BaseController<Template, Long> {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/draw/{id}")
-    public String getBase64Representation(@PathVariable Long id) throws IOException {
+    public DrawnTemplate getBase64Representation(@PathVariable Long id) throws IOException {
         Template template = this.findById(id);
-        return this.templateService.drawCoordinates(template);
+        DrawnTemplate d = new DrawnTemplate();
+        d.setBase64Representation(this.templateService.drawCoordinates(template));
+        return d;
     }
 }
