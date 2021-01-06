@@ -3,10 +3,13 @@ package de.ali.shitpostbot.Template.services;
 import com.nimbusds.jose.util.Base64;
 import de.ali.shitpostbot.Coordinate.model.Coordinate;
 import de.ali.shitpostbot.Coordinate.repository.CoordinateRepository;
+import de.ali.shitpostbot.Image.repository.ImageRepository;
+import de.ali.shitpostbot.Image.service.ImageService;
 import de.ali.shitpostbot.Template.model.Template;
 import de.ali.shitpostbot.Template.repositories.TemplateRepository;
 import de.ali.shitpostbot.shared.exceptions.NotFoundException;
 import de.ali.shitpostbot.shared.exceptions.NotSavedException;
+import de.ali.shitpostbot.shared.model.DrawnTemplate;
 import de.ali.shitpostbot.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.Buffer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,13 +33,16 @@ public class TemplateServiceImpl implements TemplateService {
     private final TemplateRepository templateRepository;
     private final CoordinateRepository coordinateRepository;
     private Validator<Template, TemplateRepository> validator;
+    private final ImageRepository imageRepository;
 
     public TemplateServiceImpl(TemplateRepository templateRepository,
-                               CoordinateRepository coordinateRepository) {
+                               CoordinateRepository coordinateRepository,
+                               ImageRepository imageRepository) {
         this.templateRepository = templateRepository;
         this.coordinateRepository = coordinateRepository;
         this.validator =
                 new Validator<Template, TemplateRepository>("Template", this.templateRepository);
+        this.imageRepository = imageRepository;
     }
 
     @Override
@@ -139,5 +146,49 @@ public class TemplateServiceImpl implements TemplateService {
         ImageIO.write(image, "PNG", out);
         byte[] bytes = out.toByteArray();
         return String.format("data:image/png;base64,%s", Base64.encode(bytes).toString());
+    }
+
+    @Override
+    public DrawnTemplate generateShitpost(Template template) throws IOException {
+        Set<Coordinate> coordinates = template.getCoordinates();
+        BufferedImage templateImage = this.retrieveImage(new URL(template.getBaseUrl()));
+        Graphics2D templateGraphics = templateImage.createGraphics();
+
+        long maximumImageID = this.imageRepository.count(); //IDs here start at 1
+        List<de.ali.shitpostbot.Image.model.Image> randomImages =
+                new ArrayList<de.ali.shitpostbot.Image.model.Image>();
+
+        while(randomImages.size() < coordinates.size()) {
+            long randomID = ((int) Math.random()) * maximumImageID;
+            randomImages.add(this.imageRepository.findById(randomID).get());
+        }
+
+        int imageIndex = 0;
+        /*iterate through coordinates with for of because set
+        get the BufferedImage from Image.url field
+        Resize them according to the current coordinate
+        paste them
+         */
+        for(Coordinate c: coordinates) {
+            BufferedImage tempImage = this.retrieveImage(new URL(randomImages.get(imageIndex).getUrl()));
+            int[] dimensions = this.findResizeSize(c);
+            BufferedImage tempImageScaled = (BufferedImage) tempImage.getScaledInstance(dimensions[0], dimensions[1], 0);
+            templateGraphics.drawImage(tempImageScaled, null, c.getX1(), c.getY1());
+            imageIndex++;
+        }
+
+        DrawnTemplate d = new DrawnTemplate();
+        d.setBase64Representation(this.bufferedImageToBase64(templateImage));
+        return d;
+    }
+
+    @Override
+    public DrawnTemplate generateShitpost(Long id) throws IOException {
+        return this.generateShitpost(this.findById(id));
+    }
+
+    @Override
+    public int[] findResizeSize(Coordinate coordinate) {
+        return new int[] {coordinate.getX2()-coordinate.getX1(), coordinate.getY2(), coordinate.getY1()};
     }
 }
