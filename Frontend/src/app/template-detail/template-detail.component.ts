@@ -9,6 +9,8 @@ import {Coordinate} from '../../shared/coordinate/model/Coordinate';
 import {DomSanitizer} from '@angular/platform-browser';
 import {async, Subscription} from 'rxjs';
 import {SubscriptionService} from '../../shared/services/subscription.service';
+import {DrawnTemplateService} from '../../shared/drawnTemplate/service/drawnTemplateService';
+import {DrawnTemplate} from '../../shared/drawnTemplate/model/drawnTemplate';
 
 @Component({
   selector: 'app-template-detail',
@@ -26,7 +28,8 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
               private templateService: TemplateService,
               private coordinateService: CoordinateService,
               private readonly domSanitzer: DomSanitizer,
-              private readonly subscriptionService: SubscriptionService) { }
+              private readonly subscriptionService: SubscriptionService,
+              private readonly drawnTemplateService: DrawnTemplateService) { }
 
   ngOnInit(): void {
     this.subscriptions = [];
@@ -53,10 +56,11 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
   * */
   public loadDrawnImage(): void {
     const subscription = this.route.paramMap.pipe(first()).subscribe((params: ParamMap) => {
-      const subscriptionC = this.templateService.findTemplateSquareImageById(parseInt(params.get('id'), 10)).pipe(first())
-        .subscribe((base64Image: any) => {
+      const subscriptionC = this.drawnTemplateService.findDrawnTemplate(parseInt(params.get('id'), 10)).pipe()
+        .subscribe((base64Image: DrawnTemplate) => {
           // this.imageBase64 = base64Image;
-          this.imageBase64 = this.domSanitzer.bypassSecurityTrustUrl(base64Image).toString();
+          console.log(base64Image.base64Representation);
+          this.imageBase64 = base64Image.base64Representation;
         });
       this.subscriptions.push(subscriptionC);
     });
