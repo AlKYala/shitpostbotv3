@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     public readonly authenticationService: AuthenticationService,
     private readonly subscriptionService: SubscriptionService) {}
   ngOnInit(): void {
+    this.subscriptions = [];
     this.initRegisterForm();
   }
   ngOnDestroy(): void {

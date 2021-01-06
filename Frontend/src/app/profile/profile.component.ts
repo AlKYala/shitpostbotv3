@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private readonly subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
+    this.subscriptions = [];
     this.resolveRouterParam();
     this.initTemplates();
     this.initImages();
