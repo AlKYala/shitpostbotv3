@@ -1,5 +1,6 @@
 package de.ali.shitpostbot.shared.model;
 
+import de.ali.shitpostbot.Template.model.Template;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,4 +14,5 @@ import lombok.Setter;
  */
 public class Shitpost {
     private String base64;
+    private Template baseTemplate;
 }

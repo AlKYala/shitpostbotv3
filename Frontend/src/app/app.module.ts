@@ -25,6 +25,7 @@ import { TemplateGalleryComponent } from './template-gallery/template-gallery.co
 import { TemplateItemComponent } from './template-item/template-item.component';
 import { TemplateDetailComponent } from './template-detail/template-detail.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ShitpostPageComponent } from './shitpost-page/shitpost-page.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ProfileComponent } from './profile/profile.component';
     TemplateGalleryComponent,
     TemplateItemComponent,
     TemplateDetailComponent,
-    ProfileComponent
+    ProfileComponent,
+    ShitpostPageComponent
   ],
   imports: [
     BrowserModule,

@@ -186,6 +186,7 @@ public class TemplateServiceImpl implements TemplateService {
         templateGraphics.drawImage(uneditedTemplate, 0, 0,null);
         Shitpost s = new Shitpost();
         s.setBase64(this.bufferedImageToBase64(templateImage));
+        s.setBaseTemplate(template);
         return s;
     }
 
