@@ -1,10 +1,14 @@
 package de.ali.shitpostbot.Template.services;
 
+import de.ali.shitpostbot.Coordinate.model.Coordinate;
 import de.ali.shitpostbot.Template.model.Template;
+import de.ali.shitpostbot.shared.model.DrawnTemplate;
 import de.ali.shitpostbot.shared.service.BaseService;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public interface TemplateService extends BaseService<Template> {
@@ -51,4 +55,36 @@ public interface TemplateService extends BaseService<Template> {
      * @return A base64 String that represents the passed BufferedImage instance
      */
     public String bufferedImageToBase64(BufferedImage image) throws IOException;
+
+    /**
+     * Takes a template and generates a shitpost choosing random images
+     * to resize and paste on the coordinates of the template
+     * Then the template is placed on top
+     * @param template The base for the shitpost
+     * @return the shitpost as base 64 wrapped in a DrawnTemplate Instance
+     */
+    public DrawnTemplate generateShitpost(Template template) throws IOException;
+
+    /**
+     * Overload from generateShitpost(Template template)
+     * ID of template instead of template itself passed
+     * @param id The ID of the template to make a shitpost of
+     * @return see return of generateShitpost(Template template)
+     */
+    public DrawnTemplate generateShitpost(Long id) throws IOException;
+
+    /**
+     * Takes a coordinate object and returns the sizes to resize it with
+     * @param coordinate The coordinate to resize an image for
+     * @return An array of 2 with {width, height}
+     */
+    public int[] findResizeSize(Coordinate coordinate);
+
+    /**
+     * https://stackoverflow.com/questions/10391778/create-a-bufferedimage-from-file-and-make-it-type-int-argb
+     * Takes an image instance returns it as BufferedImage
+     * @param image The image to make a bufferedInstance of
+     * @return A bufferedImage instance of the image
+     */
+    public BufferedImage imageToBufferedImage(Image image);
 }

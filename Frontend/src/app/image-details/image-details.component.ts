@@ -23,9 +23,9 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   public resolveRouterParam(): void {
-    const subscription = this.route.paramMap.pipe(first()).subscribe((params: ParamMap) => {
+    const subscription = this.route.paramMap.pipe().subscribe((params: ParamMap) => {
       const subscriptionC = this.imageService.findById(parseInt(params.get('id'), 10))
-        .pipe(first()).subscribe((image: Image) => {
+        .pipe().subscribe((image: Image) => {
           this.image = image;
         });
       this.subscriptions.push(subscriptionC);
