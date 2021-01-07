@@ -3,6 +3,7 @@ package de.ali.shitpostbot.Template.services;
 import de.ali.shitpostbot.Coordinate.model.Coordinate;
 import de.ali.shitpostbot.Template.model.Template;
 import de.ali.shitpostbot.shared.model.DrawnTemplate;
+import de.ali.shitpostbot.shared.model.Shitpost;
 import de.ali.shitpostbot.shared.service.BaseService;
 
 import java.awt.*;
@@ -63,7 +64,7 @@ public interface TemplateService extends BaseService<Template> {
      * @param template The base for the shitpost
      * @return the shitpost as base 64 wrapped in a DrawnTemplate Instance
      */
-    public DrawnTemplate generateShitpost(Template template) throws IOException;
+    public Shitpost generateShitpost(Template template) throws IOException;
 
     /**
      * Overload from generateShitpost(Template template)
@@ -71,7 +72,7 @@ public interface TemplateService extends BaseService<Template> {
      * @param id The ID of the template to make a shitpost of
      * @return see return of generateShitpost(Template template)
      */
-    public DrawnTemplate generateShitpost(Long id) throws IOException;
+    public Shitpost generateShitpost(Long id) throws IOException;
 
     /**
      * Takes a coordinate object and returns the sizes to resize it with

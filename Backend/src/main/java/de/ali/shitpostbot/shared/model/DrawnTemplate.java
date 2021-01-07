@@ -9,7 +9,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 /**
  * This class is not an entity
- * It is used to wrap base64 representations of templates with squares drawn in a class
+ * It is used to wrap base64 representations of any image to an instance to send valid JSON answers
  */
 public class DrawnTemplate {
     private String base64Representation;

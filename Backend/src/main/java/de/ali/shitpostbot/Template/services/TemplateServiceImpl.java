@@ -10,6 +10,7 @@ import de.ali.shitpostbot.Template.repositories.TemplateRepository;
 import de.ali.shitpostbot.shared.exceptions.NotFoundException;
 import de.ali.shitpostbot.shared.exceptions.NotSavedException;
 import de.ali.shitpostbot.shared.model.DrawnTemplate;
+import de.ali.shitpostbot.shared.model.Shitpost;
 import de.ali.shitpostbot.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -149,7 +150,7 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public DrawnTemplate generateShitpost(Template template) throws IOException {
+    public Shitpost generateShitpost(Template template) throws IOException {
         Set<Coordinate> coordinates = template.getCoordinates();
         BufferedImage templateImage = this.retrieveImage(new URL(template.getBaseUrl()));
         Graphics2D templateGraphics = templateImage.createGraphics();
@@ -183,13 +184,13 @@ public class TemplateServiceImpl implements TemplateService {
         }
         BufferedImage uneditedTemplate = this.retrieveImage(new URL(template.getBaseUrl()));
         templateGraphics.drawImage(uneditedTemplate, 0, 0,null);
-        DrawnTemplate d = new DrawnTemplate();
-        d.setBase64Representation(this.bufferedImageToBase64(templateImage));
-        return d;
+        Shitpost s = new Shitpost();
+        s.setBase64(this.bufferedImageToBase64(templateImage));
+        return s;
     }
 
     @Override
-    public DrawnTemplate generateShitpost(Long id) throws IOException {
+    public Shitpost generateShitpost(Long id) throws IOException {
         return this.generateShitpost(this.findById(id));
     }
 

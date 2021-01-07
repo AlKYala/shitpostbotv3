@@ -4,6 +4,7 @@ import de.ali.shitpostbot.Template.model.Template;
 import de.ali.shitpostbot.Template.services.TemplateService;
 import de.ali.shitpostbot.shared.controller.BaseController;
 import de.ali.shitpostbot.shared.model.DrawnTemplate;
+import de.ali.shitpostbot.shared.model.Shitpost;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +65,7 @@ public class TemplateController implements BaseController<Template, Long> {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/shitpost/{id}")
-    public DrawnTemplate getShitpost(@PathVariable Long id) throws IOException {
+    public Shitpost getShitpost(@PathVariable Long id) throws IOException {
         return this.templateService.generateShitpost(id);
     }
 }
