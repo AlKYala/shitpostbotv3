@@ -178,7 +178,8 @@ public class TemplateServiceImpl implements TemplateService {
             templateGraphics.drawImage(tempImageScaled, null, c.getX1(), c.getY1());
             imageIndex++;
         }
-
+        BufferedImage uneditedTemplate = this.retrieveImage(new URL(template.getBaseUrl()));
+        templateGraphics.drawImage(uneditedTemplate, 0, 0,null);
         DrawnTemplate d = new DrawnTemplate();
         d.setBase64Representation(this.bufferedImageToBase64(templateImage));
         return d;
