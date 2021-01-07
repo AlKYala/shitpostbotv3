@@ -61,4 +61,10 @@ public class TemplateController implements BaseController<Template, Long> {
         d.setBase64Representation(this.templateService.drawCoordinates(template));
         return d;
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/shitpost/{id}")
+    public DrawnTemplate getShitpost(@PathVariable Long id) throws IOException {
+        return this.templateService.generateShitpost(id);
+    }
 }

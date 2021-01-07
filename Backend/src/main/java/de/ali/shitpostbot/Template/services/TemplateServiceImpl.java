@@ -160,6 +160,7 @@ public class TemplateServiceImpl implements TemplateService {
 
         while(randomImages.size() < coordinates.size()) {
             long randomID = ((int) Math.random()) * maximumImageID;
+            randomID = (randomID < 1) ? 1 : randomID;
             randomImages.add(this.imageRepository.findById(randomID).get());
         }
 
@@ -172,7 +173,8 @@ public class TemplateServiceImpl implements TemplateService {
         for(Coordinate c: coordinates) {
             BufferedImage tempImage = this.retrieveImage(new URL(randomImages.get(imageIndex).getUrl()));
             int[] dimensions = this.findResizeSize(c);
-            BufferedImage tempImageScaled = (BufferedImage) tempImage.getScaledInstance(dimensions[0], dimensions[1], 0);
+            BufferedImage tempImageScaled = this.imageToBufferedImage(
+                    tempImage.getScaledInstance(dimensions[0], dimensions[1], 0));
             templateGraphics.drawImage(tempImageScaled, null, c.getX1(), c.getY1());
             imageIndex++;
         }
@@ -190,5 +192,16 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public int[] findResizeSize(Coordinate coordinate) {
         return new int[] {coordinate.getX2()-coordinate.getX1(), coordinate.getY2(), coordinate.getY1()};
+    }
+
+    @Override
+    public BufferedImage imageToBufferedImage(Image image) {
+        BufferedImage b = new BufferedImage(image.getWidth(null),
+                image.getHeight(null),
+                BufferedImage.TYPE_INT_ARGB);
+        Graphics2D bGraphics = b.createGraphics();
+        bGraphics.drawImage(image, 0, 0, null);
+        bGraphics.dispose();
+        return b;
     }
 }

@@ -1,11 +1,11 @@
 package de.ali.shitpostbot.Template.services;
 
 import de.ali.shitpostbot.Coordinate.model.Coordinate;
-import de.ali.shitpostbot.Image.model.Image;
 import de.ali.shitpostbot.Template.model.Template;
 import de.ali.shitpostbot.shared.model.DrawnTemplate;
 import de.ali.shitpostbot.shared.service.BaseService;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -79,4 +79,12 @@ public interface TemplateService extends BaseService<Template> {
      * @return An array of 2 with {width, height}
      */
     public int[] findResizeSize(Coordinate coordinate);
+
+    /**
+     * https://stackoverflow.com/questions/10391778/create-a-bufferedimage-from-file-and-make-it-type-int-argb
+     * Takes an image instance returns it as BufferedImage
+     * @param image The image to make a bufferedInstance of
+     * @return A bufferedImage instance of the image
+     */
+    public BufferedImage imageToBufferedImage(Image image);
 }
