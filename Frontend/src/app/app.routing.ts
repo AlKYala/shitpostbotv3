@@ -10,6 +10,7 @@ import {ImageDetailsComponent} from './image-details/image-details.component';
 import {TemplateGalleryComponent} from './template-gallery/template-gallery.component';
 import {TemplateDetailComponent} from './template-detail/template-detail.component';
 import {ProfileComponent} from './profile/profile.component';
+import {ShitpostPageComponent} from './shitpost-page/shitpost-page.component';
 const routes: Routes = [
   {
     path: '',
@@ -50,5 +51,9 @@ const routes: Routes = [
   {
     path: 'users/:id',
     component: ProfileComponent
+  },
+  {
+    path: 'generateShitpost',
+    component: ShitpostPageComponent
   }];
 export const appRoutingModule = RouterModule.forRoot(routes);
