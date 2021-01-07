@@ -159,10 +159,13 @@ public class TemplateServiceImpl implements TemplateService {
                 new ArrayList<de.ali.shitpostbot.Image.model.Image>();
 
         while(randomImages.size() < coordinates.size()) {
-            long randomID = ((int) Math.random()) * maximumImageID;
+            long randomID = (long) ((Math.random()) * maximumImageID);
             randomID = (randomID < 1) ? 1 : randomID;
             randomImages.add(this.imageRepository.findById(randomID).get());
+            //debug
+            log.info(Long.toString(randomID));
         }
+        //debug
 
         int imageIndex = 0;
         /*iterate through coordinates with for of because set
