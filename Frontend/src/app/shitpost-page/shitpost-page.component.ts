@@ -21,11 +21,19 @@ export class ShitpostPageComponent implements OnInit, OnDestroy {
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe();
     }
+    this.reloadShitpost();
   }
   private initShitpost(): void {
     const subscription = this.shitpostService.generateShitPost().pipe().subscribe((data: Shitpost) => {
       this.shitpost = data;
     });
     this.subscriptions.push(subscription);
+  }
+  private reloadShitpost(): void {
+    this.destroyShitpost();
+    this.initShitpost();
+  }
+  private destroyShitpost(): void {
+    this.shitpost = null;
   }
 }
