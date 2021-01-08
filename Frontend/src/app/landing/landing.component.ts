@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ShitpostService} from '../../shared/shitpost/service/shitpost.service';
+import {NgxSmartModalService} from 'ngx-smart-modal';
+import {Shitpost} from '../../shared/shitpost/model/shitpost';
 
 @Component({
   selector: 'app-landing',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private readonly shitpostService: ShitpostService,
+              public ngxSmartModalService: NgxSmartModalService) { }
 
   ngOnInit(): void {
+  }
+
+  loadShitpost(): void {
+    this.ngxSmartModalService.getModal('shitpostModal').open();
   }
 
 }

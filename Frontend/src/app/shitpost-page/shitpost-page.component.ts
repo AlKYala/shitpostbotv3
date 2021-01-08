@@ -1,16 +1,31 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Shitpost} from '../../shared/shitpost/model/shitpost';
+import {ShitpostService} from '../../shared/shitpost/service/shitpost.service';
+import {Subscription} from 'rxjs';
+import {delay, first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-shitpost-page',
   templateUrl: './shitpost-page.component.html',
   styleUrls: ['./shitpost-page.component.css']
 })
-export class ShitpostPageComponent implements OnInit {
-  @Input() public shitPost: Shitpost;
-  constructor() { }
+export class ShitpostPageComponent implements OnInit, OnDestroy {
+  public shitpost: Shitpost;
+  private subscriptions: Subscription[];
+  constructor(public shitpostService: ShitpostService) { }
 
   ngOnInit(): void {
+    this.initShitpost();
   }
-
+  ngOnDestroy(): void {
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
+  private initShitpost(): void {
+    const subscription = this.shitpostService.generateShitPost().pipe().subscribe((data: Shitpost) => {
+      this.shitpost = data;
+    });
+    this.subscriptions.push(subscription);
+  }
 }

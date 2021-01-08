@@ -26,6 +26,7 @@ import { TemplateItemComponent } from './template-item/template-item.component';
 import { TemplateDetailComponent } from './template-detail/template-detail.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ShitpostPageComponent } from './shitpost-page/shitpost-page.component';
+import {NgxSmartModalModule} from 'ngx-smart-modal';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ShitpostPageComponent } from './shitpost-page/shitpost-page.component';
     ImageCropperModule,
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot(), // ToastrModule added
+    NgxSmartModalModule.forRoot() // NgxSmarModalModule added
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
