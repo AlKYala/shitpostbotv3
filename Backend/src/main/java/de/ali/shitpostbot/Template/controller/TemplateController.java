@@ -1,6 +1,7 @@
 package de.ali.shitpostbot.Template.controller;
 
 import de.ali.shitpostbot.Template.model.Template;
+import de.ali.shitpostbot.Template.repositories.TemplateRepository;
 import de.ali.shitpostbot.Template.services.TemplateService;
 import de.ali.shitpostbot.shared.controller.BaseController;
 import de.ali.shitpostbot.shared.model.DrawnTemplate;
@@ -18,6 +19,9 @@ import java.util.List;
 public class TemplateController implements BaseController<Template, Long> {
     @Autowired
     private TemplateService templateService;
+
+    @Autowired
+    private TemplateRepository templateRepository;
 
     @Override
     @CrossOrigin(origins = "http://localhost:4200")
@@ -67,5 +71,19 @@ public class TemplateController implements BaseController<Template, Long> {
     @GetMapping("/shitpost/{id}")
     public Shitpost getShitpost(@PathVariable Long id) throws IOException {
         return this.templateService.generateShitpost(id);
+    }
+
+    /**
+     * Generates a shitpost at random - without a specified Template or Template id
+     * @return A shitpost with random ID chosen in backend
+     * @throws IOException
+     */
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/shitpost/random")
+    public Shitpost getShitPost() throws IOException {
+        long numberTemplates = this.templateRepository.count();
+        long randomID = 1 + ((long) (Math.random() * numberTemplates));
+        randomID = (randomID > numberTemplates) ? numberTemplates : randomID;
+        return this.templateService.generateShitpost(randomID);
     }
 }
