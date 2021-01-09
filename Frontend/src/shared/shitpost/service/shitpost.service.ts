@@ -8,7 +8,7 @@ import {Shitpost} from '../model/shitpost';
   providedIn: 'root'
 })
 export class ShitpostService {
-  private shitPostUrl = `${environment.api}/templates/shitpost`;
+  private shitPostUrl = `${environment.api}/shitpost`;
   constructor(private readonly httpClient: HttpClient) {}
   public generateShitPost(templateID?: number): Observable<Shitpost> {
     const requestURL = (templateID === undefined) ? `${this.shitPostUrl}/random` : `${this.shitPostUrl}/${templateID}`;

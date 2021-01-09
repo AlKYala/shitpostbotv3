@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/shitpost")
-@RequiredArgsConstructor
 public class ShitpostController {
 
     TemplateService templateService;
