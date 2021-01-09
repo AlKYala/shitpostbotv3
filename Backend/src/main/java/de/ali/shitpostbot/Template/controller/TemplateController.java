@@ -66,24 +66,4 @@ public class TemplateController implements BaseController<Template, Long> {
         d.setBase64Representation(this.templateService.drawCoordinates(template));
         return d;
     }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/shitpost/{id}")
-    public Shitpost getShitpost(@PathVariable Long id) throws IOException {
-        return this.templateService.generateShitpost(id);
-    }
-
-    /**
-     * Generates a shitpost at random - without a specified Template or Template id
-     * @return A shitpost with random ID chosen in backend
-     * @throws IOException
-     */
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/shitpost/random")
-    public Shitpost getShitPost() throws IOException {
-        long numberTemplates = this.templateRepository.count();
-        long randomID = 1 + ((long) (Math.random() * numberTemplates));
-        randomID = (randomID > numberTemplates) ? numberTemplates : randomID;
-        return this.templateService.generateShitpost(randomID);
-    }
 }

@@ -1,30 +1,54 @@
 package de.ali.shitpostbot.Template.services;
 
+import com.nimbusds.jose.util.Base64;
 import de.ali.shitpostbot.Coordinate.model.Coordinate;
+import de.ali.shitpostbot.Coordinate.repository.CoordinateRepository;
+import de.ali.shitpostbot.Image.repository.ImageRepository;
 import de.ali.shitpostbot.Image.service.ImageService;
 import de.ali.shitpostbot.Template.model.Template;
+import de.ali.shitpostbot.Template.repositories.TemplateRepository;
+import de.ali.shitpostbot.shared.model.Shitpost;
 import de.ali.shitpostbot.shared.service.RepositoryService;
+import de.ali.shitpostbot.shared.service.Validator;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.slf4j.SLF4JLogger;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
+import java.util.List;
 
 @Service
 @Slf4j
-@NoArgsConstructor
 public class ShitpostServiceImpl implements ShitpostService {
 
     private RepositoryService repositoryService;
     private ImageService imageService;
+    private final TemplateRepository templateRepository;
+    private final CoordinateRepository coordinateRepository;
+    private Validator<Template, TemplateRepository> validator;
+    private final ImageRepository imageRepository;
+
+    public ShitpostServiceImpl(TemplateRepository templateRepository,
+                               CoordinateRepository coordinateRepository,
+                               ImageRepository imageRepository) {
+        this.templateRepository = templateRepository;
+        this.coordinateRepository = coordinateRepository;
+        this.validator =
+                new Validator<Template, TemplateRepository>("Template", this.templateRepository);
+        this.imageRepository = imageRepository;
+        this.validator =
+                new Validator<Template, TemplateRepository>("Template", this.templateRepository);
+    }
 
     private long generateRandomNumber(long max) {
         return (long) (Math.random() * max);
@@ -46,25 +70,6 @@ public class ShitpostServiceImpl implements ShitpostService {
             images.add(this.imageService.findById(id));
         }
         return images;
-    }
-
-    @Override
-    public Image createShitpost(Template t) throws IOException {
-        BufferedImage templateBackground = ImageIO.read(new URL(t.getBaseUrl()));
-        BufferedImage cleanTemplate = ImageIO.read(new URL(t.getBaseUrl()));
-        Set<Long> ids = this.findImageIDs(t.getCoordinates().size());
-        Set<de.ali.shitpostbot.Image.model.Image> imageInstances = this.findImages(ids);
-        Set<Image> images = this.getImages(imageInstances);
-        Map<Image, Coordinate> imageCoordinateMap = this.mergeImageCoordinates(images , t.getCoordinates());
-
-        for(Image i : imageCoordinateMap.keySet()) {
-            this.writeOnImage(templateBackground, i, imageCoordinateMap.get(i));
-        }
-
-        //put on top
-        Graphics2D templateGraphics = templateBackground.createGraphics();
-        templateGraphics.drawImage(cleanTemplate, null, 0, 0);
-        return templateBackground;
     }
 
     @Override
@@ -103,8 +108,10 @@ public class ShitpostServiceImpl implements ShitpostService {
         BufferedImage toPaste = this.bufferedImageFromImage(resizeImage(image,
                 coordinate.getX2() - coordinate.getX1(),
                 coordinate.getY2() - coordinate.getY1()));
+        //debug
+        log.info(String.format("Width: %d, Height: %d", coordinate.getX2() - coordinate.getX1(), coordinate.getY2() - coordinate.getY1()));
         Graphics2D backgroundGraphics = background.createGraphics();
-        backgroundGraphics.drawImage(toPaste, null, coordinate.getX1(), coordinate.getY1());
+        backgroundGraphics.drawImage(toPaste, coordinate.getX1(), coordinate.getY1(), null);
     }
 
     @Override
@@ -120,16 +127,78 @@ public class ShitpostServiceImpl implements ShitpostService {
         return bi;
     }
 
-    @Override
+    /*@Override
     public BufferedImage resizeBufferedImage(BufferedImage image, int width, int height) {
         return this.bufferedImageFromImage(this.resizeImage(image, width, height));
-    }
+    }*/
 
-    @Override
+    /*@Override
     public BufferedImage cloneBufferedImage(BufferedImage toClone) {
         BufferedImage b = new BufferedImage(toClone.getWidth(), toClone.getHeight(), toClone.getType());
         Graphics2D gb = b.createGraphics();
         gb.drawImage(toClone, null, 0, 0);
         return b;
+    }*/
+
+    @Override
+    public Shitpost generateShitpost(Template template) throws IOException {
+        Set<Coordinate> coordinates = template.getCoordinates();
+        BufferedImage templateImage = this.retrieveImage(new URL(template.getBaseUrl()));
+        Graphics2D templateGraphics = templateImage.createGraphics();
+
+        long maximumImageID = this.imageRepository.count(); //IDs here start at 1
+        List<de.ali.shitpostbot.Image.model.Image> randomImages =
+                new ArrayList<de.ali.shitpostbot.Image.model.Image>();
+
+        while(randomImages.size() < coordinates.size()) {
+            long randomID = (long) ((Math.random()) * maximumImageID);
+            randomID = (randomID < 1) ? 1 : randomID;
+            randomImages.add(this.imageRepository.findById(randomID).get());
+            //debug
+            log.info(Long.toString(randomID));
+        }
+        //debug
+
+        int imageIndex = 0;
+        /*iterate through coordinates with for of because set
+        get the BufferedImage from Image.url field
+        Resize them according to the current coordinate
+        paste them
+         */
+        for(Coordinate c: coordinates) {
+            BufferedImage tempImage = this.retrieveImage(new URL(randomImages.get(imageIndex).getUrl()));
+            this.writeOnImage(templateImage, tempImage, c);
+            imageIndex++;
+        }
+        BufferedImage uneditedTemplate = this.retrieveImage(new URL(template.getBaseUrl()));
+        templateGraphics.drawImage(uneditedTemplate, 0, 0,null);
+        Shitpost s = new Shitpost();
+        s.setBase64(this.bufferedImageToBase64(templateImage));
+        s.setBaseTemplate(template);
+        return s;
+    }
+
+    @Override
+    public Shitpost generateShitpost(Long id) throws IOException {
+        return this.generateShitpost(this.templateRepository.findById(id).get());
+    }
+
+    @Override
+    public int[] findResizeSize(Coordinate coordinate) {
+        return new int[] {coordinate.getX2()-coordinate.getX1(), coordinate.getY2(), coordinate.getY1()};
+    }
+
+    @Override
+    public BufferedImage retrieveImage(URL url) throws IOException {
+        return ImageIO.read(url);
+    }
+
+    @Override
+    //https://stackoverflow.com/questions/6377608/in-java-is-it-possible-to-convert-a-bufferedimage-to-an-img-data-uri
+    public String bufferedImageToBase64(BufferedImage image) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ImageIO.write(image, "PNG", out);
+        byte[] bytes = out.toByteArray();
+        return String.format("data:image/png;base64,%s", Base64.encode(bytes).toString());
     }
 }

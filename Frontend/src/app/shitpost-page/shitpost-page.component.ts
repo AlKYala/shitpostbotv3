@@ -15,6 +15,7 @@ export class ShitpostPageComponent implements OnInit, OnDestroy {
   constructor(public shitpostService: ShitpostService) { }
 
   ngOnInit(): void {
+    this.subscriptions = [];
     this.initShitpost();
   }
   ngOnDestroy(): void {
