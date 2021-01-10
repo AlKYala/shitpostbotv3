@@ -7,7 +7,7 @@ import {delay, first} from 'rxjs/operators';
 @Component({
   selector: 'app-shitpost-page',
   templateUrl: './shitpost-page.component.html',
-  styleUrls: ['./shitpost-page.component.css']
+  styleUrls: ['./shitpost-page.component.scss']
 })
 export class ShitpostPageComponent implements OnInit, OnDestroy {
   public shitpost: Shitpost;

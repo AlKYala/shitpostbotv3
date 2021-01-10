@@ -2,10 +2,17 @@
   <body>
       <div class="row landing d-flex justify-content-center align-self-center">
         <div>
-          <ngx-smart-modal #shitpostModal identifier="shitpostModal">
-          <app-shitpost-page></app-shitpost-page>
-          <button (click)="shitpostModal.close()">Close</button>
-        </ngx-smart-modal>
+          <ngx-smart-modal #shitpostModal identifier="shitpostModal"
+                           customClass="nsm-dialog-animation-btt medium-modal"
+                            id="shitpostModal">
+            <div class="row">
+              <app-shitpost-page id="shitpostPage"
+                                 ></app-shitpost-page>
+            </div>
+            <div class="row">
+              <button (click)="shitpostModal.close()" type="button" class="btn btn-danger">Close</button>
+            </div>
+          </ngx-smart-modal>
           <h1 class="cen">Shitpostbot</h1>
           <div class="cen btn-group" role="group" aria-label="Basic example">
             <button routerLink="/addTemplate" type="button" class="btn btn-secondary">Add Template</button>
