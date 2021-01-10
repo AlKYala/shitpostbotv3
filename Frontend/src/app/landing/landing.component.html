@@ -6,11 +6,19 @@
                            customClass="nsm-dialog-animation-btt medium-modal"
                             id="shitpostModal">
             <div class="row">
-              <app-shitpost-page id="shitpostPage"
-                                 ></app-shitpost-page>
+                <app-shitpost-page class="pl-4 pr-4 pt-2 pb-2" id="shitpostPage"
+                ></app-shitpost-page>
             </div>
             <div class="row">
-              <button (click)="shitpostModal.close()" type="button" class="btn btn-danger">Close</button>
+              <div class="col-md-8">
+
+              </div>
+              <div class="col-md-3">
+                <button  type="button" class="btn btn-secondary mt-1 float-right">View full Size</button>
+              </div>
+              <div class="col-md-1">
+                <button (click)="shitpostModal.close()" type="button" class="btn btn-danger mt-1 float-right">Close</button>
+              </div>
             </div>
           </ngx-smart-modal>
           <h1 class="cen">Shitpostbot</h1>
@@ -23,9 +31,3 @@
       </div>
   </body>
 </html>
-
-
-
-
-
-

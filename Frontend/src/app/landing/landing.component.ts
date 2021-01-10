@@ -11,8 +11,7 @@ import {Shitpost} from '../../shared/shitpost/model/shitpost';
 export class LandingComponent implements OnInit {
 
 
-  constructor(private readonly shitpostService: ShitpostService,
-              public ngxSmartModalService: NgxSmartModalService) { }
+  constructor(public ngxSmartModalService: NgxSmartModalService) { }
 
   ngOnInit(): void {
   }
