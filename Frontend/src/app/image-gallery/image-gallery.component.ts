@@ -18,6 +18,7 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
               private readonly subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
+    this.subscriptions = [];
     this.loadAllImages();
   }
   ngOnDestroy(): void {
