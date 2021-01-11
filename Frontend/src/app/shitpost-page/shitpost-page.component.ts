@@ -3,6 +3,7 @@ import {Shitpost} from '../../shared/shitpost/model/shitpost';
 import {ShitpostService} from '../../shared/shitpost/service/shitpost.service';
 import {Subscription} from 'rxjs';
 import {delay, first} from 'rxjs/operators';
+import {NgxSmartModalService} from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-shitpost-page',
@@ -12,7 +13,8 @@ import {delay, first} from 'rxjs/operators';
 export class ShitpostPageComponent implements OnInit, OnDestroy {
   public shitpost: Shitpost;
   private subscriptions: Subscription[];
-  constructor(public shitpostService: ShitpostService) { }
+  constructor(public shitpostService: ShitpostService,
+              private readonly ngxSmartModalService: NgxSmartModalService) { }
 
   ngOnInit(): void {
     this.subscriptions = [];
@@ -37,4 +39,8 @@ export class ShitpostPageComponent implements OnInit, OnDestroy {
   private destroyShitpost(): void {
     this.shitpost = null;
   }
+  public closeModal(id: string): void {
+    this.ngxSmartModalService.getModal(id).close();
+  }
+
 }

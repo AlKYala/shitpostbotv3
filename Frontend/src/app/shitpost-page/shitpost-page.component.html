@@ -1,7 +1,17 @@
 <!-- wrapped in a modal -->
-<div class="row">
-  <div class="col-md-12">
-    <img id="shitpost" [src]="this.shitpost.base64"/>
+<div>
+  <div class="row">
+      <img id="shitpost" [src]="this.shitpost.base64"/>
+  </div>
+  <div class="row" *ngIf="shitpost != undefined">
+      <div class="col-md-11 p-0">
+        <button (click)="this.reloadShitpost()" type="button" class="btn btn-warning ">New Shitpost</button>
+        <a href="{{this.shitpost.base64.toString()}}" download="shitpost.png" class="btn btn-success m-1">Download</a>
+      </div>
+      <div class="col-md-1 align-content-end p-0">
+        <button (click)="this.closeModal('shitpostModal')" type="button" class="btn btn-danger m-1">Close</button>
+      </div>
   </div>
 </div>
+
 

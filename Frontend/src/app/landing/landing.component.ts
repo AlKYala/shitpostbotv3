@@ -16,8 +16,7 @@ export class LandingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loadShitpost(): void {
+  public loadShitpost(): void {
     this.ngxSmartModalService.getModal('shitpostModal').open();
   }
-
 }
