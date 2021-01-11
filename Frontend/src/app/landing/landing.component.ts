@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import {ShitpostService} from '../../shared/shitpost/service/shitpost.service';
+import {NgxSmartModalService} from 'ngx-smart-modal';
+import {Shitpost} from '../../shared/shitpost/model/shitpost';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+  styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(public ngxSmartModalService: NgxSmartModalService) { }
 
   ngOnInit(): void {
   }
 
+  public loadShitpost(): void {
+    this.ngxSmartModalService.getModal('shitpostModal').open();
+  }
 }

@@ -2,11 +2,13 @@ package de.ali.shitpostbot.Template.services;
 
 import de.ali.shitpostbot.Coordinate.model.Coordinate;
 import de.ali.shitpostbot.Template.model.Template;
+import de.ali.shitpostbot.shared.model.Shitpost;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ public interface ShitpostService {
      */
     public Set<de.ali.shitpostbot.Image.model.Image> findImages(Set<Long> ids);
 
+    /* UNUSED
     /**
      * Creates a shitpost. Idea:
      * Bottom Layer: Template
@@ -34,8 +37,8 @@ public interface ShitpostService {
      * On Top: The template again
      * @param t The template
      * @return a java.awt.Image object with the complete shitpost
-     */
-    public Image createShitpost(Template t) throws IOException;
+
+    public Image createShitpost(Template t) throws IOException;*/
 
     /**
      * Retrieves Image from URL
@@ -87,20 +90,41 @@ public interface ShitpostService {
     public BufferedImage bufferedImageFromImage(Image img);
 
     /**
-     * Returns a resized BufferedImage of the image
-     * Runs a function composition of resizeImage(...) and bufferedImageFromImage(...)
-     * @param image The image to resize
-     * @param width The width
-     * @param height The height
-     * @return The image resized with the dimensions
+     * Takes a template and generates a shitpost choosing random images
+     * to resize and paste on the coordinates of the template
+     * Then the template is placed on top
+     * @param template The base for the shitpost
+     * @return the shitpost as base 64 wrapped in a DrawnTemplate Instance
      */
-    public BufferedImage resizeBufferedImage(BufferedImage image, int width, int height);
+    public Shitpost generateShitpost(Template template) throws IOException;
 
     /**
-     * Clones a bufferedImage
-     * needed to paste the old background on the edited background
-     * @param toClone The bufferedImage to clone
-     * @return A bufferedInstance identical in properties to the passed BufferedImage parameter
+     * Overload from generateShitpost(Template template)
+     * ID of template instead of template itself passed
+     * @param id The ID of the template to make a shitpost of
+     * @return see return of generateShitpost(Template template)
      */
-    public BufferedImage cloneBufferedImage(BufferedImage toClone);
+    public Shitpost generateShitpost(Long id) throws IOException;
+
+    /**
+     * Takes a coordinate object and returns the sizes to resize it with
+     * @param coordinate The coordinate to resize an image for
+     * @return An array of 2 with {width, height}
+     */
+    public int[] findResizeSize(Coordinate coordinate);
+
+    /**
+     * Creates a BufferedImage instnance from the URL Object given
+     * @param url the URL object with an url to an image
+     * @return The image from the url as BufferedImage instance
+     * @throws IOException
+     */
+    public BufferedImage retrieveImage(URL url) throws IOException;
+
+    /**
+     * Returns a base 64 string representing a BufferedImage
+     * @param image the BufferedImage instance to represent in Base64
+     * @return A base64 String that represents the passed BufferedImage instance
+     */
+    public String bufferedImageToBase64(BufferedImage image) throws IOException;
 }

@@ -1,9 +1,11 @@
 package de.ali.shitpostbot.Template.controller;
 
 import de.ali.shitpostbot.Template.model.Template;
+import de.ali.shitpostbot.Template.repositories.TemplateRepository;
 import de.ali.shitpostbot.Template.services.TemplateService;
 import de.ali.shitpostbot.shared.controller.BaseController;
 import de.ali.shitpostbot.shared.model.DrawnTemplate;
+import de.ali.shitpostbot.shared.model.Shitpost;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,9 @@ import java.util.List;
 public class TemplateController implements BaseController<Template, Long> {
     @Autowired
     private TemplateService templateService;
+
+    @Autowired
+    private TemplateRepository templateRepository;
 
     @Override
     @CrossOrigin(origins = "http://localhost:4200")
@@ -60,11 +65,5 @@ public class TemplateController implements BaseController<Template, Long> {
         DrawnTemplate d = new DrawnTemplate();
         d.setBase64Representation(this.templateService.drawCoordinates(template));
         return d;
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/shitpost/{id}")
-    public DrawnTemplate getShitpost(@PathVariable Long id) throws IOException {
-        return this.templateService.generateShitpost(id);
     }
 }

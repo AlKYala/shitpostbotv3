@@ -2,17 +2,21 @@
   <body>
       <div class="row landing d-flex justify-content-center align-self-center">
         <div>
+          <ngx-smart-modal #shitpostModal identifier="shitpostModal"
+                           customClass="nsm-dialog-animation-btt medium-modal"
+                            id="shitpostModal">
+            <div class="row">
+                <app-shitpost-page class="pl-4 pr-4" id="shitpostPage"
+                ></app-shitpost-page>
+            </div>
+          </ngx-smart-modal>
           <h1 class="cen">Shitpostbot</h1>
           <div class="cen btn-group" role="group" aria-label="Basic example">
             <button routerLink="/addTemplate" type="button" class="btn btn-secondary">Add Template</button>
             <button routerLink="/addImage" type="button" class="btn btn-secondary">Add Image</button>
           </div>
+          <button (click)="this.loadShitpost()" type="button" class="btn btn-primary btn-lg">Generate Shitpost</button>
         </div>
       </div>
   </body>
 </html>
-
-
-
-
-

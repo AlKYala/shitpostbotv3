@@ -10,6 +10,7 @@ import de.ali.shitpostbot.Template.repositories.TemplateRepository;
 import de.ali.shitpostbot.shared.exceptions.NotFoundException;
 import de.ali.shitpostbot.shared.exceptions.NotSavedException;
 import de.ali.shitpostbot.shared.model.DrawnTemplate;
+import de.ali.shitpostbot.shared.model.Shitpost;
 import de.ali.shitpostbot.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,15 +35,18 @@ public class TemplateServiceImpl implements TemplateService {
     private final CoordinateRepository coordinateRepository;
     private Validator<Template, TemplateRepository> validator;
     private final ImageRepository imageRepository;
+    private final ShitpostService shitpostService;
 
     public TemplateServiceImpl(TemplateRepository templateRepository,
                                CoordinateRepository coordinateRepository,
-                               ImageRepository imageRepository) {
+                               ImageRepository imageRepository,
+                               ShitpostService shitpostService) {
         this.templateRepository = templateRepository;
         this.coordinateRepository = coordinateRepository;
         this.validator =
                 new Validator<Template, TemplateRepository>("Template", this.templateRepository);
         this.imageRepository = imageRepository;
+        this.shitpostService = shitpostService;
     }
 
     @Override
@@ -146,51 +150,6 @@ public class TemplateServiceImpl implements TemplateService {
         ImageIO.write(image, "PNG", out);
         byte[] bytes = out.toByteArray();
         return String.format("data:image/png;base64,%s", Base64.encode(bytes).toString());
-    }
-
-    @Override
-    public DrawnTemplate generateShitpost(Template template) throws IOException {
-        Set<Coordinate> coordinates = template.getCoordinates();
-        BufferedImage templateImage = this.retrieveImage(new URL(template.getBaseUrl()));
-        Graphics2D templateGraphics = templateImage.createGraphics();
-
-        long maximumImageID = this.imageRepository.count(); //IDs here start at 1
-        List<de.ali.shitpostbot.Image.model.Image> randomImages =
-                new ArrayList<de.ali.shitpostbot.Image.model.Image>();
-
-        while(randomImages.size() < coordinates.size()) {
-            long randomID = (long) ((Math.random()) * maximumImageID);
-            randomID = (randomID < 1) ? 1 : randomID;
-            randomImages.add(this.imageRepository.findById(randomID).get());
-            //debug
-            log.info(Long.toString(randomID));
-        }
-        //debug
-
-        int imageIndex = 0;
-        /*iterate through coordinates with for of because set
-        get the BufferedImage from Image.url field
-        Resize them according to the current coordinate
-        paste them
-         */
-        for(Coordinate c: coordinates) {
-            BufferedImage tempImage = this.retrieveImage(new URL(randomImages.get(imageIndex).getUrl()));
-            int[] dimensions = this.findResizeSize(c);
-            BufferedImage tempImageScaled = this.imageToBufferedImage(
-                    tempImage.getScaledInstance(dimensions[0], dimensions[1], 0));
-            templateGraphics.drawImage(tempImageScaled, null, c.getX1(), c.getY1());
-            imageIndex++;
-        }
-        BufferedImage uneditedTemplate = this.retrieveImage(new URL(template.getBaseUrl()));
-        templateGraphics.drawImage(uneditedTemplate, 0, 0,null);
-        DrawnTemplate d = new DrawnTemplate();
-        d.setBase64Representation(this.bufferedImageToBase64(templateImage));
-        return d;
-    }
-
-    @Override
-    public DrawnTemplate generateShitpost(Long id) throws IOException {
-        return this.generateShitpost(this.findById(id));
     }
 
     @Override
