@@ -11,6 +11,7 @@ import {NgxSmartModalService} from 'ngx-smart-modal';
   styleUrls: ['./shitpost-page.component.scss']
 })
 export class ShitpostPageComponent implements OnInit, OnDestroy {
+  @Input() passedId: number;
   public shitpost: Shitpost;
   private subscriptions: Subscription[];
   constructor(public shitpostService: ShitpostService,
@@ -27,10 +28,18 @@ export class ShitpostPageComponent implements OnInit, OnDestroy {
     this.reloadShitpost();
   }
   private initShitpost(): void {
-    const subscription = this.shitpostService.generateShitPost().pipe().subscribe((data: Shitpost) => {
-      this.shitpost = data;
-    });
-    this.subscriptions.push(subscription);
+    let subscription: Subscription;
+    if (this.passedId !== undefined) {
+      subscription = this.shitpostService.generateShitPost(this.passedId).pipe().subscribe((data: Shitpost) => {
+        this.shitpost = data;
+      });
+    }
+    else {
+      subscription = this.shitpostService.generateShitPost().pipe().subscribe((data: Shitpost) => {
+        this.shitpost = data;
+      });
+      this.subscriptions.push(subscription);
+    }
   }
   private reloadShitpost(): void {
     this.destroyShitpost();

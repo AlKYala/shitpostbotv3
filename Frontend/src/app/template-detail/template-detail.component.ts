@@ -11,6 +11,9 @@ import {async, Subscription} from 'rxjs';
 import {SubscriptionService} from '../../shared/services/subscription.service';
 import {DrawnTemplateService} from '../../shared/drawnTemplate/service/drawnTemplateService';
 import {DrawnTemplate} from '../../shared/drawnTemplate/model/drawnTemplate';
+import {NgxSmartModalService} from 'ngx-smart-modal';
+import {ShitpostService} from '../../shared/shitpost/service/shitpost.service';
+import {Shitpost} from '../../shared/shitpost/model/shitpost';
 
 @Component({
   selector: 'app-template-detail',
@@ -22,6 +25,7 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
   public coordinates: Coordinate[];
   public imageBase64: string; // the image where the squares are marked
   public subscriptions: Subscription[];
+  public tempShitpost: Shitpost;
 
   constructor(private readonly route: ActivatedRoute,
               private readonly router: Router,
@@ -29,7 +33,9 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
               private coordinateService: CoordinateService,
               private readonly domSanitzer: DomSanitizer,
               private readonly subscriptionService: SubscriptionService,
-              private readonly drawnTemplateService: DrawnTemplateService) { }
+              private readonly drawnTemplateService: DrawnTemplateService,
+              private readonly ngxSmartModalService: NgxSmartModalService,
+              private readonly shitpostService: ShitpostService) { }
 
   ngOnInit(): void {
     this.subscriptions = [];
@@ -80,5 +86,14 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
       this.subscriptions.push(subscriptionC);
     });
     this.subscriptions.push(subscription);
+  }
+  public getShitpostFromTemplate(id: number): void {
+    this.shitpostService.generateShitPost(id).pipe().subscribe((shitpost: Shitpost) => {
+      this.tempShitpost = shitpost;
+    });
+    this.openModal("shitpostModal");
+  }
+  public openModal(id: string): void {
+    this.ngxSmartModalService.open(id);
   }
 }
