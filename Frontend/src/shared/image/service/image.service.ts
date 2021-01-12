@@ -35,4 +35,7 @@ export class ImageService implements BaseService<Image> {
   public update(image: Image): Observable<Image> {
     return this.httpClient.put(`${this.imageUrl}/${image.id}`, image) as Observable<Image>;
   }
+  public findRandom(): Observable<Image> {
+    return this.httpClient.get(`${this.imageUrl}/random`) as Observable<Image>;
+  }
 }
