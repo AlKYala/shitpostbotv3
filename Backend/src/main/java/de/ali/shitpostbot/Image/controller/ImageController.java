@@ -50,4 +50,10 @@ public class ImageController implements BaseController<Image, Long> {
     public Image update(@RequestBody Image image, @PathVariable Long id) {
         return this.imageService.update(id, image);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/random")
+    public Image findRandom() {
+        return this.imageService.findRandom();
+    }
 }
