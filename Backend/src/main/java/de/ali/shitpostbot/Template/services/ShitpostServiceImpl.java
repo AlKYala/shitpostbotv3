@@ -36,18 +36,15 @@ public class ShitpostServiceImpl implements ShitpostService {
     private final TemplateRepository templateRepository;
     private final CoordinateRepository coordinateRepository;
     private Validator<Template, TemplateRepository> validator;
-    private final ImageRepository imageRepository;
 
     public ShitpostServiceImpl(TemplateRepository templateRepository,
                                CoordinateRepository coordinateRepository,
-                               ImageRepository imageRepository) {
+                               ImageService imageService) {
         this.templateRepository = templateRepository;
         this.coordinateRepository = coordinateRepository;
         this.validator =
                 new Validator<Template, TemplateRepository>("Template", this.templateRepository);
-        this.imageRepository = imageRepository;
-        this.validator =
-                new Validator<Template, TemplateRepository>("Template", this.templateRepository);
+        this.imageService = imageService;
     }
 
     private long generateRandomNumber(long max) {
@@ -146,16 +143,11 @@ public class ShitpostServiceImpl implements ShitpostService {
         BufferedImage templateImage = this.retrieveImage(new URL(template.getBaseUrl()));
         Graphics2D templateGraphics = templateImage.createGraphics();
 
-        long maximumImageID = this.imageRepository.count(); //IDs here start at 1
         List<de.ali.shitpostbot.Image.model.Image> randomImages =
                 new ArrayList<de.ali.shitpostbot.Image.model.Image>();
 
         while(randomImages.size() < coordinates.size()) {
-            long randomID = (long) ((Math.random()) * maximumImageID);
-            randomID = (randomID < 1) ? 1 : randomID;
-            randomImages.add(this.imageRepository.findById(randomID).get());
-            //debug
-            log.info(Long.toString(randomID));
+            randomImages.add(this.imageService.findRandom());
         }
         //debug
 

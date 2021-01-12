@@ -55,4 +55,12 @@ public class ImageServiceImpl implements ImageService {
         log.info("Image with ID {} created successfully", image.getId());
         return imageRepository.save(image);
     }
+
+    @Override
+    public Image findRandom() {
+        long maximumID = this.imageRepository.count();
+        long randomID = (long) (Math.random() * maximumID);
+        randomID = (randomID < 1) ? 1 : randomID;
+        return this.imageRepository.findById(randomID).get();
+    }
 }
