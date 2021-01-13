@@ -1,20 +1,28 @@
 <app-navbar></app-navbar>
-<div class="row pt-2">
-  <div class="col-md-2">
-
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="text-dark">Templates</h1>
+      <p class="lead text-muted">
+        Templates are the base for shitposts.
+        Posted <a routerLink="/images">Images</a> go into the marked areas.
+        If you are logged in you can add new templates
+      <p>
+        <a routerLink="/templates/add" class="btn btn-primary my-2">Add new Template</a>
+      </p>
+    </div>
   </div>
-  <div class="col-md-8">
-    <div class="row">
+</section>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <ng-container *ngFor="let template of templates">
-        <div class="col-md-6">
-          <a [routerLink]="this.formatRouting(template.id)">
-            <app-template-item [template]="template"></app-template-item>
-          </a>
+        <div class="col">
+          <app-template-item [template]="template"></app-template-item>
         </div>
       </ng-container>
     </div>
-  </div>
-  <div class="col-md-2">
-
   </div>
 </div>
