@@ -1,45 +1,28 @@
 <app-navbar></app-navbar>
-<div class="row pt-2">
-  <div class="col-md-2">
 
-  </div>
-  <div class="col-sm-8">
-    <div *ngIf="this.isPosterUser; else otherUser">
-      <div>
-        <h4>Your posts</h4>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <h1 class="text-dark">Images</h1>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <ng-container *ngFor="let image of images">
+            <div class="col">
+              <app-image-gallery-item [image]="image"></app-image-gallery-item>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
-    <ng-template #otherUser>
-      <div>
-        <h4>{{this.poster.username}}'s posts</h4>
-      </div>
-    </ng-template>
-    <div>
-      <h5>Images:</h5>
-    </div>
-    <div class="row">
-      <ng-container *ngFor="let image of images">
-        <div class="col-sm-3">
-          <a [routerLink]="this.linkToImage(image)">
-            <app-image-gallery-item [image]="image"></app-image-gallery-item>
-          </a>
-        </div>
-      </ng-container>
-    </div>
-    <div class="pt-2">
-      <h5>Templates:</h5>
-    </div>
-    <div class="row">
-      <ng-container *ngFor="let template of templates">
-        <div class="col-md-3">
-          <a [routerLink]="this.linkToTemplate(template)">
-            <app-template-item [template]="template"></app-template-item>
-          </a>
-        </div>
-      </ng-container>
-    </div>
-  </div>
-  <div class="col-md-2">
 
-  </div>
-</div>
+    <div class="album py-5 bg-white">
+      <div class="container">
+        <h1 class="text-dark">Templates</h1>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <ng-container *ngFor="let template of templates">
+            <div class="col">
+              <app-template-item [template]="template"></app-template-item>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>

@@ -1,6 +1,22 @@
-<div class="card">
-  <img class="card-img-top" [src]="template.baseUrl" alt="Card image cap">
+<div class="card shadow-sm">
+  <a routerLink="/template/{{template.id}}">
+    <img [src]="template.baseUrl"
+         class="card-img-top"
+         width="100%"
+         height="225"
+         preserveAspectRatio="xMidYMid slice"
+         focusable="false"width="100%" height="100%">
+  </a>
   <div class="card-body">
-    <h5 class="card-title">Posted by: {{template.poster.username}}</h5>
+    <p class="card-text">Posted by:
+      <a routerLink="/users/{{template.poster.id}}">
+        {{template.poster.username}}
+      </a>
+    </p>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="btn-group">
+        <button routerLink="/template/{{template.id}}" type="button" class="btn btn-sm btn-outline-secondary">View</button>
+      </div>
+    </div>
   </div>
 </div>
