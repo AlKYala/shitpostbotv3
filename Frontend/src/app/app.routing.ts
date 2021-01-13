@@ -17,11 +17,11 @@ const routes: Routes = [
     component: HomepageComponent
   },
   {
-    path: 'addImage',
+    path: 'images/add',
     component: ImageComponentComponent
   },
   {
-    path: 'addTemplate',
+    path: 'templates/add',
     component: TemplateComponentComponent
   },
   {
