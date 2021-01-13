@@ -1,5 +1,17 @@
 <app-navbar></app-navbar>
 
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <div *ngIf="this.isPosterUser; else otherUser">
+          <h1 class="text-dark">Your posts</h1>
+        </div>
+        <ng-template #otherUser>
+          <h1 class="text-dark">{{poster.username}}'s posts</h1>
+        </ng-template>
+      </div>
+    </div>
+  </section>
 
     <div class="album py-5 bg-light">
       <div class="container">
