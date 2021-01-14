@@ -10,4 +10,10 @@ public interface ImageService extends BaseService<Image> {
      * @return a random Image instance
      */
     public Image findRandom();
+
+    /**
+     * Returns how many images are persisted in database
+     * @return the number of images persisted
+     */
+    public Long getCount();
 }

@@ -1,12 +1,28 @@
 <app-navbar></app-navbar>
 
 <section class="py-5 container">
+  <div class="row pt-lg-5">
+    <div class="col-md-4">
+      <a href="/images/{{image.id-1}}" *ngIf="image.id > 1" type="button" class="btn btn-lg btn-primary">Previous Image</a>
+    </div>
+    <div class="col-md-4">
+      <div class="row justify-content-center">
+        <a routerLink="/images" type="button" class="btn btn-lg btn-outline-primary">Image Gallery</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row justify-content-end">
+        <a *ngIf="this.image.id < this.maxid" href="/images/{{this.image.id+1}}" type="button" class="btn btn-lg btn-primary">Next image</a>
+      </div>
+    </div>
+  </div>
   <div class="row py-lg-5">
-    <div class="col-lg-6 col-md-8">
+    <div class="col-md-6">
       <img id="galleryPicture" [src]="image.url"/>
     </div>
-    <div class="col-lg-4">
+    <div class="col-md-4">
       <div class="row">
+          <h5>URL: <a [href]="image.url">{{image.url}}</a></h5>
           <h5>Posted by: <a routerLink="/users/{{image.poster.id}}">{{image.poster.username}}</a></h5>
       </div>
     </div>

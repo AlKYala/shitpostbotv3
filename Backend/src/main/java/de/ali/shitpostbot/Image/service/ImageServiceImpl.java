@@ -64,4 +64,9 @@ public class ImageServiceImpl implements ImageService {
         randomID = (randomID == maximumID) ? maximumID-1 : randomID;
         return this.imageRepository.findById(randomID).get();
     }
+
+    @Override
+    public Long getCount() {
+        return this.imageRepository.count();
+    }
 }
