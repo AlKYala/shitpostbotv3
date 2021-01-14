@@ -38,4 +38,8 @@ export class ImageService implements BaseService<Image> {
   public findRandom(): Observable<Image> {
     return this.httpClient.get(`${this.imageUrl}/random`) as Observable<Image>;
   }
+
+  public getCount(): Observable<number> {
+    return this.httpClient.get(`${this.imageUrl}/count`) as Observable<number>;
+  }
 }

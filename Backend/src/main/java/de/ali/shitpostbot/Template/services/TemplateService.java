@@ -71,4 +71,9 @@ public interface TemplateService extends BaseService<Template> {
      * @return A bufferedImage instance of the image
      */
     public BufferedImage imageToBufferedImage(Image image);
+
+    /**
+     * @return The number of images persisted in the database
+     */
+    public Long getCount();
 }

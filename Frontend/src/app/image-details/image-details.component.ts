@@ -13,15 +13,22 @@ import {Subscription} from 'rxjs';
 export class ImageDetailsComponent implements OnInit {
   public image: Image;
   public subscriptions: Subscription[];
+  public maxid: number;
   constructor(private readonly router: Router,
               private route: ActivatedRoute,
               private readonly imageService: ImageService) { }
 
   ngOnInit(): void {
+    this.initNumberOfImages();
     this.subscriptions = [];
     this.resolveRouterParam();
   }
 
+  public initNumberOfImages(): void {
+    this.imageService.getCount().pipe().subscribe((data: number) => {
+      this.maxid = data;
+    });
+  }
   public resolveRouterParam(): void {
     const subscription = this.route.paramMap.pipe().subscribe((params: ParamMap) => {
       const subscriptionC = this.imageService.findById(parseInt(params.get('id'), 10))

@@ -20,9 +20,6 @@ public class TemplateController implements BaseController<Template, Long> {
     @Autowired
     private TemplateService templateService;
 
-    @Autowired
-    private TemplateRepository templateRepository;
-
     @Override
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
@@ -65,5 +62,11 @@ public class TemplateController implements BaseController<Template, Long> {
         DrawnTemplate d = new DrawnTemplate();
         d.setBase64Representation(this.templateService.drawCoordinates(template));
         return d;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/count")
+    public Long getCount() {
+        return this.templateService.getCount();
     }
 }
