@@ -1,5 +1,46 @@
 <app-navbar></app-navbar>
-<div class="row pt-4">
+
+<section class="py-5 container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8">
+      <img id="galleryPicture" [src]="image.url"/>
+    </div>
+    <div class="col-lg-4">
+      <div class="row">
+          <h5>Posted by: <a routerLink="/users/{{image.poster.id}}">{{image.poster.username}}</a></h5>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-10">
+
+        </div>
+        <div class="col-md-1">
+          <p>Poster:</p>
+          <a routerLink="/users/{{image.poster.id}}">{{image.poster.username}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
   <div class="col-sm-2">
     <div class="row">
       <div class="col-sm-1">
@@ -38,7 +79,7 @@
             <h5>Posted by:</h5>
           </div>
           <div class="col-sm-6">
-            <!-- hier könnte man Profile anfügen -->
+            hier könnte man Profile anfügen
             <a routerLink="/users/{{image.poster.id}}">{{image.poster.username}}</a>
           </div>
           <div class="col-sm-3">
@@ -50,4 +91,4 @@
   <div class="col-sm-2">
 
   </div>
-</div>
+</div>-->
