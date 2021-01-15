@@ -1,58 +1,48 @@
 <app-navbar></app-navbar>
-<div class="row pt-4">
-  <div class="col-md-2">
-    <div class="row">
-      <div class="col-md-1">
-
+<section class="py-5 container">
+  <div class="row pt-lg-5">
+    <div class="col-md-3">
+      <a href="/templates/{{template.id-1}}" *ngIf="this.template.id > 1"
+         type="button" class="btn btn-lg btn-primary">Previous Template</a>
+    </div>
+    <div class="col-md-3">
+      <div class="row justify-content-center">
+        <a routerLink="/templates" type="button" class="btn btn-lg btn-outline-primary">Template Gallery</a>
       </div>
-      <div class="col-md-10">
-        <button routerLink="/templates" type="button" class="btn btn-outline-primary">
-          <i class="las la-arrow-left"></i>Back to gallery
-        </button>
+    </div>
+    <div class="col-md-3">
+      <div class="row justify-content-center">
+        <a *ngIf="this.isPosterCurrentUser; else otherUser"
+           routerLink="/users/{{this.template.poster.id}}" type="button" class="btn btn-lg btn-outline-primary">Your Posts</a>
+        <ng-template #otherUser>
+          <a routerLink="/users/{{this.template.poster.id}}" type="button" class="btn btn-lg btn-outline-primary">
+            {{this.template.poster.username}}'s Posts</a>
+        </ng-template>
       </div>
-      <div class="col-md-1">
-
+    </div>
+    <div class="col-md-3">
+      <div class="row justify-content-end">
+        <a *ngIf="this.template.id < this.maxid" href="/templates/{{this.template.id+1}}"
+           type="button" class="btn btn-lg btn-primary">Next template</a>
       </div>
     </div>
   </div>
-  <div class="col-md-8">
-    <ngx-smart-modal #shitpostModal identifier="shitpostModal"
-                     customClass="nsm-dialog-animation-btt medium-modal"
-                     id="shitpostModal">
+  <div class="row py-lg-5">
+    <div class="col-md-6">
+      <ngx-smart-modal #shitpostModal identifier="shitpostModal"
+                                               customClass="nsm-dialog-animation-btt medium-modal"
+                                               id="shitpostModal">
       <app-shitpost-page [passedId]="this.template.id" class="pr-4 pl-4"></app-shitpost-page>
     </ngx-smart-modal>
-    <div class="row">
-      <div class="col-md-8">
-        <img id="galleryPicture" [src]="this.imageBase64"/>
-      </div>
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-4">
-            <h5>Url:</h5>
-          </div>
-          <div class="col-md-6">
-            <a [href]="template.baseUrl">{{template.baseUrl}}</a>
-          </div>
-          <div class="col-md-2">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <h5>Posted by:</h5>
-          </div>
-          <div class="col-md-6">
-            <!-- hier könnte man Profile anfügen -->
-            <a routerLink="/users/{{template.poster.id}}">{{template.poster.username}}</a>
-          </div>
-          <div class="col-md-2">
-          </div>
-        </div>
+      <img id="galleryPicture" [src]="this.imageBase64">
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <h5>URL: <a [href]="template.baseUrl">{{template.baseUrl}}</a></h5>
+        <h5>Posted by: <a routerLink="/users/{{template.poster.id}}">{{template.poster.username}}</a></h5>
         <button (click)="this.getShitpostFromTemplate(this.template.id)"
                 type="button" class="btn btn-primary">Generate shitpost from Template</button>
       </div>
     </div>
   </div>
-  <div class="col-md-2">
-  </div>
-</div>
-
+</section>

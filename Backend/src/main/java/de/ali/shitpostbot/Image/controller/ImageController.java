@@ -56,4 +56,10 @@ public class ImageController implements BaseController<Image, Long> {
     public Image findRandom() {
         return this.imageService.findRandom();
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/count")
+    public Long getCount() {
+        return this.imageService.getCount();
+    }
 }

@@ -167,4 +167,9 @@ public class TemplateServiceImpl implements TemplateService {
         bGraphics.dispose();
         return b;
     }
+
+    @Override
+    public Long getCount() {
+        return this.templateRepository.count();
+    }
 }

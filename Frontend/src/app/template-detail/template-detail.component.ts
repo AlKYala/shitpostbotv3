@@ -14,6 +14,9 @@ import {DrawnTemplate} from '../../shared/drawnTemplate/model/drawnTemplate';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ShitpostService} from '../../shared/shitpost/service/shitpost.service';
 import {Shitpost} from '../../shared/shitpost/model/shitpost';
+import {UserService} from '../../shared/user/service/user.service';
+import {LocalStorageService} from '../../shared/services/localstorage.service';
+import {User} from '../../shared/user/model/User';
 
 @Component({
   selector: 'app-template-detail',
@@ -26,21 +29,27 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
   public imageBase64: string; // the image where the squares are marked
   public subscriptions: Subscription[];
   public tempShitpost: Shitpost;
+  public isPosterCurrentUser;
+  public maxid: number;
 
   constructor(private readonly route: ActivatedRoute,
               private readonly router: Router,
-              private templateService: TemplateService,
-              private coordinateService: CoordinateService,
+              private readonly templateService: TemplateService,
+              private readonly coordinateService: CoordinateService,
               private readonly domSanitzer: DomSanitizer,
               private readonly subscriptionService: SubscriptionService,
               private readonly drawnTemplateService: DrawnTemplateService,
               private readonly ngxSmartModalService: NgxSmartModalService,
-              private readonly shitpostService: ShitpostService) { }
+              private readonly shitpostService: ShitpostService,
+              private readonly userService: UserService,
+              private readonly localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.subscriptions = [];
     this.loadDrawnImage();
     this.resolveRouterParam();
+    this.initMaxTemplateId();
+    this.checkPosterIsCurrentUser();
   }
   ngOnDestroy(): void {
     this.subscriptionService.unsubscribeAll(this.subscriptions);
@@ -95,5 +104,20 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
   }
   public openModal(id: string): void {
     this.ngxSmartModalService.open(id);
+  }
+
+  public checkPosterIsCurrentUser(): void {
+    const subscription = this.userService.findByUsername(this.localStorageService.getCurrentUsername())
+      .pipe().subscribe((user: User) => {
+        this.isPosterCurrentUser = (this.template.poster.id === user.id);
+    });
+    this.subscriptions.push(subscription);
+  }
+
+  public initMaxTemplateId(): void {
+    const subscription = this.templateService.getCount().pipe().subscribe((data: number) => {
+      this.maxid = data;
+    });
+    this.subscriptions.push(subscription);
   }
 }
