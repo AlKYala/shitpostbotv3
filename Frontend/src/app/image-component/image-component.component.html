@@ -1,71 +1,64 @@
 <app-navbar></app-navbar>
-
-  <body>
-  <div class="row">
-    <div class="col-md-3 col-1">
-      <!--indent-->
-    </div>
-    <div class="col-md-6 col-10">
-      <div class="form-group pt-2" id="enterURL">
-        <label class="text-white">Image URL</label>
-        <input class="form-control"
-               [formControl]="formControls.url"
-               [ngClass]="{'is-invalid':formControls.url.invalid}"
-               type="url"
-               placeholder="Enter Image URL">
-          <ng-container *ngIf="
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="text-dark">Add Image</h1>
+      <p class="lead text-muted">
+        Images are are placed in marked areas of <a routerLink="/templates">templates</a>.
+        If you are logged in you can submit new images.
+      <p>
+          <div class="form-group pt-2" id="enterURL">
+            <label class="text-white">Image URL</label>
+            <input class="form-control"
+                   [formControl]="formControls.url"
+                   [ngClass]="{'is-invalid':formControls.url.invalid}"
+                   type="url"
+                   placeholder="Enter Image URL">
+            <ng-container *ngIf="
           formControls.url.invalid")>
-            <div class="urlInvalid">
-              <small class="form-text text-danger">
-                Please enter a valid URL
-              </small>
-            </div>
-          </ng-container>
-        <small class="form-text text-white">Copy-Paste url of images to include in shitposts.</small>
-        <small class="form-text text-white">No, this page does not host any images.</small>
-        <small class="form-text text-white">Don't link any porn else I'm telling the feds.</small>
-        <div class="row">
-          <div class="col-md-6">
-            <!-- indent -->
-          </div>
-          <div class="col-md-6">
-            <button (click)="uploadImage()" type="button"
-                    [disabled]="formControls.url.invalid || !formControls.url.touched"
-                    class="ml-1 btn btn-outline-success float-right">
-            Submit
-          </button>
-            <button (click)="fetchPreview()"
-                    type="button"
-                    [disabled]="formControls.url.invalid || !formControls.url.touched"
-                    class="btn btn-outline-primary float-right">
-              Preview
-            </button>
+              <div class="urlInvalid">
+                <small class="form-text text-danger">
+                  Please enter a valid URL
+                </small>
+              </div>
+            </ng-container>
+            <small class="lead text-muted">No, this page does not host any images.</small>
+            <small class="lead text-muted">Don't link any porn else I'm telling the feds.</small>
+            <div class="row">
+              <div class="col-md-6">
+                <!-- indent -->
+              </div>
+              <div class="col-md-6">
+                <button (click)="uploadImage()" type="button"
+                        [disabled]="formControls.url.invalid || !formControls.url.touched"
+                        class="ml-1 btn btn-outline-success float-right">
+                  Submit
+                </button>
+                <button (click)="fetchPreview()"
+                        type="button"
+                        [disabled]="formControls.url.invalid || !formControls.url.touched"
+                        class="btn btn-outline-primary float-right">
+                  Preview
+                </button>
 
+              </div>
+            </div>
+            <div class ="row">
+              <div class="col-md-10">
+                <ng-container *ngIf="isLoaded">
+                  <ng-container *ngIf="formControls.url.invalid; else specified">
+                    <img class="preview-image" src='assets/preview.png'>
+                  </ng-container>
+                  <ng-template #specified>
+                    <img class="preview-image pt-3" [src]="formControls.url.value">
+                  </ng-template>
+                </ng-container>
           </div>
         </div>
-        <div class ="row">
-          <div class="col-1">
-            <!-- indent-->
-          </div>
-          <div class="col-md-10">
-            <ng-container *ngIf="isLoaded">
-              <ng-container *ngIf="formControls.url.invalid; else specified">
-                <img class="preview-image" src='assets/preview.png'>
-              </ng-container>
-              <ng-template #specified>
-                <img class="preview-image pt-3" [src]="formControls.url.value">
-              </ng-template>
-            </ng-container>
-          </div>
-          <div class="col-md-1">
-            <!-- indent-->
-          </div>
-
+        <div class="col-md-3 col-1">
+          <!--indent-->
         </div>
       </div>
     </div>
-    <div class="col-md-3 col-1">
-      <!--indent-->
-    </div>
   </div>
-  </body>
+</section>
