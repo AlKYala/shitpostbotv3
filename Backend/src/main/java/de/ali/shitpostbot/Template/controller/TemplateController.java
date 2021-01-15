@@ -65,7 +65,7 @@ public class TemplateController implements BaseController<Template, Long> {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PutMapping("/count")
+    @GetMapping("/count")
     public Long getCount() {
         return this.templateService.getCount();
     }
