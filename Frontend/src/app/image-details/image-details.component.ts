@@ -4,6 +4,9 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ImageService} from '../../shared/image/service/image.service';
 import {first} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
+import {UserService} from '../../shared/user/service/user.service';
+import {LocalStorageService} from '../../shared/services/localstorage.service';
+import {User} from '../../shared/user/model/User';
 
 @Component({
   selector: 'app-image-details',
@@ -14,14 +17,19 @@ export class ImageDetailsComponent implements OnInit {
   public image: Image;
   public subscriptions: Subscription[];
   public maxid: number;
+  public isPosterCurrentUser: boolean;
+
   constructor(private readonly router: Router,
               private route: ActivatedRoute,
-              private readonly imageService: ImageService) { }
+              private readonly imageService: ImageService,
+              private readonly userService: UserService,
+              private readonly localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.initNumberOfImages();
     this.subscriptions = [];
     this.resolveRouterParam();
+    this.checkPosterIsCurrentUser();
   }
 
   public initNumberOfImages(): void {
@@ -37,6 +45,14 @@ export class ImageDetailsComponent implements OnInit {
         });
       this.subscriptions.push(subscriptionC);
     });
+    this.subscriptions.push(subscription);
+  }
+
+  private checkPosterIsCurrentUser(): void {
+    const subscription = this.userService.findByUsername(this.localStorageService.getCurrentUsername())
+      .pipe().subscribe((user: User) => {
+        this.isPosterCurrentUser = (user.id === this.image.poster.id);
+      });
     this.subscriptions.push(subscription);
   }
 }
