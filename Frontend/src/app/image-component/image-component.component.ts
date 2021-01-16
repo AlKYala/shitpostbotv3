@@ -30,7 +30,8 @@ export class ImageComponentComponent implements OnInit, OnDestroy {
     private readonly toastrService: ToastrService,
     private readonly router: Router,
     private readonly subscriptionService: SubscriptionService
-  ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
     this.subscriptions = [];
@@ -77,11 +78,11 @@ export class ImageComponentComponent implements OnInit, OnDestroy {
     const $url = this.formControls.url.value;
     const image: Image = {id: 0, poster: $poster, url: $url};
     const subscription = this.imageService.create(image).subscribe(() => {
-      this.toastrService.success("Image uploaded");
+      this.toastrService.success('Image uploaded');
       this.router.navigate(['/']);
     }, (error) => {
       console.log(error);
-      this.toastrService.warning("Upload failed");
+      this.toastrService.warning('Upload failed');
     });
     this.subscriptions.push(subscription);
   }

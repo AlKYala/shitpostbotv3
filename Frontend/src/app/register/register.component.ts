@@ -24,14 +24,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly toastrService: ToastrService,
     public readonly authenticationService: AuthenticationService,
-    private readonly subscriptionService: SubscriptionService) {}
+    private readonly subscriptionService: SubscriptionService) {
+  }
+
   ngOnInit(): void {
     this.subscriptions = [];
     this.initRegisterForm();
   }
+
   ngOnDestroy(): void {
     this.subscriptionService.unsubscribeAll(this.subscriptions);
   }
+
   public initRegisterForm(): void {
     this.registerForm = new FormGroup(
       {
@@ -40,38 +44,44 @@ export class RegisterComponent implements OnInit, OnDestroy {
       }
     );
   }
+
   public onSubmit(): void {
     const $username = this.formControls.username.value;
     const $password = this.formControls.password.value;
-    const user: User = {id : 0, username: $username, password: $password, isAdmin: false};
+    const user: User = {id: 0, username: $username, password: $password, isAdmin: false};
     console.log(user);
     // vorerst noch create nutzen
     const subscription = this.userService.register(user)
       .pipe()
       .subscribe(() => {
-        this.handleSuccessRegistration();
-        this.authenticationService.login($username, $password).subscribe( () => {
-          this.toastrService.success("You are logged in");
-          this.router.navigate(['/']);
-        });
-      },
+          this.handleSuccessRegistration();
+          this.authenticationService.login($username, $password).subscribe(() => {
+            this.toastrService.success('You are logged in');
+            this.router.navigate(['/']);
+          });
+        },
         error => {
-        this.handleUnsuccessfulRegistration(String(error));
-      });
+          this.handleUnsuccessfulRegistration(String(error));
+        });
     this.subscriptions.push(subscription);
   }
+
   public get formControls(): any {
     return this.registerForm.controls;
   }
+
   private navigateToHomepage(): void {
     this.router.navigate(['/']);
   }
+
   public goToLoginMask(): void {
     this.router.navigate(['/login']);
   }
+
   private handleSuccessRegistration(): void {
     this.toastrService.success('Registration successful');
   }
+
   private handleUnsuccessfulRegistration(error: string): void {
     this.toastrService.warning(error);
   }

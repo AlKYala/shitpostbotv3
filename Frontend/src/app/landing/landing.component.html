@@ -1,28 +1,28 @@
 <html>
-  <body>
+<body>
+<div class="row">
+  <div class="col-md-4">
+
+  </div>
+  <div class="col-md-4">
+    <ngx-smart-modal #shitpostModal identifier="shitpostModal"
+                     customClass="nsm-dialog-animation-btt medium-modal"
+                     id="shitpostModal">
       <div class="row">
-        <div class="col-md-4">
-
-        </div >
-        <div class="col-md-4">
-          <ngx-smart-modal #shitpostModal identifier="shitpostModal"
-                           customClass="nsm-dialog-animation-btt medium-modal"
-                            id="shitpostModal">
-            <div class="row">
-                <app-shitpost-page class="pl-4 pr-4" id="shitpostPage"
-                ></app-shitpost-page>
-            </div>
-          </ngx-smart-modal>
-          <h1 class="cen">Shitpostbot</h1>
-          <div class="cen btn-group" role="group" aria-label="Basic example">
-            <button routerLink="/templates/add" type="button" class="btn btn-outline-primary m-1">Add Template</button>
-            <button (click)="this.loadShitpost()" type="button" class="btn btn-primary btn-lg m-1">Generate Shitpost</button>
-            <button routerLink="/images/add" type="button" class="btn btn-outline-primary m-1">Add Image</button>
-          </div>
-        </div>
+        <app-shitpost-page class="pl-4 pr-4" id="shitpostPage"
+        ></app-shitpost-page>
       </div>
-      <div class="col-md-4">
+    </ngx-smart-modal>
+    <h1 class="cen">Shitpostbot</h1>
+    <div class="cen btn-group" role="group" aria-label="Basic example">
+      <button routerLink="/templates/add" type="button" class="btn btn-outline-primary m-1">Add Template</button>
+      <button (click)="this.loadShitpost()" type="button" class="btn btn-primary btn-lg m-1">Generate Shitpost</button>
+      <button routerLink="/images/add" type="button" class="btn btn-outline-primary m-1">Add Image</button>
+    </div>
+  </div>
+</div>
+<div class="col-md-4">
 
-      </div>
-  </body>
+</div>
+</body>
 </html>

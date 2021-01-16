@@ -10,7 +10,7 @@
         <div class="form-group">
           <label for="usernameInput">Username</label>
           <input [formControl]="formControls.username"
-            type="email" class="form-control" id="usernameInput"  placeholder="Enter Username">
+                 type="email" class="form-control" id="usernameInput" placeholder="Enter Username">
           <small id="usernameHelp" class="form-text text-muted">No email needed</small>
           <a (click)="goToLoginMask()" href="/login" class="form-text">
             Already have an account? Log in here.
@@ -21,7 +21,7 @@
           <input [formControl]="formControls.password"
                  [ngClass]="{'is-invalid': formControls.password.invalid
                  && formControls.password.touched}"
-            type="password" class="form-control" id="password" placeholder="Password">
+                 type="password" class="form-control" id="password" placeholder="Password">
           <ng-container *ngIf="
             formControls.password.invalid">
             <div class="passwordInvalid">
@@ -35,7 +35,8 @@
                 [disabled]="formControls.username.value == '' ||
                             formControls.password.invalid ||
                             formControls.password.value == ''">
-          Submit</button>
+          Submit
+        </button>
       </form>
     </div>
   </div>

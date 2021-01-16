@@ -1,40 +1,40 @@
 <app-navbar></app-navbar>
 
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <div *ngIf="this.isPosterUser; else otherUser">
-          <h1 class="text-dark">Your posts</h1>
-        </div>
-        <ng-template #otherUser>
-          <h1 class="text-dark">{{poster.username}}'s posts</h1>
-        </ng-template>
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <div *ngIf="this.isPosterUser; else otherUser">
+        <h1 class="text-dark">Your posts</h1>
       </div>
+      <ng-template #otherUser>
+        <h1 class="text-dark">{{poster.username}}'s posts</h1>
+      </ng-template>
     </div>
-  </section>
+  </div>
+</section>
 
-    <div class="album py-5 bg-light">
-      <div class="container">
-        <h1 class="text-dark">Images</h1>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <ng-container *ngFor="let image of images">
-            <div class="col">
-              <app-image-gallery-item [image]="image"></app-image-gallery-item>
-            </div>
-          </ng-container>
+<div class="album py-5 bg-light">
+  <div class="container">
+    <h1 class="text-dark">Images</h1>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <ng-container *ngFor="let image of images">
+        <div class="col">
+          <app-image-gallery-item [image]="image"></app-image-gallery-item>
         </div>
-      </div>
+      </ng-container>
     </div>
+  </div>
+</div>
 
-    <div class="album py-5 bg-white">
-      <div class="container">
-        <h1 class="text-dark">Templates</h1>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <ng-container *ngFor="let template of templates">
-            <div class="col">
-              <app-template-item [template]="template"></app-template-item>
-            </div>
-          </ng-container>
+<div class="album py-5 bg-white">
+  <div class="container">
+    <h1 class="text-dark">Templates</h1>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <ng-container *ngFor="let template of templates">
+        <div class="col">
+          <app-template-item [template]="template"></app-template-item>
         </div>
-      </div>
+      </ng-container>
     </div>
+  </div>
+</div>

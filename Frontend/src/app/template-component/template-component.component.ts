@@ -44,7 +44,8 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
               private readonly toastrService: ToastrService,
               private readonly coordinateService: CoordinateService,
               private readonly router: Router,
-              private readonly subscriptionService: SubscriptionService) { }
+              private readonly subscriptionService: SubscriptionService) {
+  }
 
   ngOnInit(): void {
     this.subscriptions = [];
@@ -52,16 +53,18 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
     this.croppedAreas = [];
     this.croppedAreasPreview = [];
     this.displayedPreviews = [];
-    this.imageUrl = "";
+    this.imageUrl = '';
     this.isActive = false;
     this.tempCoordinates = [0, 0, 0, 0];
     this.initCurrentUser();
   }
+
   ngOnDestroy(): void {
     this.subscriptionService.unsubscribeAll(this.subscriptions);
   }
+
   public initImageForm(): void {
-    this.templateForm = new FormGroup( {
+    this.templateForm = new FormGroup({
       url: FormControlsSettings.urlFormControl(),
       name: FormControlsSettings.nameFormControl()
     });
@@ -70,6 +73,7 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
   public get formControls(): any {
     return this.templateForm.controls;
   }
+
   public fetchImage(): void {
     if (this.imageUrl !== this.formControls.url.value) {
       this.disableAll();
@@ -94,15 +98,19 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
     // console.log(event.imagePosition.y1, event.imagePosition.y2);
     this.tempCoordinates = [event.imagePosition.x1, event.imagePosition.x2, event.imagePosition.y1, event.imagePosition.y2];
   }
+
   imageLoaded(image: HTMLImageElement): void {
     // show cropper
   }
+
   cropperReady(): void {
     // cropper ready
   }
+
   loadImageFailed(): void {
     // show message
   }
+
   private initCurrentUser(): void {
     const posterUsername: string = this.localStorageService.getCurrentUsername();
     // console.log(posterUsername);
@@ -111,13 +119,15 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(subscription);
   }
+
   private cloneLocation(arr: number[]): number[] {
     const clone: number[] = [];
-    for (let i = 0; i <  arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       clone.push(arr[i]);
     }
     return arr;
   }
+
   /**
    * Used in api-Calls to backend later
    * Only passes the undeleted (=remain true) previews
@@ -131,6 +141,7 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
     }
     return previewImages;
   }
+
   /**
    * Used in api-Calls to backend later
    * Only passes the undeleted (=remain true) coordinates
@@ -144,20 +155,24 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
     }
     return coordinates;
   }
+
   public saveCoordinates(): void {
     this.croppedAreas.push(this.cloneLocation(this.tempCoordinates));
     this.croppedAreasPreview.push(this.base64Preview.valueOf());
     this.displayedPreviews.push(true);
   }
+
   coordinateTracker(index, coordinate): any {
     // console.log(coordinate);
     return coordinate ? coordinate.id : undefined;
   }
+
   private disableAll(): void {
     for (let i = 0; i < this.displayedPreviews.length; i++) {
       this.deleteCoordinate(i);
     }
   }
+
   deleteCoordinate(index: number): void {
     /*
     old idea: Remove elements at index index and clone arrays without element at index then reassign
@@ -181,8 +196,9 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
     this.croppedAreas = cropped;
     this.croppedAreasPreview = cropPreview;*/
     this.displayedPreviews[index] = false;
-    this.croppedAreasPreview[index] = "";
+    this.croppedAreasPreview[index] = '';
   }
+
   private initCoordinateInstances(template: Template): Coordinate[] {
     const coordinates: Coordinate[] = [];
     for (const area of this.croppedAreas) {
@@ -191,19 +207,23 @@ export class TemplateComponentComponent implements OnInit, OnDestroy {
     }
     return coordinates;
   }
+
   public submit(): void {
-    const template: Template = {id : 0,
-      baseUrl : this.formControls.url.value,
-      poster: this.currentUser};
-    const subscription = this.templateService.create(template).subscribe( (data) => {
+    const template: Template = {
+      id: 0,
+      baseUrl: this.formControls.url.value,
+      poster: this.currentUser
+    };
+    const subscription = this.templateService.create(template).subscribe((data) => {
       console.log(data);
       const coordinates: Coordinate[] = this.initCoordinateInstances(template);
       template.id = data.id;
       for (const coordinate of coordinates) {
-        const subscriptionC = this.coordinateService.create(coordinate).subscribe(() => {});
+        const subscriptionC = this.coordinateService.create(coordinate).subscribe(() => {
+        });
         this.subscriptions.push(subscriptionC);
       }
-      this.toastrService.success("Template uploaded");
+      this.toastrService.success('Template uploaded');
       this.router.navigate(['/']);
     });
     this.subscriptions.push(subscription);

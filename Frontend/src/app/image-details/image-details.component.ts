@@ -23,7 +23,8 @@ export class ImageDetailsComponent implements OnInit {
               private route: ActivatedRoute,
               private readonly imageService: ImageService,
               private readonly userService: UserService,
-              private readonly localStorageService: LocalStorageService) { }
+              private readonly localStorageService: LocalStorageService) {
+  }
 
   ngOnInit(): void {
     this.initNumberOfImages();
@@ -37,6 +38,7 @@ export class ImageDetailsComponent implements OnInit {
       this.maxid = data;
     });
   }
+
   public resolveRouterParam(): void {
     const subscription = this.route.paramMap.pipe().subscribe((params: ParamMap) => {
       const subscriptionC = this.imageService.findById(parseInt(params.get('id'), 10))

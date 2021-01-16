@@ -13,7 +13,8 @@
     <div class="col-md-3">
       <div class="row justify-content-center">
         <a *ngIf="this.isPosterCurrentUser; else otherUser"
-           routerLink="/users/{{this.template.poster.id}}" type="button" class="btn btn-lg btn-outline-primary">Your Posts</a>
+           routerLink="/users/{{this.template.poster.id}}" type="button" class="btn btn-lg btn-outline-primary">Your
+          Posts</a>
         <ng-template #otherUser>
           <a routerLink="/users/{{this.template.poster.id}}" type="button" class="btn btn-lg btn-outline-primary">
             {{this.template.poster.username}}'s Posts</a>
@@ -30,10 +31,10 @@
   <div class="row py-lg-5">
     <div class="col-md-6">
       <ngx-smart-modal #shitpostModal identifier="shitpostModal"
-                                               customClass="nsm-dialog-animation-btt medium-modal"
-                                               id="shitpostModal">
-      <app-shitpost-page [passedId]="this.template.id" class="pr-4 pl-4"></app-shitpost-page>
-    </ngx-smart-modal>
+                       customClass="nsm-dialog-animation-btt medium-modal"
+                       id="shitpostModal">
+        <app-shitpost-page [passedId]="this.template.id" class="pr-4 pl-4"></app-shitpost-page>
+      </ngx-smart-modal>
       <img id="galleryPicture" [src]="this.imageBase64">
     </div>
     <div class="col-md-4">
@@ -41,7 +42,8 @@
         <h5>URL: <a [href]="template.baseUrl">{{template.baseUrl}}</a></h5>
         <h5>Posted by: <a routerLink="/users/{{template.poster.id}}">{{template.poster.username}}</a></h5>
         <button (click)="this.getShitpostFromTemplate(this.template.id)"
-                type="button" class="btn btn-primary">Generate shitpost from Template</button>
+                type="button" class="btn btn-primary">Generate shitpost from Template
+        </button>
       </div>
     </div>
   </div>

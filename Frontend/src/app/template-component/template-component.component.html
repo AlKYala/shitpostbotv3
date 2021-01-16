@@ -16,7 +16,7 @@
                type="url"
                placeholder="Enter Image URL">
         <ng-container *ngIf="
-          formControls.url.invalid")>
+          formControls.url.invalid" )>
           <div class="urlInvalid">
             <small class="form-text text-danger">
               Please enter a valid URL
@@ -39,7 +39,7 @@
       </div>
 
     </div>
-      <div class="col-lg-8 col-md-8">
+    <div class="col-lg-8 col-md-8">
       <div class="row">
         <div class="col">
           <image-cropper
@@ -56,24 +56,23 @@
         </div>
       </div>
     </div>
-
     <div col-md-4 mx-auto>
       <ng-container *ngIf="isActive">
-      <div class="card sm-3">
-        <div class="row no-gutters">
-          <div class="col-sm-6">
-            <img class="card-img-top crop-preview" [src]="croppedImage" alt="Card image cap">
-          </div>
-          <div class="col-sm-6">
-            <div class="card-body">
-              <h5 class="card-title">Coordinates:</h5>
-              <p class="card-text">X1: {{tempCoordinates[0]}} Y2: {{tempCoordinates[3]}}</p>
-              <a (click)="saveCoordinates()" class="btn btn-primary">Save</a>
+        <div class="card sm-3">
+          <div class="row no-gutters">
+            <div class="col-sm-6">
+              <img class="card-img-top crop-preview" [src]="croppedImage" alt="Card image cap">
+            </div>
+            <div class="col-sm-6">
+              <div class="card-body">
+                <h5 class="card-title">Coordinates:</h5>
+                <p class="card-text">X1: {{tempCoordinates[0]}} Y2: {{tempCoordinates[3]}}</p>
+                <a (click)="saveCoordinates()" class="btn btn-primary">Save</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
       <ng-container *ngFor="let coordinate of croppedAreas; let i = index; trackBy coordinateTracker">
         <ng-container *ngIf="displayedPreviews[i]">
           <div class="card mb-3 mt-2">
@@ -93,7 +92,7 @@
         </ng-container>
       </ng-container>
     </div>
-</div>
+  </div>
 </section>
 
 
