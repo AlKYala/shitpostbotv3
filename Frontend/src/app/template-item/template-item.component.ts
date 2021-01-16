@@ -8,7 +8,9 @@ import {Template} from '../../shared/template/model/Template';
 })
 export class TemplateItemComponent implements OnInit {
   @Input() public template: Template;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

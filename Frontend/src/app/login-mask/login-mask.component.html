@@ -10,7 +10,7 @@
         <div class="form-group">
           <label for="usernameInput">Username</label>
           <input [formControl]="formControls.name"
-                 type="email" class="form-control" id="usernameInput"  placeholder="Enter Username">
+                 type="email" class="form-control" id="usernameInput" placeholder="Enter Username">
           <a (click)="goToRegister()" href="/signup" class="form-text">
             Not signed up? Create an account here
           </a>
@@ -26,7 +26,8 @@
                 [disabled]="formControls.name.value == '' ||
                             formControls.password.invalid ||
                             formControls.password.value == ''">
-          Submit</button>
+          Submit
+        </button>
       </form>
     </div>
   </div>

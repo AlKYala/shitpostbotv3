@@ -42,7 +42,8 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
               private readonly ngxSmartModalService: NgxSmartModalService,
               private readonly shitpostService: ShitpostService,
               private readonly userService: UserService,
-              private readonly localStorageService: LocalStorageService) { }
+              private readonly localStorageService: LocalStorageService) {
+  }
 
   ngOnInit(): void {
     this.subscriptions = [];
@@ -51,15 +52,17 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
     this.initMaxTemplateId();
     this.checkPosterIsCurrentUser();
   }
+
   ngOnDestroy(): void {
     this.subscriptionService.unsubscribeAll(this.subscriptions);
   }
+
   public resolveRouterParam(): void {
     const subscription = this.route.paramMap.pipe(first()).subscribe((params: ParamMap) => {
       const subscriptionC = this.templateService.findById(parseInt(params.get('id'), 10))
         .pipe(first()).subscribe((template: Template) => {
-        this.template = template;
-      });
+          this.template = template;
+        });
       this.subscriptions.push(subscriptionC);
     });
     this.subscriptions.push(subscription);
@@ -91,17 +94,19 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
           for (const coordinate of coordinates) {
             this.coordinates.push(coordinate);
           }
-      });
+        });
       this.subscriptions.push(subscriptionC);
     });
     this.subscriptions.push(subscription);
   }
+
   public getShitpostFromTemplate(id: number): void {
     this.shitpostService.generateShitPost(id).pipe().subscribe((shitpost: Shitpost) => {
       this.tempShitpost = shitpost;
     });
-    this.openModal("shitpostModal");
+    this.openModal('shitpostModal');
   }
+
   public openModal(id: string): void {
     this.ngxSmartModalService.open(id);
   }
@@ -110,7 +115,7 @@ export class TemplateDetailComponent implements OnInit, OnDestroy {
     const subscription = this.userService.findByUsername(this.localStorageService.getCurrentUsername())
       .pipe().subscribe((user: User) => {
         this.isPosterCurrentUser = (this.template.poster.id === user.id);
-    });
+      });
     this.subscriptions.push(subscription);
   }
 

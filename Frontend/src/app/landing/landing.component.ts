@@ -16,7 +16,8 @@ export class LandingComponent implements OnInit {
 
   constructor(public ngxSmartModalService: NgxSmartModalService,
               private readonly imageService: ImageService,
-              private elementRef: ElementRef) { }
+              private elementRef: ElementRef) {
+  }
 
   ngOnInit(): void {
     this.initBackgroundImage();
@@ -36,6 +37,7 @@ export class LandingComponent implements OnInit {
   public loadShitpost(): void {
     this.ngxSmartModalService.getModal('shitpostModal').open();
   }
+
   // manipulation of style from typescript
   private createStyle(style: string): void {
     const styleElement = document.createElement('style');

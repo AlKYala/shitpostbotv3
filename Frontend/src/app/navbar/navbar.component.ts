@@ -27,18 +27,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
               private readonly authenticationService: AuthenticationService,
               private readonly toastrService: ToastrService,
               private router: Router,
-              private readonly subscriptionService: SubscriptionService) { }
+              private readonly subscriptionService: SubscriptionService) {
+  }
 
   ngOnInit(): void {
     this.subscriptions = [];
     this.initUser();
   }
+
   ngOnDestroy(): void {
     this.subscriptionService.unsubscribeAll(this.subscriptions);
   }
+
   private checkIsLoggedIn(): boolean {
     return (this.username != null);
   }
+
   public initUser(): void {
     this.username = this.localStorageService.getCurrentUsername();
     const subscription = this.userService.findByUsername(this.username).pipe().subscribe((user: User) => {

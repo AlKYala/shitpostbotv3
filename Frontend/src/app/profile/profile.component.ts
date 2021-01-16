@@ -31,7 +31,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private readonly templateService: TemplateService,
               private readonly userService: UserService,
               private route: ActivatedRoute,
-              private readonly subscriptionService: SubscriptionService) { }
+              private readonly subscriptionService: SubscriptionService) {
+  }
 
   ngOnInit(): void {
     this.subscriptions = [];
@@ -41,27 +42,32 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.initUser();
     this.initCurrentUser();
   }
+
   ngOnDestroy(): void {
     this.subscriptionService.unsubscribeAll(this.subscriptions);
   }
+
   private resolveRouterParam(): void {
     const subscription = this.route.paramMap.pipe().subscribe((params: ParamMap) => {
       this.posterId = (parseInt(params.get('id'), 10));
     });
     this.subscriptions.push(subscription);
   }
+
   private initTemplates(): void {
     const subscription = this.templateService.findAll().pipe().subscribe((templates: Template[]) => {
       this.templates = templates.filter((template: Template) => template.poster.id === this.posterId);
     });
     this.subscriptions.push(subscription);
   }
+
   private initImages(): void {
     const subscription = this.imageService.findAll().pipe().subscribe((images: Image[]) => {
       this.images = images.filter((image: Image) => image.poster.id === this.posterId);
     });
     this.subscriptions.push(subscription);
   }
+
   private initUser(): void {
     const subscription = this.userService.findById(this.posterId).pipe().subscribe((user: User) => {
       this.poster = user;
@@ -69,12 +75,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(subscription);
   }
+
   private initCurrentUser(): void {
     this.currentUserUsername = this.localStorageService.getUserToken().sub;
   }
+
   private linkToImage(image: Image): string {
     return `/images/${image.id}`;
   }
+
   private linkToTemplate(template: Template): string {
     return `/templates/${template.id}`;
   }

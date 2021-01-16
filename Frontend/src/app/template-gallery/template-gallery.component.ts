@@ -16,17 +16,22 @@ import {SubscriptionService} from '../../shared/services/subscription.service';
 export class TemplateGalleryComponent implements OnInit, OnDestroy {
   public templates: Template[];
   public subscriptions: Subscription[];
+
   constructor(private readonly router: Router,
               private readonly userService: UserService,
               private readonly templateService: TemplateService,
-              private readonly subscriptionService: SubscriptionService) { }
+              private readonly subscriptionService: SubscriptionService) {
+  }
+
   ngOnInit(): void {
     this.subscriptions = [];
     this.loadAllTemplates();
   }
+
   ngOnDestroy(): void {
     this.subscriptionService.unsubscribeAll(this.subscriptions);
   }
+
   private loadAllTemplates(): void {
     const subscription = this.templateService.findAll()
       .pipe(first())
@@ -36,6 +41,7 @@ export class TemplateGalleryComponent implements OnInit, OnDestroy {
       });
     this.subscriptions.push(subscription);
   }
+
   public formatRouting(id: number): string {
     return `./${id}`;
   }

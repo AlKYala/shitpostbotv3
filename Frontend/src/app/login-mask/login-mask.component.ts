@@ -61,9 +61,9 @@ export class LoginMaskComponent implements OnInit, OnDestroy {
     const pw: string = this.formControls.password.value;
     const subscription = this.authenticationService.login(uName, pw).pipe(first())
       .subscribe((data: any) => {
-        this.goToHomepage();
-        this.toastrService.success('Login successful');
-      },
+          this.goToHomepage();
+          this.toastrService.success('Login successful');
+        },
         error => {
           console.log(error);
         });

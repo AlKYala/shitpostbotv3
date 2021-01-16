@@ -15,15 +15,18 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[];
 
   constructor(private readonly imageService: ImageService,
-              private readonly subscriptionService: SubscriptionService) { }
+              private readonly subscriptionService: SubscriptionService) {
+  }
 
   ngOnInit(): void {
     this.subscriptions = [];
     this.loadAllImages();
   }
+
   ngOnDestroy(): void {
     this.subscriptionService.unsubscribeAll(this.subscriptions);
   }
+
   private loadAllImages(): void {
     const subscription = this.imageService.findAll()
       .pipe()
@@ -33,6 +36,7 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
       });
     this.subscriptions.push(subscription);
   }
+
   public formatRouting(id: number): string {
     return `./${id}`;
   }
