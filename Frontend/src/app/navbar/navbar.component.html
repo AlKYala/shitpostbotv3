@@ -47,6 +47,9 @@
           </ng-template>
         </div>
       </li>
+      <li *ngIf="this.isUserAdmin()" class="nav-item dropdown">
+        <a class="dropdown-item">Edit Profiles</a>
+      </li>
     </ul>
   </div>
 </nav>

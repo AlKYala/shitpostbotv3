@@ -1,4 +1,4 @@
-INSERT INTO shitpostdatabase.user(id, is_admin, password,  username) values (100, false, '$2a$10$keqDdlF5Jw2zAq13Oewr6e.LRMmHY29f5KJJX/6nZBSybLv3BdbuK', 'Beispiel');
+INSERT INTO shitpostdatabase.user(id, is_admin, password,  username) values (100, true, '$2a$10$keqDdlF5Jw2zAq13Oewr6e.LRMmHY29f5KJJX/6nZBSybLv3BdbuK', 'Beispiel');
 
 INSERT INTO shitpostdatabase.image(id, url, poster_id) values (1, 'https://www.shitpostbot.com/img/sourceimages/fries-5fe456d955114.png', 100);
 INSERT INTO shitpostdatabase.image(id, url, poster_id) values (2, 'https://www.shitpostbot.com/img/sourceimages/spongebob-washing-machine-5fe1437e5a889.jpeg', 100);

@@ -58,4 +58,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
     this.toastrService.success('Logout successful');
   }
+  public isUserAdmin(): boolean {
+    return this.localStorageService.getAdminState();
+  }
 }
