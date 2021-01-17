@@ -68,6 +68,7 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         User user = this.userService.findByUsername(userDetails.getUsername());
         claims.put("isAdmin", user.isAdmin());
+        claims.put("isBanned", user.isBanned());
         return createToken(claims, userDetails.getUsername());
     }
 
