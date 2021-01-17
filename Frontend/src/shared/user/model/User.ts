@@ -7,6 +7,7 @@ export interface User extends BaseEntity {
   username: string;
   password: string;
   isAdmin: boolean;
+  isBanned: boolean;
 }
 /*export class User extends BaseEntity {
   public username: string;
