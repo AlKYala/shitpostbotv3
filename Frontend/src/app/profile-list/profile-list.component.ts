@@ -26,6 +26,7 @@ export class ProfileListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.checkIsUserAdmin();
+    this.initUsers();
   }
   ngOnDestroy(): void {
     this.subscriptionService.unsubscribeAll(this.subscriptions);

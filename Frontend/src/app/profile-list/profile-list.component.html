@@ -9,3 +9,26 @@
   </div>
 </section>
 
+<section class="py-5 text-center container">
+  <div class="d-flex justify-content-center row py-lg-5">
+    <div class="card">
+      <ul class="list-group list-group-flush">
+        <div *ngFor="let user of users">
+          <li  class="list-group-item">
+            <div class="row">
+                <a routerLink="/users/{{user.id}}" class="mx-3">{{user.username}}</a>
+                <ng-container *ngIf="user.isBanned; else ban">
+                  <button  class="btn btn-info mx-3">Unban</button>
+                </ng-container>
+                <ng-template #ban>
+                  <button class="btn btn-warning mx-3">Ban</button>
+                </ng-template>
+                <button class="btn btn-danger mx-3">Delete</button>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</section>
+

@@ -11,6 +11,7 @@ import {TemplateGalleryComponent} from './template-gallery/template-gallery.comp
 import {TemplateDetailComponent} from './template-detail/template-detail.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ShitpostPageComponent} from './shitpost-page/shitpost-page.component';
+import {ProfileListComponent} from './profile-list/profile-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -55,5 +56,10 @@ const routes: Routes = [
   {
     path: 'generateShitpost',
     component: ShitpostPageComponent
-  }];
+  },
+  {
+    path: 'profiles/edit',
+    component: ProfileListComponent
+  }
+];
 export const appRoutingModule = RouterModule.forRoot(routes);
