@@ -17,19 +17,17 @@
           <li class="list-group-item">
             <div class="row">
               <a routerLink="/users/{{user.id}}" class="mx-3">{{user.username}}</a>
-              <ng-container *ngIf="user.isBanned; else ban">
+              <div *ngIf="checkIsBanned(user); else ban">
                 <button class="btn btn-info mx-3">Unban</button>
-              </ng-container>
+              </div>
               <ng-template #ban>
                 <button class="btn btn-warning mx-3">Ban</button>
               </ng-template>
-              <ng-container *ngIf="!user.isAdmin; else admin">
-                <button class="btn btn-info mx-3">Make Admin</button>
-              </ng-container>
+                <button (click)="makeAdmin(user)" *ngIf="!user.isAdmin; else admin" (click)="debug(user)" class="btn btn-info mx-3">Make Admin</button>
               <ng-template #admin>
-                <button class="btn btn-warning mx-3">Take admin rights</button>
+                <button (click)="takeAdmin(user)" class="btn btn-warning mx-3">Take admin rights</button>
               </ng-template>
-              <button class="btn btn-danger mx-3">Delete</button>
+              <button (click)="this.deleteUser(user)"class="btn btn-danger mx-3">Delete</button>
             </div>
           </li>
         </div>

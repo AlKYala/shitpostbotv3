@@ -25,6 +25,7 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.subscriptions = [];
     this.checkIsUserAdmin();
     this.initUsers();
   }
@@ -56,8 +57,36 @@ export class ProfileListComponent implements OnInit, OnDestroy {
       });
     }
   }
-}
 
+  debug(obj: any): void {
+    console.log(obj);
+  }
+
+  public checkIsBanned(user: User): boolean {
+    return user.isBanned;
+  }
+  public deleteUser(user: User): void {
+    const subscription = this.userService.delete(user.id).pipe().subscribe( (data: number) => {
+      this.toastrService.success(`User with ID ${data} deleted`);
+      location.reload();
+    });
+    this.subscriptions.push(subscription);
+  }
+  public makeAdmin(user: User): void {
+    user.isAdmin = true;
+    const subscription = this.userService.update(user).pipe().subscribe(() => {
+      this.toastrService.success(`User with ID ${user.username} promoted to admin`);
+      location.reload();
+    });
+  }
+  public takeAdmin(user: User): void {
+    user.isAdmin = false;
+    const subscription = this.userService.update(user).pipe().subscribe( () => {
+      this.toastrService.success(`User with ID ${user.username} no longer admin`);
+      location.reload();
+    });
+  }
+}
 enum ProfileCategory {
   username,
   isAdmin
