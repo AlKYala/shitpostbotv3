@@ -6,8 +6,11 @@ use of interfaces because the data models in FE dont have behavior
 export interface User extends BaseEntity {
   username: string;
   password: string;
-  isAdmin: boolean;
-  isBanned: boolean;
+  /**
+   * In Backend as isAdmin and isBanned but shown as admin and banned in json tested with postman
+   */
+  admin: boolean;
+  banned: boolean;
 }
 /*export class User extends BaseEntity {
   public username: string;

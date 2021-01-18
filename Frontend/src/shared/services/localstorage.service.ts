@@ -21,7 +21,7 @@ export class LocalStorageService {
     this.localStorageKeys.push('currentUser');
     this.logoutStorageKeys.push('currentUser');
     this.setCurrentUsername(user.username);
-    this.setAdminState(user.isAdmin);
+    this.setAdminState(user.admin);
   }
   public getCurrentUser(): string {
     return localStorage.getItem('currentUser');

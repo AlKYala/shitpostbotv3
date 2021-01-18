@@ -18,12 +18,12 @@
             <div class="row">
               <a routerLink="/users/{{user.id}}" class="mx-3">{{user.username}}</a>
               <div *ngIf="checkIsBanned(user); else ban">
-                <button class="btn btn-info mx-3">Unban</button>
+                <button (click)="this.unban(user)" class="btn btn-info mx-3">Unban</button>
               </div>
               <ng-template #ban>
-                <button class="btn btn-warning mx-3">Ban</button>
+                <button (click)="this.banUser(user)" class="btn btn-warning mx-3">Ban</button>
               </ng-template>
-                <button (click)="makeAdmin(user)" *ngIf="!user.isAdmin; else admin" (click)="debug(user)" class="btn btn-info mx-3">Make Admin</button>
+                <button (click)="makeAdmin(user)" *ngIf="!checkIsAdmin(user); else admin" class="btn btn-info mx-3">Make Admin</button>
               <ng-template #admin>
                 <button (click)="takeAdmin(user)" class="btn btn-warning mx-3">Take admin rights</button>
               </ng-template>

@@ -53,17 +53,9 @@ export class ProfileListComponent implements OnInit, OnDestroy {
     }
     if (category === 1) {
       this.users.sort((a: User, b: User) => {
-        return (a.isAdmin) ? 1 : -1;
+        return (a.admin) ? 1 : -1;
       });
     }
-  }
-
-  debug(obj: any): void {
-    console.log(obj);
-  }
-
-  public checkIsBanned(user: User): boolean {
-    return user.isBanned;
   }
   public deleteUser(user: User): void {
     const subscription = this.userService.delete(user.id).pipe().subscribe( (data: number) => {
@@ -73,18 +65,46 @@ export class ProfileListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subscription);
   }
   public makeAdmin(user: User): void {
-    user.isAdmin = true;
+    if (user.banned) {
+      this.toastrService.error('You cannot make banned users admin, unban first');
+      return;
+    }
+    user.admin = true;
     const subscription = this.userService.update(user).pipe().subscribe(() => {
       this.toastrService.success(`User with ID ${user.username} promoted to admin`);
       location.reload();
     });
   }
   public takeAdmin(user: User): void {
-    user.isAdmin = false;
+    user.admin = false;
     const subscription = this.userService.update(user).pipe().subscribe( () => {
       this.toastrService.success(`User with ID ${user.username} no longer admin`);
       location.reload();
     });
+  }
+  public checkIsAdmin(user: User): boolean {
+    return user.admin;
+  }
+  public checkIsBanned(user: User): boolean {
+    return user.banned;
+  }
+
+  public banUser(user: User): void {
+    user.banned = true;
+    const subscription = this.userService.update(user).pipe().subscribe(() => {
+      this.toastrService.success(`User with ID ${user.id} banned`);
+      location.reload();
+    });
+    this.subscriptions.push(subscription);
+  }
+
+  public unban(user: User): void {
+    user.banned = false;
+    const subscription = this.userService.update(user).pipe().subscribe(() => {
+      this.toastrService.success(`User with ID ${user.id} unbanned`);
+      location.reload();
+    });
+    this.subscriptions.push(subscription);
   }
 }
 enum ProfileCategory {
