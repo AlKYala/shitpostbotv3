@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public onSubmit(): void {
     const $username = this.formControls.username.value;
     const $password = this.formControls.password.value;
-    const user: User = {id: 0, username: $username, password: $password, isAdmin: false};
+    const user: User = {id: 0, username: $username, password: $password, admin: false, banned: false};
     console.log(user);
     // vorerst noch create nutzen
     const subscription = this.userService.register(user)

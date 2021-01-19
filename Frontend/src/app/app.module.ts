@@ -27,6 +27,7 @@ import { TemplateDetailComponent } from './template-detail/template-detail.compo
 import { ProfileComponent } from './profile/profile.component';
 import { ShitpostPageComponent } from './shitpost-page/shitpost-page.component';
 import {NgxSmartModalModule} from 'ngx-smart-modal';
+import { ProfileListComponent } from './profile-list/profile-list.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {NgxSmartModalModule} from 'ngx-smart-modal';
     TemplateItemComponent,
     TemplateDetailComponent,
     ProfileComponent,
-    ShitpostPageComponent
+    ShitpostPageComponent,
+    ProfileListComponent
   ],
   imports: [
     BrowserModule,

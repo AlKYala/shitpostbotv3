@@ -47,6 +47,15 @@
           </ng-template>
         </div>
       </li>
+      <li *ngIf="this.isUserAdmin()" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+          Admin-Menu
+        </a>
+        <div class="dropdown-menu">
+          <a routerLink="/profiles/edit" class="dropdown-item">Edit Profiles</a>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>

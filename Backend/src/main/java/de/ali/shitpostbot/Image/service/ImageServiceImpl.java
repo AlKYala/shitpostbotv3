@@ -37,7 +37,6 @@ public class ImageServiceImpl implements ImageService {
     public Long deleteById(Long id) {
         validator.checkIDNotNull(id);
         imageRepository.deleteById(id);
-        validator.checkEntityNotExits(id);
         return id;
     }
 

@@ -34,6 +34,7 @@ public class User extends BaseEntity {
 
     private boolean isAdmin;
 
+    private boolean isBanned;
 
     @OneToMany(mappedBy = "poster", cascade = CascadeType.ALL)
     @JsonIgnore

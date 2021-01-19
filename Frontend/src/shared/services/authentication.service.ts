@@ -6,6 +6,9 @@ import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
 import {LocalStorageService} from './localstorage.service';
+import jwtDecode from 'jwt-decode';
+import {UserToken} from '../interfaces/UserToken';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
@@ -21,7 +24,8 @@ export class AuthenticationService {
 
   public constructor(private readonly httpClient: HttpClient,
                      private readonly router: Router,
-                     private readonly localStorageService: LocalStorageService) {
+                     private readonly localStorageService: LocalStorageService,
+                     private readonly toastrService: ToastrService) {
     this.currentUserSubject =
       new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -38,9 +42,15 @@ export class AuthenticationService {
   public login(username: string, password: string): Observable<any> {
     return this.httpClient.post<any>(`${environment.api}/authenticate`, {username, password})
       .pipe(map(user => {
+        const currentUser: UserToken = jwtDecode<UserToken>(user.jwt);
+        if (currentUser.isBanned) {
+          this.toastrService.warning("Your account is banned.");
+          return null;
+        }
         this.localStorageService.setCurrentUser(user);
-        this.localStorageService.setCurrentUsername();
-        this.localStorageService.setAdminState();
+        this.localStorageService.setCurrentUsername(currentUser.sub);
+        this.localStorageService.setAdminState(currentUser.isAdmin);
+        this.localStorageService.setCurrentUserID(currentUser.id);
         this.currentUserSubject.next(user);
         this.isUserLoggedIn = true;
         return user;

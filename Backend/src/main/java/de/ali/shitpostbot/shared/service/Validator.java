@@ -61,7 +61,7 @@ public class Validator<E extends BaseEntity, T extends JpaRepository> {
     }
 
     public void checkIDsAreIdentical(Long id, Long id2) {
-        if(id.longValue() == id2.longValue()) {
+        if(id.longValue() != id2.longValue()) {
             log.info("IDs {} and {} do not match", id, id2);
             throw new IdInvalidException(String.format("IDs %d and %d do not match", id, id2));
         }

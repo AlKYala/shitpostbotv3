@@ -16,33 +16,36 @@ export class LocalStorageService {
     this.localStorageKeys = [];
     this.logoutStorageKeys = [];
   }
-  public getUserToken(): UserToken {
-    return jwtDecode<UserToken>(localStorage.getItem('currentUser'));
-  }
-  public setCurrentUser(user: User): void {
+  public setCurrentUser(user: UserToken): void {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.localStorageKeys.push('currentUser');
     this.logoutStorageKeys.push('currentUser');
-    this.setCurrentUsername();
-    this.setAdminState();
   }
   public getCurrentUser(): string {
     return localStorage.getItem('currentUser');
   }
-  public setCurrentUsername(): void {
+  public setCurrentUsername(username: string): void {
     // niemand ist eingeloggt...
     if (this.getCurrentUser() == null) {
       throw new Error('No user saved, cannot retrieve Username');
     }
-    localStorage.setItem('currentUsername', this.getUserToken().sub);
+    localStorage.setItem('currentUsername', username);
     this.localStorageKeys.push('currentUsername');
     this.logoutStorageKeys.push('currentUsername');
+  }
+  public setCurrentUserID(id: number): void {
+    localStorage.setItem('currentUserId', String(jwt_decode<UserToken>(this.getCurrentUser()).id));
+    this.localStorageKeys.push('currentUserId');
+    this.logoutStorageKeys.push('currentUserId');
+  }
+  public getCurrentUserId(): number {
+    return parseInt(localStorage.getItem('currentUserId'), 10);
   }
   public getCurrentUsername(): string {
     return localStorage.getItem('currentUsername');
   }
-  public setAdminState(): void {
-    localStorage.setItem('isAdmin', String(this.getUserToken().isAdmin));
+  public setAdminState(isAdmin: boolean): void {
+    localStorage.setItem('isAdmin', String(isAdmin));
     this.localStorageKeys.push('isAdmin');
     this.logoutStorageKeys.push('isAdmin');
   }

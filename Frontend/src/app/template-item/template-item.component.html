@@ -17,6 +17,8 @@
       <div class="btn-group">
         <button routerLink="/templates/{{template.id}}" type="button" class="btn btn-sm btn-outline-secondary">View
         </button>
+        <button (click)="this.deleteTemplate(template)" *ngIf="this.canDelete()" type="button"
+                class="btn btn-sm btn-danger">Delete</button>
       </div>
     </div>
   </div>

@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private initCurrentUser(): void {
-    this.currentUserUsername = this.localStorageService.getUserToken().sub;
+    this.currentUserUsername = this.localStorageService.getCurrentUsername();
   }
 
   private linkToImage(image: Image): string {

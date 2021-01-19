@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="text-dark">Profile list</h1>
+      <p class="lead text-muted">
+        Ban, delete or promote users to admin.
+    </div>
+  </div>
+</section>
+
+<section class="py-5 text-center container">
+  <div class="d-flex justify-content-center row py-lg-5">
+    <div class="card">
+      <ul class="list-group list-group-flush">
+        <div *ngFor="let user of users">
+          <li class="list-group-item">
+            <div class="row">
+              <a routerLink="/users/{{user.id}}" class="mx-3">{{user.username}}</a>
+              <div *ngIf="checkIsBanned(user); else ban">
+                <button (click)="this.unban(user)" class="btn btn-info mx-3">Unban</button>
+              </div>
+              <ng-template #ban>
+                <button (click)="this.banUser(user)" class="btn btn-warning mx-3">Ban</button>
+              </ng-template>
+                <button (click)="makeAdmin(user)" *ngIf="!checkIsAdmin(user); else admin" class="btn btn-info mx-3">Make Admin</button>
+              <ng-template #admin>
+                <button (click)="takeAdmin(user)" class="btn btn-warning mx-3">Take admin rights</button>
+              </ng-template>
+              <button (click)="this.deleteUser(user)"class="btn btn-danger mx-3">Delete</button>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</section>
+
