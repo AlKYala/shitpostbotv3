@@ -11,6 +11,7 @@ export interface User extends BaseEntity {
    */
   admin: boolean;
   banned: boolean;
+  id: number;
 }
 /*export class User extends BaseEntity {
   public username: string;

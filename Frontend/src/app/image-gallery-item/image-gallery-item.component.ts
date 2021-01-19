@@ -31,6 +31,8 @@ export class ImageGalleryItemComponent implements OnInit, OnDestroy {
   }
   private checkIsUserPoster(): boolean {
     // usernames are unique
+    //console.log(this.imagePoster.id);
+    console.log(this.localStorageService.getCurrentUserId());
     return this.localStorageService.getCurrentUserId() === this.imagePoster.id;
   }
   private isUserAdmin(): boolean {
@@ -41,6 +43,7 @@ export class ImageGalleryItemComponent implements OnInit, OnDestroy {
   }
   public deletePost(image: Image): void {
     const subscription = this.imageService.delete(image.id).pipe().subscribe((id: number) => {
+      location.reload();
       this.toastrService.success(`Image with ID ${id} deleted`);
     });
   }

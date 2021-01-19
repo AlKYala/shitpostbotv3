@@ -16,12 +16,10 @@ export class LocalStorageService {
     this.localStorageKeys = [];
     this.logoutStorageKeys = [];
   }
-  public setCurrentUser(user: User): void {
+  public setCurrentUser(user: UserToken): void {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.localStorageKeys.push('currentUser');
     this.logoutStorageKeys.push('currentUser');
-    this.setCurrentUsername(user.username);
-    this.setAdminState(user.admin);
   }
   public getCurrentUser(): string {
     return localStorage.getItem('currentUser');
@@ -36,7 +34,7 @@ export class LocalStorageService {
     this.logoutStorageKeys.push('currentUsername');
   }
   public setCurrentUserID(id: number): void {
-    localStorage.setItem('currentUserId', String(id));
+    localStorage.setItem('currentUserId', String(jwt_decode<UserToken>(this.getCurrentUser()).id));
     this.localStorageKeys.push('currentUserId');
     this.logoutStorageKeys.push('currentUserId');
   }

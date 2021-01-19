@@ -50,6 +50,7 @@ export class AuthenticationService {
         this.localStorageService.setCurrentUser(user);
         this.localStorageService.setCurrentUsername(currentUser.sub);
         this.localStorageService.setAdminState(currentUser.isAdmin);
+        this.localStorageService.setCurrentUserID(currentUser.id);
         this.currentUserSubject.next(user);
         this.isUserLoggedIn = true;
         return user;
