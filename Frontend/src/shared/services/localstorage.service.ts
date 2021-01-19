@@ -35,6 +35,14 @@ export class LocalStorageService {
     this.localStorageKeys.push('currentUsername');
     this.logoutStorageKeys.push('currentUsername');
   }
+  public setCurrentUserID(id: number): void {
+    localStorage.setItem('currentUserId', String(id));
+    this.localStorageKeys.push('currentUserId');
+    this.logoutStorageKeys.push('currentUserId');
+  }
+  public getCurrentUserId(): number {
+    return parseInt(localStorage.getItem('currentUserId'), 10);
+  }
   public getCurrentUsername(): string {
     return localStorage.getItem('currentUsername');
   }
